@@ -1,5 +1,7 @@
 /*
 !/lsp
 !/pgp
+
 !.gitignore
 *.swp
+dev*.lsp
