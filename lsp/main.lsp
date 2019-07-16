@@ -1,3 +1,4 @@
+; function to toggle autosnap and osmode by "df" command
 (defun c:df() 
 	(if 
 		(and 
