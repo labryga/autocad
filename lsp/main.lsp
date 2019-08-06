@@ -16,11 +16,10 @@
 		  )
   )
 )
-
+; function to toggle selection cycling
 (defun c:dq()
 	(if
 	  (= (getvar "selectioncycling") -2)
 		(setvar "selectioncycling" 2)
 		(setvar "selectioncycling" -2)
 	)
-)
