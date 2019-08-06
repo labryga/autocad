@@ -14,8 +14,9 @@
 		  (setvar "autosnap" 63) 
 		  (setvar "osmode" 35)
 		  )
-  )
+	)
 )
+
 ; function to toggle selection cycling
 (defun c:dq()
 	(if
@@ -23,3 +24,11 @@
 		(setvar "selectioncycling" 2)
 		(setvar "selectioncycling" -2)
 	)
+)
+
+; function to set saved views
+(defun c:sv() 
+	(setq view (getstring 1))
+	(command "-view" "r" view "" "")
+	(princ)
+)
