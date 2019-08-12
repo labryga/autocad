@@ -40,3 +40,11 @@
   (command "-visualstyles" "c" "w" "" "")
   (princ)
  )
+
+
+; set -visualstyle to shaded 
+
+(defun c:xs()
+  (command "-visualstyles" "c" "s" "" "")
+  (princ)
+)
