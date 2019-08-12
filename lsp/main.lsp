@@ -32,3 +32,11 @@
   (command "-view" "r" view "" "")
   (princ)
 )
+
+
+; set visualstyle to wireframe
+
+(defun c:xa()
+  (command "-visualstyles" "c" "w" "" "")
+  (princ)
+ )
