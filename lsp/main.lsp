@@ -62,3 +62,9 @@
   (command "-visualstyles" "c" "x" "" "")
   (princ)
 )
+
+; set -visualstyles to realistic
+
+(defun c:xr()
+  (command "-visualstyles" "c" "r" "" "")
+)
