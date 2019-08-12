@@ -55,3 +55,10 @@
   (command "-visualstyles" "c" "c" "" "")
   (princ)
 )
+
+; set -visualstyles to x-ray
+
+(defun c:xf()
+  (command "-visualstyles" "c" "x" "" "")
+  (princ)
+)
