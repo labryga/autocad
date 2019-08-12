@@ -1,64 +1,59 @@
-;  -- User Defined Command Aliases --
-;  Make any changes or additions to the default AutoCAD command aliases in 
-;  this section to ensure successful migration of these settings when you
-;  upgrade to the next version of AutoCAD.  If a command alias appears more
-;  than once in this file, items in the User Defined Command Alias take
-;  precedence over duplicates that appear earlier in the file.
-;  **********----------**********  ; No xlate ; DO NOT REMOVE
-
 
 Q,	*ADDSELECTED
 QQ,	*QSAVE
 QW,	*CREATEHLR
 QE,	*LINEWORKSPACEEVENLY
 QR,	*SCALE
-QT,	*PROJECTGEOMETRY
+QT,	*
 
-QA,	*REFEDIT	
-QS,	*REFCLOSE
+QA,	*COPYBLOCKDEFANDASSIGN	
+QS,	*BCLOSE
 QD,	*ATTSYNC
-QF,	*COPYBLOCKDEFANDASSIGN
-QG,	*BCLOSE
-
+QF,	*REFEDIT
+QG,	*REFCLOSE
 
 QY,	*STRETCH
-QX,	*CLOSE
-QC,	*QNEW
-QV,	*OPEN
-QB,	*SAVEAS
+QX,	*
+QC,	*
+QV,	*
+QB,	*EXPLODE
+
+
+
 
 W,	*HATCHGENERATEBOUNDARY
-WQ,	*COPYBASE
-WW,	*EXPLODE
-
+WQ,	*QSELECT
+WW,	*
 WE,	*UCS
 WR,	*PLAN
-WT,	*PASTECLIP
+WT,	*
 
-WA,	*QSAVE
+WA,	*WALLADD
 WS,	*LINEWORKMERGE
 WD,	*LINEWORKSUBTRACT
 WF,	*LINEWORKDIVIDE
-WG,	*SAVEALL
+WG,	*
 
 WY,	*JOIN
-WX,	*MVIEW
-WC,	*LENGTHEN
-WV,	*BLOCK
+WX,	*
+WC,	*
+WV,	*
 WB,	*
+
+
 
 
 E,	*ERASE
 EQ,	*OSNAPZ
 EW,	*REGEN
-EE,	*FILLETEDGE
+EE,	*
 ER,	*SWEEP
 ET,	*BOX
 
 EA,	*POLYSOLID
 ES,	*TRIM
 ED,	*OFFSET
-EF,	*LOFT
+EF,	*HATCHGENERATEBOUNDARY
 EG,	*INTERSECT
 
 EY,	*SOLIDEDIT
@@ -68,38 +63,42 @@ EV,	*UNION
 EB,	*PRESSPULL
 
 
+
+
 R,	*REPOSITIONFROM
-RQ,	*SCALE
+RQ,	*
 RW,	*
 RE,	*RECTANG
 RR, 	*URSPRUNG
-RT,	*REINIT
+RT,	*
 
 RA,	*ISOLATEOBJECTS
 RS,	*HIDEOBJECTS
 RD,	*UNISOLATEOBJECTS
 RF,	*POLYGON
-RG,	*sp
+RG,	*
 
-RY,	*SLICE
-RX,	*XOPEN
-RC,	*XREFRELOAD
-RV,	*XREFDETACH
+RY,	*
+RX,	*
+RC,	*
+RV,	*
 RB,	*
 
 
-T,	*LAYDEL
+
+
+T,	*
 TQ,	*ATTACH
-TW,	*MTEXT
+TW,	*
 TE,	*
 TR,	*
-TT,	*PLOT
+TT,	*
 
-TA,	*APPLOAD
-TS,	*-VIEW
-TD,	*ZOOM
+TA,	*
+TS,	*
+TD,	*
 TF,	*
-TG,	*PASTESPEC
+TG,	*
 
 TY,	*
 TX,	*
@@ -111,18 +110,18 @@ TB,	*
 A,	*MIRROR
 AQ,	*CIRCLE
 AW,	*LINEWORKCROP
-AE,	*PUBLISH
-AR,	*BEDIT
-AT,	*BCLOSE
+AE,	*
+AR,	*
+AT,	*
 
-AA,	*LAYLCK
+AA,	*LAYLCD
 AS,	*HATCH
 AD,	*LAYULK
 AF,	*LAYFRZ
 AFF,	*-AFENSTER
 AG,	*
 
-AY,	*DRAWORDER
+AY,	*ZEICHREIHENF
 AX,	*OFFSET
 AC,	*
 AV,	*FILLET
@@ -132,7 +131,7 @@ AB,	*
 S,	*MOVE
 SQ,	*
 SW,	*
-SE,	*QSELECT
+SE,	*
 SR,	*
 ST,	*
 
@@ -151,22 +150,24 @@ SB,	*
 
 D,	*LAYMCUR
 DQ,	*
-DW,	*SYSWINDOWS
+DW,	*
 DE,	*EXTEND
-DR,	*3DALIGN
+DR,	*
 DT,	*
 
 DA,	*GROUP
 DS,	*UNGROUP
-DD,	*OPTIONS
-DF,	*
+DD,	*OPTIONEN
+DF,	*SAUSWAHL
 DG,	*
 
-DY,	*LAYTHW
+DY,	*
 DX,	*
 DC,	*DTLCOMPMANAGER
 DV,	*
 DB,	*
+
+
 
 
 F,	*PLINE
@@ -176,7 +177,7 @@ FR,	*ALIGN
 FT,	*CYLINDER
 
 FA,	*LAYISO
-FS,	*LAYMRG
+FS,	*LAYUNISO
 FD,	*LAYFRZ
 FF,	*LAYTHW
 FG,	*
@@ -186,6 +187,8 @@ FX,	*
 FC,	*PAGESETUP
 FV,	*
 FB,	*
+
+
 
 
 G,	*ROTATE
@@ -208,6 +211,8 @@ GV,	*
 GB,	*
 
 
+
+
 Y,	*MATCHPROP
 YQ,	*
 YW,	*
@@ -228,17 +233,19 @@ YV,	*
 YB,	*
 
 
+
+
 X,	*PEDIT
 XQ,	*
 XW,	*
 XE,	*
-;XR,	*lisp set realistic
+XR,	*
 XT,	*
 
-;XA,	*lisp set wireframe
-;XS,	*lisp set shaded
-;XD,	*lisp set conceptual
-;XF,	*list set x-ray
+XA,	*
+XS,	*
+XD,	*
+XF,	*
 XG,	*
 
 XY,	*
@@ -248,8 +255,10 @@ XV,	*
 XB,	*
 
 
+
+
 C,	*COPY
-CQ,	*INSERT
+CQ,	*
 CW,	*
 CE,	*
 CR,	*
@@ -268,19 +277,20 @@ CV,	*
 CB,	*
 
 
+
+
 V,	*COPYTOLAYER
-VQ,	*-VPORTS
+VQ,	*
 VW,	*
 VE,	*
 VR,	*
 VT,	*
 
-VA,	*NCOPY
+VA,	*
 VS,	*
 VD,	*
 VF,	*LINEWORKSHRINKWRAP
 VG,	*
-
 
 VY,	*
 VX,	*
