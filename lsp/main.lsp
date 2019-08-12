@@ -48,3 +48,10 @@
   (command "-visualstyles" "c" "s" "" "")
   (princ)
 )
+
+; set -visualstyle to conceptual
+
+(defun c:xd()
+  (command "-visualstyles" "c" "c" "" "")
+  (princ)
+)
