@@ -68,3 +68,15 @@
 (defun c:xr()
   (command "-visualstyles" "c" "r" "" "")
 )
+
+; toggle perspective view
+
+(defun c:xe()
+  (if
+    (= (getvar "perspective") 0)
+    (setvar "perspective" 1)
+    (setvar "perspective" 0)
+   )
+  (princ)
+ )
+
