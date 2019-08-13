@@ -84,5 +84,6 @@
 
 (defun c:x()
   (setvar "wireframe")
-
+  (setvar "shaded")
+  (setvar "x-ray")
 )
