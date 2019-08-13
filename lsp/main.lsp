@@ -80,3 +80,9 @@
   (princ)
  )
 
+; function for multiple visualstyle options
+
+(defun c:x()
+  (setvar "wireframe")
+
+)
