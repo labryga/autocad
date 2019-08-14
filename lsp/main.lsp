@@ -88,9 +88,18 @@
   (setvar "x-ray")
 )
 
+; set snap and invoke dimlinear
 (defun c:cd()
   (setvar "autosnap" 63) 
   (setvar "osmode" 35)
   (command "dimlinear")
+  (princ)
+)
+
+; set snap and invoke dimaligned
+(defun c:cf()
+  (setvar "autosnap" 63) 
+  (setvar "osmode" 35)
+  (command "dimaligned")
   (princ)
 )
