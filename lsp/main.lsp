@@ -164,3 +164,9 @@
   (command "dimlinear")
   (princ)
 )
+
+(defun c:we()
+  (fangan)
+  (command "ucs")
+  (princ)
+)
