@@ -17,6 +17,12 @@
   )
 )
 
+; function to switch on autosnap and osmode
+(defun fangan()
+  (setvar "autosnap" 63) 
+  (setvar "osmode" 35)
+)
+
 ; function to toggle selection cycling
 (defun c:dq()
   (if
@@ -81,24 +87,21 @@
 
 ; set snap and invoke dimlinear
 (defun c:cd()
-  (setvar "autosnap" 63) 
-  (setvar "osmode" 35)
+  (fangan)
   (command "dimlinear")
   (princ)
 )
 
 ; set snap and invoke dimaligned
 (defun c:cf()
-  (setvar "autosnap" 63) 
-  (setvar "osmode" 35)
+  (fangan)
   (command "dimaligned")
   (princ)
 )
 
 ; set dimstyle to mst 050 [m] and invokte dimaligned
 (defun c:cfa()
-  (setvar "autosnap" 63) 
-  (setvar "osmode" 35)
+  (fangan)
   (command "-dimstyle" "r" "MST 050 [m]")
   (command "dimaligned")
   (princ)
@@ -106,8 +109,7 @@
 
 ; set dimstyle to mst 050 [cm] and invokte dimaligned
 (defun c:cfs()
-  (setvar "autosnap" 63) 
-  (setvar "osmode" 35)
+  (fangan)
   (command "-dimstyle" "r" "MST 050 [cm]")
   (command "dimaligned")
   (princ)
@@ -115,8 +117,7 @@
 
 ; set dimstyle to mst 100 [m] and invokte dimaligned
 (defun c:cfq()
-  (setvar "autosnap" 63) 
-  (setvar "osmode" 35)
+  (fangan)
   (command "-dimstyle" "r" "MST 100 [m]")
   (command "dimaligned")
   (princ)
@@ -124,23 +125,10 @@
 
 ; set dimstyle to mst 100 [cm] and invokte dimaligned
 (defun c:cfw()
-  (setvar "autosnap" 63) 
-  (setvar "osmode" 35)
+  (fangan)
   (command "-dimstyle" "r" "MST 100 [cm]")
   (command "dimaligned")
   (princ)
 )
-
-
-
-
-
-
-
-
-
-
-
-
 
 
