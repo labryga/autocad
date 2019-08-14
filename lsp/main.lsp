@@ -113,6 +113,24 @@
   (princ)
 )
 
+; set dimstyle to mst 100 [m] and invokte dimaligned
+(defun c:cfq()
+  (setvar "autosnap" 63) 
+  (setvar "osmode" 35)
+  (command "-dimstyle" "r" "MST 100 [m]")
+  (command "dimaligned")
+  (princ)
+)
+
+; set dimstyle to mst 100 [cm] and invokte dimaligned
+(defun c:cfw()
+  (setvar "autosnap" 63) 
+  (setvar "osmode" 35)
+  (command "-dimstyle" "r" "MST 100 [cm]")
+  (command "dimaligned")
+  (princ)
+)
+
 
 
 
