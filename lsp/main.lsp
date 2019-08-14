@@ -33,13 +33,11 @@
   (princ)
 )
 
-
 ; set visualstyle to wireframe
 (defun c:xq()
   (command "-visualstyles" "c" "w" "" "")
   (princ)
  )
-
 
 ; set -visualstyle to shaded 
 (defun c:xw()
@@ -60,13 +58,11 @@
 )
 
 ; set -visualstyles to realistic
-
 (defun c:xr()
   (command "-visualstyles" "c" "r" "" "")
 )
 
 ; toggle perspective view
-
 (defun c:xe()
   (if
     (= (getvar "perspective") 0)
@@ -77,7 +73,6 @@
  )
 
 ; function for multiple visualstyle options
-
 (defun c:x()
   (setvar "wireframe")
   (setvar "shaded")
@@ -100,7 +95,34 @@
   (princ)
 )
 
-; set dimstyle to mst 050 [cm] and invokte dimlinear
-(
-
+; set dimstyle to mst 050 [m] and invokte dimaligned
+(defun c:cfa()
+  (setvar "autosnap" 63) 
+  (setvar "osmode" 35)
+  (command "-dimstyle" "r" "MST 050 [m]")
+  (command "dimaligned")
+  (princ)
 )
+
+; set dimstyle to mst 050 [cm] and invokte dimaligned
+(defun c:cfs()
+  (setvar "autosnap" 63) 
+  (setvar "osmode" 35)
+  (command "-dimstyle" "r" "MST 050 [cm]")
+  (command "dimaligned")
+  (princ)
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
