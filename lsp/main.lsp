@@ -99,6 +99,7 @@
   (princ)
 )
 
+
 ; set dimstyle to mst 050 [m] and invokte dimaligned
 (defun c:cfa()
   (fangan)
@@ -132,3 +133,34 @@
 )
 
 
+; set dimstyle to mst 050 [m] and invokte dimlinear
+(defun c:cda()
+  (fangan)
+  (command "-dimstyle" "r" "MST 050 [m]")
+  (command "dimlinear")
+  (princ)
+)
+
+; set dimstyle to mst 050 [cm] and invokte dimlinear
+(defun c:cds()
+  (fangan)
+  (command "-dimstyle" "r" "MST 050 [cm]")
+  (command "dimlinear")
+  (princ)
+)
+
+; set dimstyle to mst 100 [m] and invokte dimlinear
+(defun c:cdq()
+  (fangan)
+  (command "-dimstyle" "r" "MST 100 [m]")
+  (command "dimlinear")
+  (princ)
+)
+
+; set dimstyle to mst 100 [cm] and invokte dimlinear
+(defun c:cdw()
+  (fangan)
+  (command "-dimstyle" "r" "MST 100 [cm]")
+  (command "dimlinear")
+  (princ)
+)
