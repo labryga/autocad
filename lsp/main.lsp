@@ -35,30 +35,26 @@
 
 
 ; set visualstyle to wireframe
-
-(defun c:xa()
+(defun c:xq()
   (command "-visualstyles" "c" "w" "" "")
   (princ)
  )
 
 
 ; set -visualstyle to shaded 
-
-(defun c:xs()
+(defun c:xw()
   (command "-visualstyles" "c" "s" "" "")
   (princ)
 )
 
 ; set -visualstyle to conceptual
-
-(defun c:xd()
+(defun c:xe()
   (command "-visualstyles" "c" "c" "" "")
   (princ)
 )
 
 ; set -visualstyles to x-ray
-
-(defun c:xf()
+(defun c:xt()
   (command "-visualstyles" "c" "x" "" "")
   (princ)
 )
@@ -102,4 +98,9 @@
   (setvar "osmode" 35)
   (command "dimaligned")
   (princ)
+)
+
+; set dimstyle to mst 050 [cm] and invokte dimlinear
+(
+
 )
