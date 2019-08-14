@@ -88,6 +88,9 @@
   (setvar "x-ray")
 )
 
-(
-
- )
+(defun c:cd()
+  (setvar "autosnap" 63) 
+  (setvar "osmode" 35)
+  (command "dimlinear")
+  (princ)
+)
