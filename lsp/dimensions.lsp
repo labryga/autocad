@@ -1,4 +1,4 @@
-; set dimensions by alias including dimension style and alignment
+; set dimensions by alias including style and alignment
 
 ; list with template dimstyles
 (setq dimstyles (list
