@@ -1,43 +1,74 @@
+; set dimensions by alias including dimension style and alignment
 
-; set global to repeat last command
-(setq alias_tmp "")
+; list with template dimstyles
+(setq dimstyles (list
+        "MST 050 [m]" 
+        "MST 050 [cm]" 
+        "MST 100 [m]"
+        "MST 100 [cm]"
+        ))
 
-; function to set dimension with specified alignment and style
-(defun c:c(/ alias_string)
 
-  ; get alias string
-  (setq alias_string (getstring))
+; set snap on 
+(defun set_snap()
+  (command "autosnap" 63)
+  (command "osmode" 35)
+)
+
+; get dimension style and set
+(defun set_dimension_style(dimstyle)
+  (command "-dimstyle" "r" (nth dimstyle dimstyles))
+  (set_snap)
+)
 
 
-  (if (= alias_tmp "")
-    (setq alias_tmp "fq")
-    (setq alias_tmp alias_string)
-  )
+; linear dimensions
 
-  (setq dimalignment (substr alias_tmp 1 1))
-  (setq dimstyle (substr alias_tmp 2 1))
+; set style and invoke linear dimesion
+(defun dimension_linear(dimstyle)
+  (set_dimension_style dimstyle)
+  (command "dimlinear")
+)
 
-  ; dimstyle list mapped to alias_tmp' second character
-  (setq dimstyle_list '(
-            ("a" "MST 050 [m]") 
-            ("s" "MST 050 [cm]") 
-            ("q" "MST 100 [m]")
-            ("w" "MST 100 [cm]")
-            ))
+; set aligned dimensions
+(defun c:cda()
+  (dimension_linear 0)
+)
 
-  ; get dimstyle according to alias_tmp
-  (setq dimstyle_list_entry (assoc dimstyle dimstyle_list ))
+(defun c:cds()
+  (dimension_linear 1)
+)
 
-  ; set dimstyle by retrieving the dimstyle from list
-  (command "-dimstyle" "r" (nth 1 dimstyle_list_entry))
+(defun c:cdq()
+  (dimension_linear 2)
+)
 
-  ; setting snap on
-  (setvar "autosnap" 63) 
-  (setvar "osmode" 35)
+(defun c:cdw()
+  (dimension_linear 3)
+)
 
-  ; invoke dim according to alignment
-  (if (= dimalignment "d")
-    (command "dimlinear")
-    (command "dimaligned")
-  )
+
+; aligned dimensions
+
+; set style and invoke aligned dimesion
+(defun dimension_aligned(dimstyle)
+  (set_dimension_style dimstyle)
+  (command "dimaligned")
+)
+
+; set aligned dimensions
+(defun c:cfa()
+  (dimension_aligned 0)
+)
+
+(defun c:cfs()
+  (dimension_aligned 1)
+)
+
+(defun c:cfq()
+  (dimension_aligned 2)
+)
+
+(defun c:cfw()
+  (dimension_aligned 3)
 )
