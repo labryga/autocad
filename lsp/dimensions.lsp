@@ -1,5 +1,4 @@
 
-
 ; function to set dimension with specified alignment and style
 (defun c:c(/ alias)
 
@@ -23,9 +22,16 @@
   ; set dimstyle by retrieving the dimstyle from list
   (command "-dimstyle" "r" (nth 1 dimstyle_list_entry))
 
-  ; imvoke dim according to alignment
+  ; setting snap on
+  (setvar "autosnap" 63) 
+  (setvar "osmode" 35)
+
+  ; invoke dim according to alignment
   (if (= dimalignment "d")
     (command "dimlinear")
     (command "dimaligned")
   )
 )
+
+
+
