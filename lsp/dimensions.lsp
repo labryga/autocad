@@ -1,14 +1,23 @@
 
+; set global to repeat last command
+(setq alias_tmp "")
+
 ; function to set dimension with specified alignment and style
-(defun c:c(/ alias)
+(defun c:c(/ alias_string)
 
   ; get alias string
-  (setq alias (getstring))
+  (setq alias_string (getstring))
 
-  (setq dimalignment (substr alias 1 1))
-  (setq dimstyle (substr alias 2 1))
 
-  ; dimstyle list mapped to alias' second character
+  (if (= alias_tmp "")
+    (setq alias_tmp "fq")
+    (setq alias_tmp alias_string)
+  )
+
+  (setq dimalignment (substr alias_tmp 1 1))
+  (setq dimstyle (substr alias_tmp 2 1))
+
+  ; dimstyle list mapped to alias_tmp' second character
   (setq dimstyle_list '(
             ("a" "MST 050 [m]") 
             ("s" "MST 050 [cm]") 
@@ -16,7 +25,7 @@
             ("w" "MST 100 [cm]")
             ))
 
-  ; get dimstyle according to alias
+  ; get dimstyle according to alias_tmp
   (setq dimstyle_list_entry (assoc dimstyle dimstyle_list ))
 
   ; set dimstyle by retrieving the dimstyle from list
@@ -32,6 +41,3 @@
     (command "dimaligned")
   )
 )
-
-
-

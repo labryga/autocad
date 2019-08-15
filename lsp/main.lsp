@@ -1,3 +1,4 @@
+
 ; function to toggle autosnap and osmode by "df" command
 (defun c:df() 
   (if 
@@ -17,13 +18,8 @@
   )
 )
 
-; function to switch on autosnap and osmode
-(defun fangan()
-  (setvar "autosnap" 63) 
-  (setvar "osmode" 35)
-)
 
-; function to toggle selection cycling
+; toggle selection cycling
 (defun c:dq()
   (if
     (= (getvar "selectioncycling") -2)
@@ -32,7 +28,7 @@
   )
 )
 
-; function to set saved views
+; to set saved views
 (defun c:sv() 
   (setq view (getstring 1))
   (command "-view" "r" view "" "")
