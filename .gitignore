@@ -6,3 +6,4 @@
 *.swp
 *.dfs
 dev*.lsp
+.DS_Store
