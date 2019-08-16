@@ -1,4 +1,5 @@
-; set dimensions by alias including style and alignment
+; set dimensions including style and alignment by alias
+; keep sure to adjust the acad.pgp file accordingly
 
 ; list with template dimstyles
 (setq dimstyles (list
@@ -6,6 +7,8 @@
         "MST 050 [cm]" 
         "MST 100 [m]"
         "MST 100 [cm]"
+        "MST 020 [m]" 
+        "MST 020 [cm]" 
         ))
 
 
@@ -31,6 +34,7 @@
 )
 
 ; set aligned dimensions
+
 (defun c:cda()
   (dimension_linear 0)
 )
@@ -47,6 +51,13 @@
   (dimension_linear 3)
 )
 
+(defun c:cdy()
+  (dimension_linear 4)
+)
+
+(defun c:cdx()
+  (dimension_linear 5)
+)
 
 ; aligned dimensions
 
@@ -71,4 +82,11 @@
 
 (defun c:cfw()
   (dimension_aligned 3)
+)
+(defun c:cfy()
+  (dimension_linear 4)
+)
+
+(defun c:cfx()
+  (dimension_linear 5)
 )
