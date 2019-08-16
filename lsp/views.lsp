@@ -1,21 +1,26 @@
+; set visual styles via alias
 
-(defun c:sv(/ alias)
 
-  (setq alias (getstring "\nenter visualstyle: "))
-
-  (setq visualstyles (list 
-          (list "a" "w")
-          (list "s" "s")
-          (list "d" "c")
-          (list "f" "x")
-          (list "r" "r")
-        ))
-
-  (setq visualstyle_entry (assoc alias visualstyles))
-  (setq visualstyle (nth 1 visualstyle_entry))
-
-  (command "-visualstyles" "c" visualstyle "" "")
-
-  (princ)
+(defun set_visual_style(style)
+  (command "-visualstyles" "c" style "" "")
 )
 
+(defun c:sva()
+  (set_visual_style "w")
+)
+
+(defun c:svs()
+  (set_visual_style "s")
+)
+
+(defun c:svd()
+  (set_visual_style "c")
+)
+
+(defun c:svf()
+  (set_visual_style "x")
+)
+
+(defun c:svr()
+  (set_visual_style "r")
+)
