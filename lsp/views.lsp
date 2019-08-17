@@ -31,3 +31,9 @@
 (defun c:svt()
   (command)
 )
+
+
+; set view to front
+(defun c:svf
+  (command)
+)
