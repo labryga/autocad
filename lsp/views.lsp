@@ -10,7 +10,7 @@
 )
 
 (defun c:svs()
-  (set_visual_style "s")
+  (set_visual_style "e")
 )
 
 (defun c:svd()
@@ -23,4 +23,11 @@
 
 (defun c:svr()
   (set_visual_style "r")
+)
+
+; set views
+
+; set view to top
+(defun c:svt()
+  (command)
 )
