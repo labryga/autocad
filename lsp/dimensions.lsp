@@ -21,6 +21,7 @@
 ; get dimension style and set
 (defun set_dimension_style(dimstyle)
   (command "-dimstyle" "r" (nth dimstyle dimstyles))
+  (command "-layer" "s" (nth dimstyle dimstyles) "")
   (set_snap)
 )
 
