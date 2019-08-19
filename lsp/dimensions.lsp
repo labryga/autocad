@@ -21,7 +21,11 @@
 ; get dimension style and set
 (defun set_dimension_style(dimstyle)
   (command "-dimstyle" "r" (nth dimstyle dimstyles))
+
+  ; set current layer to dimension style layer
   (command "-layer" "s" (nth dimstyle dimstyles) "")
+
+  ; set snap mode
   (set_snap)
 )
 
