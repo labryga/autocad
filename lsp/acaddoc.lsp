@@ -1,5 +1,5 @@
 (load "main")
-(load "dimension")
+(load "dimensions")
 (load "views")
 
 ; (load "dev")
