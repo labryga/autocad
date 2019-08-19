@@ -12,11 +12,6 @@
         ))
 
 
-; set snap on 
-(defun set_snap()
-  (command "autosnap" 63)
-  (command "osmode" 35)
-)
 
 ; get dimension style and set
 (defun set_dimension_style(dimstyle)

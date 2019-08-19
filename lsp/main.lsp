@@ -21,15 +21,15 @@
 
 ; set snap on 
 (defun set_snap()
-  (command "autosnap" 63)
-  (command "osmode" 35)
+  (setvar "autosnap" 63)
+  (setvar "osmode" 35)
 )
 
 
 ; set snap off 
 (defun set_snap_off()
-  (command "autosnap" 0)
-  (command "osmode" 0)
+  (setvar "autosnap" 0)
+  (setvar "osmode" 0)
 )
 
 
@@ -46,11 +46,11 @@
 ; move object without snapping
 (defun c:sf()
   (set_snap_off)
-  (command move)
+  (command "move")
 )
 
 ; move object with snapping on
 (defun c:s()
   (set_snap)
-  (command move)
+  (command "move")
 )
