@@ -89,9 +89,9 @@
   (dimension_aligned 3)
 )
 (defun c:cfy()
-  (dimension_linear 4)
+  (dimension_aligned 4)
 )
 
 (defun c:cfx()
-  (dimension_linear 5)
+  (dimension_aligned 5)
 )
