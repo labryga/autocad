@@ -19,6 +19,20 @@
 )
 
 
+; set snap on 
+(defun set_snap()
+  (command "autosnap" 63)
+  (command "osmode" 35)
+)
+
+
+; set snap off 
+(defun set_snap_off()
+  (command "autosnap" 0)
+  (command "osmode" 0)
+)
+
+
 ; toggle selection cycling
 (defun c:dq()
   (if
@@ -26,4 +40,11 @@
       (setvar "selectioncycling" 2)
       (setvar "selectioncycling" -2)
   )
+)
+
+
+; move object without snapping
+(defun c:sf()
+  (set_snap_off)
+  (command move)
 )
