@@ -48,3 +48,9 @@
   (set_snap_off)
   (command move)
 )
+
+; move object with snapping on
+(defun c:s()
+  (set_snap)
+  (command move)
+)
