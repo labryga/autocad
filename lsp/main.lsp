@@ -54,3 +54,11 @@
   (set_snap)
   (command "move")
 )
+
+; move object with snapping on 
+; base point middle between two points
+(defun c:sa()
+  (set_snap)
+  (setq item (ssget))
+  (command "move" item "" "_m2p")
+)
