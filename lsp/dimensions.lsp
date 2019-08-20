@@ -90,3 +90,11 @@
 (defun c:cfx()
   (dimension_aligned 5)
 )
+
+; set linear dimension with opening
+(defun c:cdxd()
+  (setq a (getpoint))
+  (setq b (getpoint))
+  (command "-dimstyle" "r" (nth 5 dimstyles))
+  (command "dimlinear" a b "m" "<>\\X 2.20")
+)
