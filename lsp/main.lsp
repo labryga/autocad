@@ -62,3 +62,15 @@
   (setq item (ssget))
   (command "move" item "" "_m2p")
 )
+
+; select all elements and scale with factor 100
+(defun c:sah()
+  (setq selectionall (ssget "_A"))
+  (command "scale" selectionall "" '(0 0 0) 100)
+  (command "ge" "")
+)
+
+; select all elements in model space and copy with basepoint set to 0,0,0
+(defun c:sac()
+  (command "copybase" '(0 0 0) (ssget "_A") "")
+)
