@@ -1,5 +1,3 @@
-; set visual styles via alias
-
 
 (defun set_visual_style(style)
   (command "-visualstyles" "c" style "" "")
@@ -25,7 +23,6 @@
   (set_visual_style "r")
 )
 
-; set views
 
 ; set view to top
 (defun c:svt()
@@ -33,7 +30,8 @@
 )
 
 
-; set view to front
-(defun c:svf
-  (command)
+; regen and set view to extents
+(defun c:ge()
+  (command "regen")
+  (command "zoom" "e")
 )
