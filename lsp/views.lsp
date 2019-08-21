@@ -24,12 +24,6 @@
 )
 
 
-; set view to top
-(defun c:svt()
-  (command)
-)
-
-
 ; regen and set view to extents
 (defun c:ge()
   (command "regen")
