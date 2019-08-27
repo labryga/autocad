@@ -17,6 +17,10 @@
   (nth layer E41)
 )
 
+; (defun set_current_layer()
+;   (command "")
+; )
+
 (defun qdf()
   (command)
   (command "-layer" "s" (E41 ))
