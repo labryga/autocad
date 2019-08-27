@@ -41,3 +41,10 @@
       (setvar "selectioncycling" -2)
   )
 )
+
+; get and dump object
+(defun c:dt( / objekt objektvl)
+  (setq objekt (car(entsel)) )
+  (setq objektvl (vlax-ename->vla-object objekt))
+  (vlax-dump-object objektvl t)
+)
