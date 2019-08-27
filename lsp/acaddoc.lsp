@@ -5,4 +5,6 @@
 (load "layouts")
 (load "modify")
 
-; (load "dev")
+; 
+(load "project_related_lisp")
+(loadProjectLisp)
