@@ -1,7 +1,5 @@
 ; project specific lisp file
 
-(defun getLayer(layer / E41)
-
   (setq E41 (list
               "E41-b-211.5-sc-co"
               "E41-b-211.5-sc-sh"
