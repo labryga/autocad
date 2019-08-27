@@ -1,10 +1,7 @@
 (vl-load-com)
-(load "main")
-(load "dimensions")
-(load "views")
-(load "layouts")
-(load "modify")
-
-; 
-(load "project_related_lisp")
-(loadProjectLisp)
+(load "01_main")
+(load "02_dimensions")
+(load "03_views")
+(load "04_layouts")
+(load "05_modify")
+(load "09_project_related_lisp")

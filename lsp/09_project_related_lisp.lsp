@@ -12,3 +12,5 @@
         documentPropertyTitle (vla-get-Title documentProperties))
   (load (strcat "projects\\" documentPropertyTitle ".lsp"))
 )
+
+(loadProjectLisp)
