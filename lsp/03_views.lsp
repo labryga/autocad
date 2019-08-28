@@ -1,8 +1,3 @@
-
-(defun set_visual_style(style)
-  (command "-visualstyles" "c" style "" "")
-)
-
 (defun c:sva()
   (set_visual_style "w")
 )
