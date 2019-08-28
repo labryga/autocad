@@ -2,9 +2,9 @@
 (defun getLayerE41(layer / E41 abbruch bestand neu)
 
   (setq 
-      abbruch (list "yellow" 0.6)
-      bestand (list "8" 0.6)
-      neu (list "red" 0.6)
+      abbruch (list "yellow" 0.60)
+      bestand (list "8" 0.60)
+      neu (list "red" 0.60)
       E41 (list
             (list 00 "A-E41-a-211.5-sc-co" abbruch)
             (list 01 "A-E41-a-211.5-sc-sh" abbruch)
@@ -22,14 +22,39 @@
   (cdr (nth layer E41))
 )
 
+(defun setHatch(pattern scale annotative)
+  (command "-hatch")
+)
 
 ; switch to layer otherwise create if does not exist
 
-(defun c:afdf( / layer)
+(defun setCurrentLayer(layernumber /)
+  
+  (setq layer (getLayerE41 layernumber))
 
-  (setq layer (getLayerE41 1))
-
-  (command "-layer" "m" (nth 0 layer) "" "c" (car (nth 1 layer)) "" "")
+  (if (tblsearch "layer" (nth 0 layer))
+    (command "-layer" "s" (car layer) "")
+    (command "-layer" "m" (car layer) 
+    "c" (nth 0 (nth 1 layer)) "" 
+    "lw" (nth 1 (nth 1 layer)) "" 
+    "")
+  )
   (princ)
 )
 
+
+(defun c:afdf()
+  (setCurrentLayer 0)
+  (princ)
+)
+
+(defun c:afsf()
+  (setCurrentLayer 1)
+  (princ)
+)
+
+
+(defun c:asdf()
+  (setCurrentLayer 8)
+  (princ)
+)
