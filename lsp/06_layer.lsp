@@ -54,7 +54,7 @@
 )
 
 
-(defun c:asdf()
-  (setCurrentLayer 8)
+(defun c:addf()
+  (setCurrentLayer 4)
   (princ)
 )
