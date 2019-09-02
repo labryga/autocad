@@ -27,16 +27,16 @@
             )
 )
 
-(defun ekgloop(ekgn / ekgl ekgn ekgp ekgm ekgas ekgchh)
+(defun ekgloop(ekg-nummer 
+                / ekgn ekgp ekgm ekgas ekgchh)
 
-  (setq ekgl '() 
-        ekgn (list ekgn)
+  (setq ekg-nummer (list ekg-nummer)
         ekgp '("n-")
         ekgm '("211.5-")
         ekgas '("sc-" "an-")
         ekgchh '("co" "sh" "hi"))
 
-  (foreach n ekgn
+  (foreach n ekg-nummer
     (foreach p ekgp
       (foreach m ekgm
         (foreach as ekgas
