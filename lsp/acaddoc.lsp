@@ -27,20 +27,18 @@
             )
 )
 
-(defun ekgloop(ekg-nummer 
-                / ekgn ekgp ekgm ekgas ekgchh)
+(defun ekgloop(ekg-nummer
+               bauphase
+               bkp-nummer
+               projektionstyp
+               objekttyp)
 
-  (setq ekg-nummer (list ekg-nummer)
-        ekgp '("n-")
-        ekgm '("211.5-")
-        ekgas '("sc-" "an-")
-        ekgchh '("co" "sh" "hi"))
 
-  (foreach n ekg-nummer
-    (foreach p ekgp
-      (foreach m ekgm
-        (foreach as ekgas
-          (foreach chh ekgchh
+  (foreach ekg ekg-nummer
+    (foreach phase bauphase
+      (foreach bkp bkp-nummer
+        (foreach projektion projektionstyp
+          (foreach objekt objekttyp
             (setq ekgt (list (strcat n p m as chh)))
             (setq ekgl (append ekgl ekgt))
            )
