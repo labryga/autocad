@@ -28,11 +28,10 @@
 )
 
 (defun ekgloop(ekg-nummer
-               bauphase
+               bauphase ; Bestand/Abbruch/Neu
                bkp-nummer
-               projektionstyp
-               objekttyp)
-
+               projektionstyp ; Schnitt/Ansicht
+               objekttyp ; Linientyp/Schraffur/Text)
 
   (foreach ekg ekg-nummer
     (foreach phase bauphase
