@@ -27,24 +27,25 @@
             )
 )
 
-(defun ekgloop( ekg-nummer
+(defun ekgloop( ekg_nummer
                 bauphase ; Liste Bestand/Abbruch/Neu
-                bkp-nummer ; Liste BKP-Nummern
+                bkp_nummer ; Liste BKP-Nummern
                 projektionstyp ; Liste Schnitt/Ansicht
                 objekttyp ) ; Linientyp/Schraffur/Text)
 
-  (foreach ekg ekg-nummer
-    (foreach phase bauphase
-      (foreach bkp bkp-nummer
-        (foreach projektion projektionstyp
-          (foreach objekt objekttyp
-            (setq ekgt (list (strcat "-" ekg "-" phase "-" bkp "-" projektion "-" objekt)))
-            (setq ekgl (append ekgl ekgt))
-           )
-         )
-       )
+  ; cast arguments to list if not
+  (defun castArgumentToList(argument)
+   (if (/= (type argument) 'LIST)
+     (progn
+       (setq argument (list argument))
+       (princ argument)
      )
+     (princ argument)
+    ) 
    )
-  (print ekgl)
+
+  (getListFromArgument ekg_nummer)
+
   (princ)
 )
+
