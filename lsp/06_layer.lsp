@@ -44,11 +44,25 @@
 
 
   (foreach ekg (castArgumentToList ekg_nummern)
-    (foreach abschnitt (castArgumentToList bauphasen)
+    (foreach phase (castArgumentToList bauphasen)
       (foreach bkp (castArgumentToList bkp_nummern)
         (foreach projektion (castArgumentToList projektionstypen)
           (foreach objekt (castArgumentToList objekttypen)
 
+               (if
+                 (and
+                   (or
+                     (= projektion "sc")
+                     (= projektion "an")
+                   )
+                   (or
+                     (= objekt "co")
+                     (= objekt "sh")
+                   )
+                 )
+
+                 (appendToLayerList ekg phase bkp projektion objekt)
+               )
           )
         )
       )
