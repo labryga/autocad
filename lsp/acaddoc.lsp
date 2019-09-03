@@ -32,12 +32,13 @@
   (foreach ekg (castArgumentToList ekg_nummern)
     (foreach abschnitt (castArgumentToList bauphasen)
       (foreach bkp (castArgumentToList bkp_nummern)
-
+        (foreach projektion (castArgumentToList projektionstypen)
               (setq layerlist 
                 (append layerlist
                   (list (strcat ekg "-" abschnitt "-" bkp))
                 )
               )
+        )
       )
     )
   )
