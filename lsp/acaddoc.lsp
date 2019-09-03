@@ -31,20 +31,32 @@
                 bauphase ; Liste Bestand/Abbruch/Neu
                 bkp_nummer ; Liste BKP-Nummern
                 projektionstyp ; Liste Schnitt/Ansicht
-                objekttyp ) ; Linientyp/Schraffur/Text)
+                objekttyp ; Linientyp/Schraffur/Text)
+                / layerliste
+                ) 
+
+  (setq layerlist '())
 
   (defun castArgumentToList(argument)
    (if (/= (type argument) 'LIST)
      (progn
        (setq argument (list argument))
-       (princ argument)
+       argument
      )
-     (princ argument)
+     argument
     ) 
    )
 
-  (castArgumentToList ekg_nummer)
+  (foreach ekg (castArgumentToList ekg_nummer)
+     (foreach abschnitt (castArgumentToList bauphase)
+        (setq layerlist 
+          (append layerlist
+            (strcat ekg "-" abschnitt)
+          )
+        )
+     )
+  )
 
-  (princ)
+  (princ layerlist)
+
 )
-
