@@ -49,20 +49,37 @@
         (foreach projektion (castArgumentToList projektionstypen)
           (foreach objekt (castArgumentToList objekttypen)
 
-               (if
-                 (and
-                   (or
-                     (= projektion "sc")
-                     (= projektion "an")
-                   )
-                   (or
-                     (= objekt "co")
-                     (= objekt "sh")
-                   )
-                 )
+                (cond
 
-                 (appendToLayerList ekg phase bkp projektion objekt)
-               )
+                  (; drawing condition
+                   (and
+                     (or
+                       (= projektion "sc")
+                       (= projektion "an")
+                       )
+                     (or
+                       (= objekt "co")
+                       (= objekt "sh")
+                       )
+                     ); and
+
+                   (appendToLayerList ekg phase bkp projektion objekt)
+                   ); drawing condition
+
+                  (; text condition
+                   (and
+                     (= projektion "tx")
+                     (or
+                       (= objekt "100")
+                       (= objekt "050")
+                       (= objekt "020")
+                       (= objekt "200")
+                     )
+                   ); and
+                   (appendToLayerList ekg phase bkp projektion objekt)
+                  ); text condition
+
+                ); cond
           )
         )
       )
