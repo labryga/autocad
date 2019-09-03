@@ -1,5 +1,6 @@
 
 
+
 ; create layer list with arguments
 (defun ekgloop( ekg_nummern
                 bauphasen         ; Liste Bestand/Abbruch/Neu
@@ -11,6 +12,26 @@
 
   (setq layerlist '())
 
+
+  (defun  appendToLayerList( ekg
+                             abschnitt
+                             bkp
+                             projektion
+                             objekt)
+
+    (setq layerlist 
+      (append layerlist
+        (list (strcat "A" "-"
+                      ekg "-" 
+                      abschnitt "-" 
+                      bkp "-" 
+                      projektion "-"
+                      objekt))
+      )
+    )
+  )
+
+
   (defun castArgumentToList(argument)
    (if (/= (type argument) 'LIST)
      (progn
@@ -21,19 +42,19 @@
     ) 
    )
 
+
   (foreach ekg (castArgumentToList ekg_nummern)
     (foreach abschnitt (castArgumentToList bauphasen)
       (foreach bkp (castArgumentToList bkp_nummern)
         (foreach projektion (castArgumentToList projektionstypen)
-              (setq layerlist 
-                (append layerlist
-                  (list (strcat ekg "-" abschnitt "-" bkp "-" projektion))
-                )
-              )
+          (foreach objekt (castArgumentToList objekttypen)
+
+          )
         )
       )
     )
   )
+
 
   (princ layerlist)
   (princ)
