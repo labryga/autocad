@@ -33,7 +33,6 @@
                 projektionstyp ; Liste Schnitt/Ansicht
                 objekttyp ) ; Linientyp/Schraffur/Text)
 
-  ; cast arguments to list if not
   (defun castArgumentToList(argument)
    (if (/= (type argument) 'LIST)
      (progn
@@ -44,7 +43,7 @@
     ) 
    )
 
-  (getListFromArgument ekg_nummer)
+  (castArgumentToList ekg_nummer)
 
   (princ)
 )
