@@ -95,17 +95,28 @@
 
 )
 
+
 (defun cy(ekg-nummern
            bauphasen
            bkp-nummern
            projektionstypen
            objekttypen / 
-           erstevar)
+           layerlist
+           phase)
 
-  (setq erstevar (layerGenerator ekg-nummern
+  (setq layerlist (layerGenerator ekg-nummern
                                  bauphasen
                                  bkp-nummern
                                  projektionstypen
                                  objekttypen))
+  (foreach layer layerlist
+    (setq phase (substr layer 7 1))
+    (cond
+      ((= phase "a") (setq color "yellow"))
+      ((= phase "a") (setq color "yellow"))
+    )
+    (command "-layer" "n" layer "c" phase "" "")
+  )
+
   (princ)
 )
