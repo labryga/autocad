@@ -96,6 +96,14 @@
 
 )
 
-(defun createLayerSet()
+(defun cl( / layerlist
+             layername
+             ekg-nummer
+             bauphase
+             bkp-nummmer
+             projektion
+             objekt)
 
+  ()
+  (princ)
 )
