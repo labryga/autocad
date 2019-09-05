@@ -103,7 +103,7 @@
                        objekttypen / 
                        layerlist
                        phase
-                       farbe)
+                       color)
 
   (setq layerlist (layerGenerator ekg-nummern
                                  bauphasen
@@ -113,13 +113,13 @@
   (foreach layer layerlist
     (setq phase (substr layer 7 1))
     (cond
-      ((= phase "a") (setq farbe "yellow"))
-      ((= phase "b") (setq farbe "8"))
-      ((= phase "n") (setq farbe "red"))
+      ((= phase "a") (setq color "yellow"))
+      ((= phase "b") (setq color "8"))
+      ((= phase "n") (setq color "red"))
       (t (prompt "no phase matching"))
     )
-    (prompt farbe)
-    ; (command "-layer" "n" layer "c" farbe "" "")
+
+    (command "-layer" "n" layer "c" color layer "" "" "")
   )
 
   (princ)
