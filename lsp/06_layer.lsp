@@ -96,13 +96,13 @@
 )
 
 
-(defun cy(ekg-nummern
-           bauphasen
-           bkp-nummern
-           projektionstypen
-           objekttypen / 
-           layerlist
-           phase)
+(defun createLayerSet( ekg-nummern
+                       bauphasen
+                       bkp-nummern
+                       projektionstypen
+                       objekttypen / 
+                       layerlist
+                       phase)
 
   (setq layerlist (layerGenerator ekg-nummern
                                  bauphasen
@@ -113,9 +113,11 @@
     (setq phase (substr layer 7 1))
     (cond
       ((= phase "a") (setq color "yellow"))
-      ((= phase "a") (setq color "yellow"))
+      ((= phase "b") (setq color "8"))
+      ((= phase "n") (setq color "red"))
+      (t (prompt "no phase matching"))
     )
-    (command "-layer" "n" layer "c" phase "" "")
+    (command "-layer" "n" layer "c" color "" "")
   )
 
   (princ)
