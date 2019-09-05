@@ -1,7 +1,7 @@
 ; create layer list with arguments
-(defun layerGenerator( ekg_nummern
+(defun layerGenerator( ekg-nummern
                 bauphasen         ; Liste Bestand/Abbruch/Neu
-                bkp_nummern       ; Liste BKP-Nummern
+                bkp-nummern       ; Liste BKP-Nummern
                 projektionstypen  ; Liste Schnitt/Ansicht
                 objekttypen       ; Linientyp/Schraffur/Text)
                 / layerliste
@@ -78,9 +78,9 @@
     ); cond
   ); defun
 
-  (foreach ekg (castArgumentToList ekg_nummern)
+  (foreach ekg (castArgumentToList ekg-nummern)
     (foreach phase (castArgumentToList bauphasen)
-      (foreach bkp (castArgumentToList bkp_nummern)
+      (foreach bkp (castArgumentToList bkp-nummern)
         (foreach projektion (castArgumentToList projektionstypen)
           (foreach objekt (castArgumentToList objekttypen)
 
@@ -88,22 +88,23 @@
 
           ); objekttypen
         ); projektionstypen
-      ); bkp_nummern
+      ); bkp-nummern
     ); bauphasen
-  ); ekg_nummern
+  ); ekg-nummern
 
   layerlist ; return generated layer list
 
 )
 
-(defun cl( / layerlist
-             layername
-             ekg-nummer
-             bauphase
-             bkp-nummmer
-             projektion
-             objekt)
+(defun cl(ekg-nummern
+          bauphasen
+          bkp-nummern
+          projektionstypen
+          objekttypen
+          /
+          layerlist
+          layername)
 
-  ()
+
   (princ)
 )
