@@ -1,11 +1,10 @@
 ; create layer list with arguments
-(defun layerGenerator( ekg-nummern
-                bauphasen         ; Liste Bestand/Abbruch/Neu
-                bkp-nummern       ; Liste BKP-Nummern
-                projektionstypen  ; Liste Schnitt/Ansicht
-                objekttypen       ; Linientyp/Schraffur/Text)
-                / layerliste
-                ) 
+(defun layerGenerator(ekg-nummern       ; Liste EKG-Nummer
+                      bauphasen         ; Liste Bestand/Abbruch/Neu
+                      bkp-nummern       ; Liste BKP-Nummern
+                      projektionstypen  ; Liste Schnitt/Ansicht
+                      objekttypen       ; Linientyp/Schraffur/Text)
+                      / layerliste)
 
   (setq layerlist '())
 
@@ -96,15 +95,17 @@
 
 )
 
-(defun cl(ekg-nummern
-          bauphasen
-          bkp-nummern
-          projektionstypen
-          objekttypen
-          /
-          layerlist
-          layername)
+(defun cy(ekg-nummern
+           bauphasen
+           bkp-nummern
+           projektionstypen
+           objekttypen / 
+           erstevar)
 
-
+  (setq erstevar (layerGenerator ekg-nummern
+                                 bauphasen
+                                 bkp-nummern
+                                 projektionstypen
+                                 objekttypen))
   (princ)
 )
