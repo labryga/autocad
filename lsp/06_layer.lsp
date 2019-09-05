@@ -1,5 +1,3 @@
-
-
 ; create layer list with arguments
 (defun layerGenerator( ekg_nummern
                 bauphasen         ; Liste Bestand/Abbruch/Neu
@@ -10,7 +8,6 @@
                 ) 
 
   (setq layerlist '())
-
 
   ; function to append layer name to list
   (defun  appendToLayerList( ekg
@@ -31,7 +28,6 @@
     )
   )
 
-
   ; function to convert argument to list type
   (defun castArgumentToList(argument)
    (if (/= (type argument) 'LIST)
@@ -42,7 +38,6 @@
      argument
     ) 
    )
-
 
   ; function to filter layer condition
   (defun filterLayer( ekg
@@ -83,8 +78,6 @@
     ); cond
   ); defun
 
-
-
   (foreach ekg (castArgumentToList ekg_nummern)
     (foreach phase (castArgumentToList bauphasen)
       (foreach bkp (castArgumentToList bkp_nummern)
@@ -99,7 +92,10 @@
     ); bauphasen
   ); ekg_nummern
 
-
   layerlist ; return generated layer list
+
+)
+
+(defun createLayerSet()
 
 )
