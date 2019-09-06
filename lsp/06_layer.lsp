@@ -95,7 +95,7 @@
 
 )
 
-
+; create layer set using layer name generating function
 (defun createLayerSet( ekg-nummern
                        bauphasen
                        bkp-nummern
@@ -106,10 +106,12 @@
                        color)
 
   (setq layerlist (layerGenerator ekg-nummern
-                                 bauphasen
-                                 bkp-nummern
-                                 projektionstypen
-                                 objekttypen))
+                                  bauphasen
+                                  bkp-nummern
+                                  projektionstypen
+                                  objekttypen))
+
+
   (foreach layer layerlist
     (setq phase (substr layer 7 1))
     (cond
@@ -122,5 +124,14 @@
     (command "-layer" "n" layer "c" color layer "" "" "")
   )
 
+  (princ)
+)
+
+(defun c:sml()
+  (createLayerSet (list "E41" "E42")
+                  (list "a" "b" "n")
+                  (list "211.5" "211.6")
+                  (list "sc" "an" "tx")
+                  (list "co" "sh" "050" "100"))
   (princ)
 )
