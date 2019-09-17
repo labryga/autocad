@@ -54,8 +54,10 @@
 (defun c:gl( / entities
                entity
                entity_index
-               line_length
-               total_length)
+               object_length
+               total_length
+               object_area
+               total_area)
 
   (setq total_length 0)
 
@@ -68,9 +70,9 @@
     (setq entity (ssname entities entity_index))
     (setq entity (vlax-ename->vla-object entity))
 
-    (setq line_length (vlax-get-property entity "length"))
+    (setq object_length (vlax-get-property entity "length"))
     (setq entity_index (1+ entity_index))
-    (setq total_length (+ total_length line_length))
+    (setq total_length (+ total_length object_length))
     (princ)
   )
 
