@@ -102,6 +102,6 @@
     (princ)
   )
 
-  (print total_area)
+  (print (* 0.0001 total_area))
   (princ)
  )
