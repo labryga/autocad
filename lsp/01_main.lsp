@@ -74,7 +74,7 @@
     (princ)
   )
 
-  (print total_length)
+  (print (* 0.01 total_length ))
   (princ)
  )
 
