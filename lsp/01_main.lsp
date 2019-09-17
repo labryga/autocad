@@ -52,15 +52,16 @@
 
 ; sum multiple polylines lengths
 (defun c:gl( / entities
-               counter)
-  (setq counter 0)
+               entity_index)
+
+  (setq entity_index 0)
 
   (setq entities (ssget))
 
   (repeat (sslength entities)
 
-    (print count)
-    (setq counter (1+ counter))
+    (print (ssname entities entity_index))
+    (setq entity_index (1+ entity_index))
     (princ)
   )
 
