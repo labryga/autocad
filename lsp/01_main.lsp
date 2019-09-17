@@ -48,3 +48,20 @@
   (setq objektvl (vlax-ename->vla-object objekt))
   (vlax-dump-object objektvl t)
 )
+
+
+; sum multiple polylines lengths
+(defun c:gl( / entities
+               counter)
+  (setq counter 0)
+
+  (setq entities (ssget))
+
+  (repeat (sslength entities)
+
+    (print count)
+    (setq counter (1+ counter))
+    (princ)
+  )
+
+ )
