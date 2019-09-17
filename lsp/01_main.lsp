@@ -52,7 +52,12 @@
 
 ; sum multiple polylines lengths
 (defun c:gl( / entities
-               entity_index)
+               entity
+               entity_index
+               line_length
+               total_length)
+
+  (setq total_length 0)
 
   (setq entity_index 0)
 
@@ -60,9 +65,15 @@
 
   (repeat (sslength entities)
 
-    (print (ssname entities entity_index))
+    (setq entity (ssname entities entity_index))
+    (setq entity (vlax-ename->vla-object entity))
+
+    (setq line_length (vlax-get-property entity "length"))
     (setq entity_index (1+ entity_index))
+    (setq total_length (+ total_length line_length))
     (princ)
   )
 
+  (print total_length)
+  (princ)
  )
