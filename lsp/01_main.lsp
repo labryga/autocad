@@ -55,9 +55,13 @@
                entity
                entity_index
                object_length
-               total_length)
+               total_length
+               area
+               total_area
+               total_values)
 
   (setq total_length 0)
+  (setq total_area 0)
 
   (setq entity_index 0)
 
@@ -74,7 +78,15 @@
     (princ)
   )
 
-  (print (* 0.01 total_length ))
+  (setq total_length (* 0.01 total_length))
+  (setq total_area (* total_length 2.93))
+  (setq (rtos total_length))
+  (setq (rtos total_area))
+  (setq total_values (list 
+                       (strcat total_length " m") 
+                       (strcat total_area) " m²"
+                       ))
+  (print total_values)
   (princ)
  )
 
