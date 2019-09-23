@@ -80,15 +80,15 @@
 
   (setq total_length (* 0.01 total_length))
   (setq total_area (* total_length 2.93))
-  (setq (rtos total_length))
-  (setq (rtos total_area))
+  (setq total_length (rtos total_length))
+  (setq total_area (rtos total_area))
   (setq total_values (list 
                        (strcat total_length " m") 
-                       (strcat total_area) " m²"
+                       (strcat total_area " m")
                        ))
   (print total_values)
   (princ)
- )
+)
 
 ; sum multiple object area
 (defun c:ga( / entities
