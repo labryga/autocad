@@ -1,4 +1,5 @@
 (vl-load-com)
+(load "mytest")
 (load "01_main")
 (load "02_dimensions")
 (load "03_views")
