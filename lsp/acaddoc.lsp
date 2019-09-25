@@ -5,6 +5,7 @@
 (load "04_layouts")
 (load "05_modify")
 (load "06_layer")
+(load "dev")
 ; (load "09_project_related_lisp")
 
 (defun createLayer()
@@ -18,4 +19,5 @@
   (foreach x mylayers
      (command "-layer" "n" x "" "" "")
   )
- )
+)
+
