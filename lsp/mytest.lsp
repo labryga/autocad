@@ -26,9 +26,25 @@
 (defun c:xy( / object_example)
 
   (setq object_example (entsel))
-  (print (cdr object_example))
-  (princ)
-  ; (setq object_example_vla (vlax-ename->vla-object object_example_name))
-  ; (vlax-dump-object object_example_vla T)
+  (setq object_example_name (car object_example))
+  (setq object_example_vla (vlax-ename->vla-object object_example_name))
+  (vlax-dump-object object_example_vla)
+
+ )
+
+
+(defun c:xd(/ myblock)
+  (setq myblock (vlax-ename->vla-object (car (entsel))))
+  (vla-get-TagString myblock)
+ )
+
+(defun  c:ma(myblock mytag)
+  (setq mytag (strcase mytag))
+  (vl-some 
+    '(lambda (att))
+      (if (= mytag (strcase (vla-get-tagstring)))
+        (vla-get-tagstring att)
+      )
+  )
 
  )
