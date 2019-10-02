@@ -1,0 +1,18 @@
+filedia 0
+qnew
+save "01_og.dwg"
+save "02_og.dwg"
+save "03_og.dwg"
+save "04_og.dwg"
+save "05_og.dwg"
+save "06_og.dwg"
+save "07_og.dwg"
+save "08_og.dwg"
+save "09_og.dwg"
+save "10_og.dwg"
+save "11_og.dwg"
+save "12_og.dwg"
+save "13_og.dwg"
+save "14_og.dwg"
+qsave
+close
