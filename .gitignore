@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 !/lsp
 !/pgp
@@ -9,3 +10,16 @@
 dev*.lsp
 .DS_Store
 doc.lsp
+=======
+/*
+!/lsp
+!/pgp
+!/scr
+
+!.gitignore
+*.swp
+*.dfs
+dev*.lsp
+.DS_Store
+doc.lsp
+>>>>>>> test
