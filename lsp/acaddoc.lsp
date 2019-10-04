@@ -1,2 +1,4 @@
-(load "vl-load-com")
+(vl-load-com)
 (load "00_dev")
+(load "01_main")
+(load "05_modify")
