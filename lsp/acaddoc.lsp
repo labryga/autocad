@@ -1,3 +1,2 @@
-(vl-load-com)
-(load "01_main")
-(load "mytest")
+(load "vl-load-com")
+(load "00_dev")

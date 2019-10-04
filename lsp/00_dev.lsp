@@ -26,9 +26,10 @@
 )
 
 
-(defun  c:xf( / objekte)
+(defun  c:xff( / objekte)
   (setq objekte 
         (ssget "x" '((0 . "INSERT")))
         )
-  (sslength objekte)
+  (print (sslength objekte))
+  (princ)
 )
