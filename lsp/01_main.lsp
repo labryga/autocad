@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 ; function to toggle autosnap and osmode by "df" command
 (defun c:df() 
   (if 
@@ -52,44 +50,44 @@
 
 
 ; sum multiple polylines lengths
-(defun c:gr( / entities
-               entity
-               entity_index
-               object_length
-               total_length
-               area
-               total_area
-               total_values)
-
-  (setq total_length 0)
-  (setq total_area 0)
-
-  (setq entity_index 0)
-
-  (setq entities (ssget))
-
-  (repeat (sslength entities)
-
-    (setq entity (ssname entities entity_index))
-    (setq entity (vlax-ename->vla-object entity))
-
-    (setq object_length (vlax-get-property entity "length"))
-    (setq entity_index (1+ entity_index))
-    (setq total_length (+ total_length object_length))
-    (princ)
-  )
-
-  (setq total_length (* 0.01 total_length))
-  (setq total_area (* total_length 2.93))
-  (setq (rtos total_length))
-  (setq (rtos total_area))
-  (setq total_values (list 
-                       (strcat total_length " m") 
-                       (strcat total_area) " m²"
-                       ))
-  (print total_values)
-  (princ)
- )
+; (defun c:gr( / entities
+;                entity
+;                entity_index
+;                object_length
+;                total_length
+;                area
+;                total_area
+;                total_values)
+;
+;   (setq total_length 0)
+;   (setq total_area 0)
+;
+;   (setq entity_index 0)
+;
+;   (setq entities (ssget))
+;
+;   (repeat (sslength entities)
+;
+;     (setq entity (ssname entities entity_index))
+;     (setq entity (vlax-ename->vla-object entity))
+;
+;     (setq object_length (vlax-get-property entity "length"))
+;     (setq entity_index (1+ entity_index))
+;     (setq total_length (+ total_length object_length))
+;     (princ)
+;   )
+;
+;   (setq total_length (* 0.01 total_length))
+;   (setq total_area (* total_length 2.93))
+;   (setq (rtos total_length))
+;   (setq (rtos total_area))
+;   (setq total_values (list 
+;                        (strcat total_length " m") 
+;                        (strcat total_area) " m²"
+;                        ))
+;   (print total_values)
+;   (princ)
+; )
 
 ; sum multiple object area
 (defun c:ga( / entities
@@ -118,7 +116,6 @@
   (print (* 0.0001 total_area))
   (princ)
  )
-=======
 
 ; function to toggle autosnap and osmode by "df" command
 (defun c:df() 
@@ -238,4 +235,3 @@
   (print (* 0.0001 total_area))
   (princ)
  )
->>>>>>> test
