@@ -32,11 +32,13 @@
 )
 
 
+; function to retrieve block name
 (defun c:xr(/ entity
               entity_name)
 
   (setq entity (car (entsel)))
   (setq entity_name (assoc 2 (entget entity)))
+  (entity_name)
 )
 
 (defun  c:ma(myblock mytag)
