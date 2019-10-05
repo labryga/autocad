@@ -38,7 +38,7 @@
 
   (setq entity (car (entsel)))
   (setq entity_name (assoc 2 (entget entity)))
-  (print (car entity_name))
+  (print (cdr entity_name))
   (princ)
 )
 
