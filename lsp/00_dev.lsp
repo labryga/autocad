@@ -32,10 +32,11 @@
 )
 
 
-(defun c:xr(/ entity)
+(defun c:xr(/ entity
+              entity_name)
 
   (setq entity (car (entsel)))
-  (entget entity)
+  (setq entity_name (assoc 2 (entget entity)))
 )
 
 (defun  c:ma(myblock mytag)
