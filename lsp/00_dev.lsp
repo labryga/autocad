@@ -38,7 +38,8 @@
 
   (setq entity (car (entsel)))
   (setq entity_name (assoc 2 (entget entity)))
-  (entity_name)
+  (print (car entity_name))
+  (princ)
 )
 
 (defun  c:ma(myblock mytag)
