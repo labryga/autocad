@@ -11,7 +11,7 @@
   (setq att_value (vla-get-volume object_vla_entity))
   (setq att_value (* 0.000001 att_value))
   (setq att_value (rtos att_value 2 2))
-  (command "-ATTDEF" "" att_name att_value (getpoint) "")
+  (command "-ATTDEF" "" att_name "" att_value (getpoint) "")
   (princ)
  )
 
@@ -31,6 +31,12 @@
   (entget (car(entsel)))
 )
 
+
+(defun c:xr(/ entity)
+
+  (setq entity (car (entsel)))
+  (entget entity)
+)
 
 (defun  c:ma(myblock mytag)
   (setq mytag (strcase mytag))
