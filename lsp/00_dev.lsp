@@ -1,3 +1,37 @@
+(defun xsa(block_entity
+             block_attribute_tag /
+             block_attribute
+             entity_next)
+  (if 
+
+    (and 
+      (setq block_entity (entnext block_entity))
+      (= "ATTRIB" 
+         (cdr 
+          (assoc 0 (
+            setq entity_next 
+              (entget block_entity))
+          )
+        )
+      )
+    )
+
+    (if (= (strcase block_attribute_tag)
+           (strcase (cdr (assoc 2 entity_next)))
+        )
+        (progn
+          (print(cdr (assoc 1 entity_next)))
+          (princ)
+        )
+        (xsa block_entity block_attribute_tag)
+    )      
+  )
+)
+
+(defun c:xxsa( / wert01)
+  (setq wert01 (car(entsel)))
+  (xsa wert01 "hoehe")
+ )
 
 (defun c:setat(/ object_entitiy 
                  object_vla_entity
@@ -72,10 +106,8 @@
 
 )
 
-
-(defun c:xsa( / myfile
-                entity
-                eintity_list)
+(defun c:xas()
+  (entget (car(entsel)))
 )
 
 
