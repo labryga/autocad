@@ -53,6 +53,13 @@
 
 )
 
+(defun c:xsa( / myfile)
+   (setq myfile (open "c:\\Users\\m.labryga\\Documents\\acad\\myfile.txt" "w"))
+  (repeat 10
+    (write-line "meine zeile \t und eintraag" myfile)
+   )
+  (close myfile)
+)
 
 (defun  c:xss( / objekte)
   (setq objekte 
