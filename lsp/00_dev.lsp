@@ -27,8 +27,27 @@
  )
 
 
-(defun c:xe()
-  (entget (car(entsel)))
+(defun c:xe( / entity
+               entities
+               entities_length
+               counter)
+
+  (setq entities (ssget))
+
+  (setq entities_length (sslength entities))
+  (setq counter 0)
+  (setq myfile (open "c:\\Users\\m.labryga\\Documents\\acad\\myfile.txt" "w"))
+
+  (while (< counter entities_length)
+          (setq entity (ssname entities counter))
+          (setq entity (entget entity))
+          (setq entity (assoc 8 entity))
+          (print (cdr entity))
+          (write-line (strcat (cdr entity) "\t" "wert") myfile)
+          (princ)
+          (setq counter (1+ counter))
+         )
+  (close myfile)
 )
 
 
@@ -53,13 +72,12 @@
 
 )
 
-(defun c:xsa( / myfile)
-   (setq myfile (open "c:\\Users\\m.labryga\\Documents\\acad\\myfile.txt" "w"))
-  (repeat 10
-    (write-line "meine zeile \t und eintraag" myfile)
-   )
-  (close myfile)
+
+(defun c:xsa( / myfile
+                entity
+                eintity_list)
 )
+
 
 (defun  c:xss( / objekte)
   (setq objekte 
