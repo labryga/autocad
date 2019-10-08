@@ -47,20 +47,20 @@
   )
 
   (setq myfile 
-        (open "c:\\Users\\m.labryga\\Documents\\acad\\myfile.txt" "w"))
+        (open "c:\\Users\\topos\\autocad\\wohnung.csv" "w"))
 
   (foreach item mylist
            (setq mywert (strcat 
                           (car item) 
-                          "\t" 
+                          "\t"
                           (cadr item)
                         )
            )
 
            (write-line mywert myfile)
   )
+  (princ)
 )
-
 
 (defun c:setat(/ object_entitiy 
                  object_vla_entity
@@ -158,7 +158,9 @@
   )
 
   (setq myfile 
-        (open "c:\\Users\\m.labryga\\Documents\\acad\\myfile.txt" "w"))
+        (open "c:\\Users\\topos\\autocad\\next.csv" "w")
+        ; (open ".\\next.csv" "w")
+        )
 
   (foreach item mylist
            (setq mywert (strcat 
@@ -170,5 +172,6 @@
 
            (write-line mywert myfile)
   )
+  (close myfile)
   (princ)
 )
