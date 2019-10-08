@@ -1,540 +1,540 @@
-OG 00
-
-Wohnung 001
+OG,00
+
+,Wohnung,001
 
-001.01	Korridor
-001.02	Bad
-001.03	Küche
-001.04	Wohnen
-001.05	Zimmer
-001.06	Zimmer
+,,001.01	Korridor
+,,001.02	Bad
+,,001.03	Küche
+,,001.04	Wohnen
+,,001.05	Zimmer
+,,001.06	Zimmer
 
-Wohnung 002
+,Wohnung,002
 
-002.01	Korridor
-002.02	Bad
-002.03	Küche
-002.04	Wohnen
-002.05	Zimmer
-002.06	Zimmer
+,,002.01	Korridor
+,,002.02	Bad
+,,002.03	Küche
+,,002.04	Wohnen
+,,002.05	Zimmer
+,,002.06	Zimmer
 
-Wohnung 003
+,Wohnung,003
 
-003.01	Korridor
-003.02	Bad
-003.03	Küche
-003.04	Wohnen
-003.05	Zimmer
-
-Wohnung 004
-
-004.01	Korridor
-004.02	Bad
-004.03	Küche
-004.04	Wohnen
-004.05	Zimmer
-
-OG 01
-
-Wohnung 011
+,,003.01	Korridor
+,,003.02	Bad
+,,003.03	Küche
+,,003.04	Wohnen
+,,003.05	Zimmer
+
+,Wohnung,004
+
+,,004.01	Korridor
+,,004.02	Bad
+,,004.03	Küche
+,,004.04	Wohnen
+,,004.05	Zimmer
+
+OG,01
+
+,Wohnung,011
 
-011.01	Korridor
-011.02	Bad
-011.03	Küche
-011.04	Wohnen
-011.05	Zimmer
-011.06	Zimmer
+,,011.01	Korridor
+,,011.02	Bad
+,,011.03	Küche
+,,011.04	Wohnen
+,,011.05	Zimmer
+,,011.06	Zimmer
 
-Wohnung 012
+,Wohnung,012
 
-012.01	Korridor
-012.02	Bad
-012.03	Küche
-012.04	Wohnen
-012.05	Zimmer
-012.06	Zimmer
+,,012.01	Korridor
+,,012.02	Bad
+,,012.03	Küche
+,,012.04	Wohnen
+,,012.05	Zimmer
+,,012.06	Zimmer
 
-Wohnung 013
+,Wohnung,013
 
-013.01	Korridor
-013.02	Bad
-013.03	Küche
-013.04	Wohnen
-013.05	Zimmer
-
-Wohnung 014
-
-014.01	Korridor
-014.02	Bad
-014.03	Küche
-014.04	Wohnen
-014.05	Zimmer
-
-OG 02
-
-Wohnung 021
+,,013.01	Korridor
+,,013.02	Bad
+,,013.03	Küche
+,,013.04	Wohnen
+,,013.05	Zimmer
+
+,Wohnung,014
+
+,,014.01	Korridor
+,,014.02	Bad
+,,014.03	Küche
+,,014.04	Wohnen
+,,014.05	Zimmer
+
+OG,02
+
+,Wohnung,021
 
-021.01	Korridor
-021.02	Bad
-021.03	Küche
-021.04	Wohnen
-021.05	Zimmer
-021.06	Zimmer
+,,021.01	Korridor
+,,021.02	Bad
+,,021.03	Küche
+,,021.04	Wohnen
+,,021.05	Zimmer
+,,021.06	Zimmer
 
-Wohnung 022
+,Wohnung,022
 
-022.01	Korridor
-022.02	Bad
-022.03	Küche
-022.04	Wohnen
-022.05	Zimmer
-022.06	Zimmer
+,,022.01	Korridor
+,,022.02	Bad
+,,022.03	Küche
+,,022.04	Wohnen
+,,022.05	Zimmer
+,,022.06	Zimmer
 
-Wohnung 023
+,Wohnung,023
 
-023.01	Korridor
-023.02	Bad
-023.03	Küche
-023.04	Wohnen
-023.05	Zimmer
-
-Wohnung 024
-
-024.01	Korridor
-024.02	Bad
-024.03	Küche
-024.04	Wohnen
-024.05	Zimmer
-
-OG 03
-
-Wohnung 031
+,,023.01	Korridor
+,,023.02	Bad
+,,023.03	Küche
+,,023.04	Wohnen
+,,023.05	Zimmer
+
+,Wohnung,024
+
+,,024.01	Korridor
+,,024.02	Bad
+,,024.03	Küche
+,,024.04	Wohnen
+,,024.05	Zimmer
+
+OG,03
+
+,Wohnung,031
 
-031.01	Korridor
-031.02	Bad
-031.03	Küche
-031.04	Wohnen
-031.05	Zimmer
-031.06	Zimmer
+,,031.01	Korridor
+,,031.02	Bad
+,,031.03	Küche
+,,031.04	Wohnen
+,,031.05	Zimmer
+,,031.06	Zimmer
 
-Wohnung 032
+,Wohnung,032
 
-032.01	Korridor
-032.02	Bad
-032.03	Küche
-032.04	Wohnen
-032.05	Zimmer
-032.06	Zimmer
+,,032.01	Korridor
+,,032.02	Bad
+,,032.03	Küche
+,,032.04	Wohnen
+,,032.05	Zimmer
+,,032.06	Zimmer
 
-Wohnung 033
+,Wohnung,033
 
-033.01	Korridor
-033.02	Bad
-033.03	Küche
-033.04	Wohnen
-033.05	Zimmer
-
-Wohnung 034
-
-034.01	Korridor
-034.02	Bad
-034.03	Küche
-034.04	Wohnen
-034.05	Zimmer
-
-OG 04
-
-Wohnung 041
+,,033.01	Korridor
+,,033.02	Bad
+,,033.03	Küche
+,,033.04	Wohnen
+,,033.05	Zimmer
+
+,Wohnung,034
+
+,,034.01	Korridor
+,,034.02	Bad
+,,034.03	Küche
+,,034.04	Wohnen
+,,034.05	Zimmer
+
+OG,04
+
+,Wohnung,041
 
-041.01	Korridor
-041.02	Bad
-041.03	Küche
-041.04	Wohnen
-041.05	Zimmer
-041.06	Zimmer
+,,041.01	Korridor
+,,041.02	Bad
+,,041.03	Küche
+,,041.04	Wohnen
+,,041.05	Zimmer
+,,041.06	Zimmer
 
-Wohnung 042
+,Wohnung,042
 
-042.01	Korridor
-042.02	Bad
-042.03	Küche
-042.04	Wohnen
-042.05	Zimmer
-042.06	Zimmer
+,,042.01	Korridor
+,,042.02	Bad
+,,042.03	Küche
+,,042.04	Wohnen
+,,042.05	Zimmer
+,,042.06	Zimmer
 
-Wohnung 043
+,Wohnung,043
 
-043.01	Korridor
-043.02	Bad
-043.03	Küche
-043.04	Wohnen
-043.05	Zimmer
-
-Wohnung 044
-
-044.01	Korridor
-044.02	Bad
-044.03	Küche
-044.04	Wohnen
-044.05	Zimmer
-
-OG 05
-
-Wohnung 051
+,,043.01	Korridor
+,,043.02	Bad
+,,043.03	Küche
+,,043.04	Wohnen
+,,043.05	Zimmer
+
+,Wohnung,044
+
+,,044.01	Korridor
+,,044.02	Bad
+,,044.03	Küche
+,,044.04	Wohnen
+,,044.05	Zimmer
+
+OG,05
+
+,Wohnung,051
 
-051.01	Korridor
-051.02	Bad
-051.03	Küche
-051.04	Wohnen
-051.05	Zimmer
-051.06	Zimmer
+,,051.01	Korridor
+,,051.02	Bad
+,,051.03	Küche
+,,051.04	Wohnen
+,,051.05	Zimmer
+,,051.06	Zimmer
 
-Wohnung 052
+,Wohnung,052
 
-052.01	Korridor
-052.02	Bad
-052.03	Küche
-052.04	Wohnen
-052.05	Zimmer
-052.06	Zimmer
+,,052.01	Korridor
+,,052.02	Bad
+,,052.03	Küche
+,,052.04	Wohnen
+,,052.05	Zimmer
+,,052.06	Zimmer
 
-Wohnung 053
+,Wohnung,053
 
-053.01	Korridor
-053.02	Bad
-053.03	Küche
-053.04	Wohnen
-053.05	Zimmer
-
-Wohnung 054
-
-054.01	Korridor
-054.02	Bad
-054.03	Küche
-054.04	Wohnen
-054.05	Zimmer
-
-OG 06
-
-Wohnung 061
+,,053.01	Korridor
+,,053.02	Bad
+,,053.03	Küche
+,,053.04	Wohnen
+,,053.05	Zimmer
+
+,Wohnung,054
+
+,,054.01	Korridor
+,,054.02	Bad
+,,054.03	Küche
+,,054.04	Wohnen
+,,054.05	Zimmer
+
+OG,06
+
+,Wohnung,061
 
-061.01	Korridor
-061.02	Bad
-061.03	Küche
-061.04	Wohnen
-061.05	Zimmer
-061.06	Zimmer
+,,061.01	Korridor
+,,061.02	Bad
+,,061.03	Küche
+,,061.04	Wohnen
+,,061.05	Zimmer
+,,061.06	Zimmer
 
-Wohnung 062
+,Wohnung,062
 
-062.01	Korridor
-062.02	Bad
-062.03	Küche
-062.04	Wohnen
-062.05	Zimmer
-062.06	Zimmer
+,,062.01	Korridor
+,,062.02	Bad
+,,062.03	Küche
+,,062.04	Wohnen
+,,062.05	Zimmer
+,,062.06	Zimmer
 
-Wohnung 063
+,Wohnung,063
 
-063.01	Korridor
-063.02	Bad
-063.03	Küche
-063.04	Wohnen
-063.05	Zimmer
-
-Wohnung 064
-
-064.01	Korridor
-064.02	Bad
-064.03	Küche
-064.04	Wohnen
-064.05	Zimmer
-
-OG 07
-
-Wohnung 071
+,,063.01	Korridor
+,,063.02	Bad
+,,063.03	Küche
+,,063.04	Wohnen
+,,063.05	Zimmer
+
+,Wohnung,064
+
+,,064.01	Korridor
+,,064.02	Bad
+,,064.03	Küche
+,,064.04	Wohnen
+,,064.05	Zimmer
+
+OG,07
+
+,Wohnung,071
 
-071.01	Korridor
-071.02	Bad
-071.03	Küche
-071.04	Wohnen
-071.05	Zimmer
-071.06	Zimmer
+,,071.01	Korridor
+,,071.02	Bad
+,,071.03	Küche
+,,071.04	Wohnen
+,,071.05	Zimmer
+,,071.06	Zimmer
 
-Wohnung 072
+,Wohnung,072
 
-072.01	Korridor
-072.02	Bad
-072.03	Küche
-072.04	Wohnen
-072.05	Zimmer
-072.06	Zimmer
+,,072.01	Korridor
+,,072.02	Bad
+,,072.03	Küche
+,,072.04	Wohnen
+,,072.05	Zimmer
+,,072.06	Zimmer
 
-Wohnung 073
+,Wohnung,073
 
-073.01	Korridor
-073.02	Bad
-073.03	Küche
-073.04	Wohnen
-073.05	Zimmer
-
-Wohnung 074
-
-074.01	Korridor
-074.02	Bad
-074.03	Küche
-074.04	Wohnen
-074.05	Zimmer
-
-OG 08
-
-Wohnung 081
+,,073.01	Korridor
+,,073.02	Bad
+,,073.03	Küche
+,,073.04	Wohnen
+,,073.05	Zimmer
+
+,Wohnung,074
+
+,,074.01	Korridor
+,,074.02	Bad
+,,074.03	Küche
+,,074.04	Wohnen
+,,074.05	Zimmer
+
+OG,08
+
+,Wohnung,081
 
-081.01	Korridor
-081.02	Bad
-081.03	Küche
-081.04	Wohnen
-081.05	Zimmer
-081.06	Zimmer
+,,081.01	Korridor
+,,081.02	Bad
+,,081.03	Küche
+,,081.04	Wohnen
+,,081.05	Zimmer
+,,081.06	Zimmer
 
-Wohnung 082
+,Wohnung,082
 
-082.01	Korridor
-082.02	Bad
-082.03	Küche
-082.04	Wohnen
-082.05	Zimmer
-082.06	Zimmer
+,,082.01	Korridor
+,,082.02	Bad
+,,082.03	Küche
+,,082.04	Wohnen
+,,082.05	Zimmer
+,,082.06	Zimmer
 
-Wohnung 083
+,Wohnung,083
 
-083.01	Korridor
-083.02	Bad
-083.03	Küche
-083.04	Wohnen
-083.05	Zimmer
-
-Wohnung 084
-
-084.01	Korridor
-084.02	Bad
-084.03	Küche
-084.04	Wohnen
-084.05	Zimmer
-
-OG 09
-
-Wohnung 091
+,,083.01	Korridor
+,,083.02	Bad
+,,083.03	Küche
+,,083.04	Wohnen
+,,083.05	Zimmer
+
+,Wohnung,084
+
+,,084.01	Korridor
+,,084.02	Bad
+,,084.03	Küche
+,,084.04	Wohnen
+,,084.05	Zimmer
+
+OG,09
+
+,Wohnung,091
 
-091.01	Korridor
-091.02	Bad
-091.03	Küche
-091.04	Wohnen
-091.05	Zimmer
-091.06	Zimmer
+,,091.01	Korridor
+,,091.02	Bad
+,,091.03	Küche
+,,091.04	Wohnen
+,,091.05	Zimmer
+,,091.06	Zimmer
 
-Wohnung 092
+,Wohnung,092
 
-092.01	Korridor
-092.02	Bad
-092.03	Küche
-092.04	Wohnen
-092.05	Zimmer
-092.06	Zimmer
+,,092.01	Korridor
+,,092.02	Bad
+,,092.03	Küche
+,,092.04	Wohnen
+,,092.05	Zimmer
+,,092.06	Zimmer
 
-Wohnung 093
+,Wohnung,093
 
-093.01	Korridor
-093.02	Bad
-093.03	Küche
-093.04	Wohnen
-093.05	Zimmer
-
-Wohnung 094
-
-094.01	Korridor
-094.02	Bad
-094.03	Küche
-094.04	Wohnen
-094.05	Zimmer
-
-OG 10
-
-Wohnung 101
+,,093.01	Korridor
+,,093.02	Bad
+,,093.03	Küche
+,,093.04	Wohnen
+,,093.05	Zimmer
+
+,Wohnung,094
+
+,,094.01	Korridor
+,,094.02	Bad
+,,094.03	Küche
+,,094.04	Wohnen
+,,094.05	Zimmer
+
+OG,10
+
+,Wohnung,101
 
-101.01	Korridor
-101.02	Bad
-101.03	Küche
-101.04	Wohnen
-101.05	Zimmer
-101.06	Zimmer
+,,101.01	Korridor
+,,101.02	Bad
+,,101.03	Küche
+,,101.04	Wohnen
+,,101.05	Zimmer
+,,101.06	Zimmer
 
-Wohnung 102
+,Wohnung,102
 
-102.01	Korridor
-102.02	Bad
-102.03	Küche
-102.04	Wohnen
-102.05	Zimmer
-102.06	Zimmer
+,,102.01	Korridor
+,,102.02	Bad
+,,102.03	Küche
+,,102.04	Wohnen
+,,102.05	Zimmer
+,,102.06	Zimmer
 
-Wohnung 103
+,Wohnung,103
 
-103.01	Korridor
-103.02	Bad
-103.03	Küche
-103.04	Wohnen
-103.05	Zimmer
-
-Wohnung 104
-
-104.01	Korridor
-104.02	Bad
-104.03	Küche
-104.04	Wohnen
-104.05	Zimmer
-
-OG 11
-
-Wohnung 111
+,,103.01	Korridor
+,,103.02	Bad
+,,103.03	Küche
+,,103.04	Wohnen
+,,103.05	Zimmer
+
+,Wohnung,104
+
+,,104.01	Korridor
+,,104.02	Bad
+,,104.03	Küche
+,,104.04	Wohnen
+,,104.05	Zimmer
+
+OG,11
+
+,Wohnung,111
 
-111.01	Korridor
-111.02	Bad
-111.03	Küche
-111.04	Wohnen
-111.05	Zimmer
-111.06	Zimmer
+,,111.01	Korridor
+,,111.02	Bad
+,,111.03	Küche
+,,111.04	Wohnen
+,,111.05	Zimmer
+,,111.06	Zimmer
 
-Wohnung 112
+,Wohnung,112
 
-112.01	Korridor
-112.02	Bad
-112.03	Küche
-112.04	Wohnen
-112.05	Zimmer
-112.06	Zimmer
+,,112.01	Korridor
+,,112.02	Bad
+,,112.03	Küche
+,,112.04	Wohnen
+,,112.05	Zimmer
+,,112.06	Zimmer
 
-Wohnung 113
+,Wohnung,113
 
-113.01	Korridor
-113.02	Bad
-113.03	Küche
-113.04	Wohnen
-113.05	Zimmer
-
-Wohnung 114
-
-114.01	Korridor
-114.02	Bad
-114.03	Küche
-114.04	Wohnen
-114.05	Zimmer
-
-OG 12
-
-Wohnung 121
+,,113.01	Korridor
+,,113.02	Bad
+,,113.03	Küche
+,,113.04	Wohnen
+,,113.05	Zimmer
+
+,Wohnung,114
+
+,,114.01	Korridor
+,,114.02	Bad
+,,114.03	Küche
+,,114.04	Wohnen
+,,114.05	Zimmer
+
+OG,12
+
+,Wohnung,121
 
-121.01	Korridor
-121.02	Bad
-121.03	Küche
-121.04	Wohnen
-121.05	Zimmer
-121.06	Zimmer
-
-Wohnung 122
-
-122.01	Korridor
-122.02	Bad
-122.03	Küche
-122.04	Wohnen
-122.05	Zimmer
-122.06	Zimmer
-
-Wohnung 123
-
-123.01	Korridor
-123.02	Bad
-123.03	Küche
-123.04	Wohnen
-123.05	Zimmer
-
-Wohnung 124
-
-124.01	Korridor
-124.02	Bad
-124.03	Küche
-124.04	Wohnen
-124.05	Zimmer
-
-OG 13
-
-Wohnung 131
-
-131.01	Korridor
-131.02	Bad
-131.03	Küche
-131.04	Wohnen
-131.05	Zimmer
-131.06	Zimmer
-
-Wohnung 132
-
-132.01	Korridor
-132.02	Bad
-132.03	Küche
-132.04	Wohnen
-132.05	Zimmer
-132.06	Zimmer
-
-Wohnung 133
-
-133.01	Korridor
-133.02	Bad
-133.03	Küche
-133.04	Wohnen
-133.05	Zimmer
-
-Wohnung 134
-
-134.01	Korridor
-134.02	Bad
-134.03	Küche
-134.04	Wohnen
-134.05	Zimmer
-
-OG 14
-
-Wohnung 141
-
-141.01	Korridor
-141.02	Bad
-141.03	Küche
-141.04	Wohnen
-141.05	Zimmer
-141.06	Zimmer
-
-Wohnung 142
-
-142.01	Korridor
-142.02	Bad
-142.03	Küche
-142.04	Wohnen
-142.05	Zimmer
-142.06	Zimmer
-
-Wohnung 143
-
-143.01	Korridor
-143.02	Bad
-143.03	Küche
-143.04	Wohnen
-143.05	Zimmer
-
-Wohnung 144
-
-144.01	Korridor
-144.02	Bad
-144.03	Küche
-144.04	Wohnen
-144.05	Zimmer
+,,121.01	Korridor
+,,121.02	Bad
+,,121.03	Küche
+,,121.04	Wohnen
+,,121.05	Zimmer
+,,121.06	Zimmer
+
+,Wohnung,122
+
+,,122.01	Korridor
+,,122.02	Bad
+,,122.03	Küche
+,,122.04	Wohnen
+,,122.05	Zimmer
+,,122.06	Zimmer
+
+,Wohnung,123
+
+,,123.01	Korridor
+,,123.02	Bad
+,,123.03	Küche
+,,123.04	Wohnen
+,,123.05	Zimmer
+
+,Wohnung,124
+
+,,124.01	Korridor
+,,124.02	Bad
+,,124.03	Küche
+,,124.04	Wohnen
+,,124.05	Zimmer
+
+OG,13
+
+,Wohnung,131
+
+,,131.01	Korridor
+,,131.02	Bad
+,,131.03	Küche
+,,131.04	Wohnen
+,,131.05	Zimmer
+,,131.06	Zimmer
+
+,Wohnung,132
+
+,,132.01	Korridor
+,,132.02	Bad
+,,132.03	Küche
+,,132.04	Wohnen
+,,132.05	Zimmer
+,,132.06	Zimmer
+
+,Wohnung,133
+
+,,133.01	Korridor
+,,133.02	Bad
+,,133.03	Küche
+,,133.04	Wohnen
+,,133.05	Zimmer
+
+,Wohnung,134
+
+,,134.01	Korridor
+,,134.02	Bad
+,,134.03	Küche
+,,134.04	Wohnen
+,,134.05	Zimmer
+
+OG,14
+
+,Wohnung,141
+
+,,141.01	Korridor
+,,141.02	Bad
+,,141.03	Küche
+,,141.04	Wohnen
+,,141.05	Zimmer
+,,141.06	Zimmer
+
+,Wohnung,142
+
+,,142.01	Korridor
+,,142.02	Bad
+,,142.03	Küche
+,,142.04	Wohnen
+,,142.05	Zimmer
+,,142.06	Zimmer
+
+,Wohnung,143
+
+,,143.01	Korridor
+,,143.02	Bad
+,,143.03	Küche
+,,143.04	Wohnen
+,,143.05	Zimmer
+
+,Wohnung,144
+
+,,144.01	Korridor
+,,144.02	Bad
+,,144.03	Küche
+,,144.04	Wohnen
+,,144.05	Zimmer
 
