@@ -121,17 +121,16 @@
                 mywert
                 mywerte_length)
 
-  (setq mylist (list '("wandvolumen" . 25) 
-                     '("wandbreite" . 5)
-                     '("wandhoehe" . 2.5)
+  (setq mylist (list '("wandvolumen" . "25") 
+                     '("wandbreite" . "5")
+                     '("wandhoehe" . "2.5")
                )
   )
 
   (setq myfile (open "c:\\Users\\m.labryga\\Documents\\acad\\myfile.txt" "w"))
 
   (foreach item mylist
-           (setq mywert (strcat (car item) "\t" (rtos (cdr item))))
-           (write-line mywert myfile)
+           (setq mywert (strcat (car item) (cdr item)))
+           (print mywert)
   )
-  (princ)
 )
