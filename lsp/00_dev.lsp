@@ -30,7 +30,9 @@
 
 (defun c:xxsa( / myblock
                  attribute
-                 mylist)
+                 mylist
+                 myfile
+                 mywert)
 
   (setq myblock (car(entsel)))
   (setq attribute (list "wandhoehe" 
@@ -43,8 +45,20 @@
   (foreach item attribute
     (setq mylist (append (list (list item (xsa myblock item))) mylist))
   )
-  (print mylist)
-  (princ)
+
+  (setq myfile 
+        (open "c:\\Users\\m.labryga\\Documents\\acad\\myfile.txt" "w"))
+
+  (foreach item mylist
+           (setq mywert (strcat 
+                          (car item) 
+                          "\t" 
+                          (cadr item)
+                        )
+           )
+
+           (write-line mywert myfile)
+  )
 )
 
 
