@@ -1,3 +1,4 @@
+; retrive block attributes
 (defun xsa(block_entity
              block_attribute_tag /
              block_attribute
@@ -20,18 +21,32 @@
            (strcase (cdr (assoc 2 entity_next)))
         )
         (progn
-          (print(cdr (assoc 1 entity_next)))
-          (princ)
+          (cdr (assoc 1 entity_next))
         )
         (xsa block_entity block_attribute_tag)
     )      
   )
 )
 
-(defun c:xxsa( / wert01)
-  (setq wert01 (car(entsel)))
-  (xsa wert01 "hoehe")
- )
+(defun c:xxsa( / myblock
+                 attribute
+                 mylist)
+
+  (setq myblock (car(entsel)))
+  (setq attribute (list "wandhoehe" 
+                        "wandbreite"
+                        "wandvolumen"
+                        "wandflaeche"
+                        "oeffnung_hoehe"
+                        "oeffnung_breite"))
+
+  (foreach item attribute
+    (setq mylist (append (list (list item (xsa myblock item))) mylist))
+  )
+  (print mylist)
+  (princ)
+)
+
 
 (defun c:setat(/ object_entitiy 
                  object_vla_entity
@@ -116,6 +131,7 @@
   (princ)
 )
 
+; writing lists to csv file
 (defun c:wtf( / mylist
                 myfile
                 mywert
@@ -127,10 +143,17 @@
                )
   )
 
-  (setq myfile (open "c:\\Users\\m.labryga\\Documents\\acad\\myfile.txt" "w"))
+  (setq myfile 
+        (open "c:\\Users\\m.labryga\\Documents\\acad\\myfile.txt" "w"))
 
   (foreach item mylist
-           (setq mywert (strcat (car item) "\t" (rtos (cdr item))))
+           (setq mywert (strcat 
+                          (car item) 
+                          "\t" 
+                          (rtos (cdr item))
+                        )
+           )
+
            (write-line mywert myfile)
   )
   (princ)
