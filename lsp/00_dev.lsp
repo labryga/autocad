@@ -4,7 +4,6 @@
              block_attribute
              entity_next)
   (if 
-
     (and 
       (setq block_entity (entnext block_entity))
       (= "ATTRIB" 
@@ -27,6 +26,8 @@
     )      
   )
 )
+
+
 
 (defun c:xxsa( / myblock
                  attribute
@@ -59,7 +60,6 @@
 
            (write-line mywert myfile)
   )
-  (princ)
 )
 
 (defun c:setat(/ object_entitiy 
