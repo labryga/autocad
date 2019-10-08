@@ -117,15 +117,11 @@
 )
 
 (defun c:wtf( / mylist
-                myfile
-                counter)
+                myfile)
 
-  (setq mylist (list "kueche" "wohnen" "bad"))
+  (setq mylist (list "wand" "fenster" "bad"))
   (setq myfile (open "c:\\Users\\m.labryga\\Documents\\acad\\myfile.txt" "w"))
-  (setq counter 0)
 
-  (repeat (length mylist)
-          (write-line (nth counter mylist))
-          (setq counter (1+ counter))
-  )
+  (foreach item mylist (write-line item myfile))
+
 )
