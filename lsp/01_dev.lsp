@@ -11,7 +11,14 @@
     )
  )
 
-(defun c:xda( / myblock)
-  (setq myblock (car (entsel)))
-  (nested_block myblock)
+(defun c:xda( / myitem
+                myitem_layer
+                myitems)
+  (setq myitem (entget (car (entsel))))
+  (setq myitem_layer (cdr (assoc 8 myitem)))
+  (print (type myitem_layer))
+  ; (setq myitems (ssget "X" '((8 . myitem_layer))
+  ;               )
+  ; )
+  ; (sslength myitems)
 )
