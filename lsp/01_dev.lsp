@@ -16,12 +16,12 @@
 (defun c:xda( / myitem
                 myitem_layer
                 myitems
-                counter)
+                counter
+                item
+                item_vla)
 
   (setq myitem (entget (car (entsel))))
   (setq myitem_layer (cdr (assoc 8 myitem)))
-  ; (print myitem_layer)
-  ; (princ)
   (setq myitems (ssget "x" (list (cons 8 myitem_layer))
                 )
   )
@@ -29,8 +29,13 @@
   (setq counter 0)
 
   (repeat (sslength myitems)
-    (print (ssname myitems counter))
+    (setq item (cdr (assoc -1 (entget (ssname myitems counter)))))
+    (setq item_vla (vlax-ename->vla-object item))
+    ; (print (* 0.000001 (vla-get-volume item_vla)))
+    (print (* 0.01 (vla-get-length item_vla)))
     (princ)
-    (1+ counter)
+    (setq counter (1+ counter))
+    (princ)
   )
+  (princ)
 )
