@@ -49,14 +49,16 @@
          "ATTRIB"
          (cdr (assoc 0 (setq entity_entget (entget entity))))
        )
-    )
-
-    (if 
        (= "BAUTEIL_NUMMER" (cdr (assoc 2 entity_entget)))
     )
-        (nested_block entity)
+
+    (progn
+      (entmod (subst (cons 1 888) (assoc 1 entity_entget)) entity_entget)
+      (entup entity)
+      (princ)
+    )
+    (get_attribute entity)
   )
-      (print "ende..")
 )
 
 (defun c:get_att()
