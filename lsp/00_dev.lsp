@@ -28,7 +28,6 @@
 )
 
 
-
 (defun c:xxsa( / myblock
                  attribute
                  mylist
@@ -149,7 +148,13 @@
 (defun c:wtf( / mylist
                 myfile
                 mywert
-                mywerte_length)
+                mywerte_length
+                counter
+                geschoss
+                geschoss_prefix
+                wohnung
+                wohnung_nummer
+                )
 
   (setq mylist (list '("wandvolumen" . 25) 
                      '("wandbreite" . 5)
@@ -162,16 +167,28 @@
         ; (open ".\\next.csv" "w")
         )
 
-  (foreach item mylist
-           (setq mywert (strcat 
-                          (car item) 
-                          "\t" 
-                          (rtos (cdr item))
-                        )
-           )
+  (setq counter 1)
+  (setq geschoss 1)
+  (setq wohnung_nummer 1)
 
-           (write-line mywert myfile)
+  (while (< geschoss 15)
+
+    (cond
+       ((= (strlen (itoa geschoss)) 1)
+        (setq geschoss_prefix (strcat "0" (itoa geschoss)))
+        )
+
+       ((= (strlen (itoa geschoss)) 2)
+        (setq geschoss_prefix (itoa geschoss))
+       )
+    )
+
+    (write-line geschoss_prefix myfile)
+
+    (setq geschoss (1+ geschoss))
+    (setq wohnung_nummer 1)
   )
+
   (close myfile)
   (princ)
 )
