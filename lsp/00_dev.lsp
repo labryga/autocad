@@ -187,9 +187,25 @@
 
     (while (< wohnung_nummer 5)
 
-           (while (< raum_nummer 7)
-                  (write-line (strcat geschoss_prefix (itoa wohnung_nummer) ".0" (itoa raum_nummer)) myfile)
-                  (setq raum_nummer (1+ raum_nummer))
+           (cond ((or (= wohnung_nummer 1) (= wohnung_nummer 2))
+                  (while (< raum_nummer 7)
+                          (write-line (strcat geschoss_prefix
+                                              (itoa wohnung_nummer)
+                                              "\t0"
+                                              (itoa raum_nummer)) myfile)
+                          (setq raum_nummer (1+ raum_nummer))
+                  )
+                 )
+
+           ((or (= wohnung_nummer 3) (= wohnung_nummer 4))
+                  (while (< raum_nummer 6)
+                          (write-line (strcat geschoss_prefix
+                                              (itoa wohnung_nummer)
+                                              "\t0"
+                                              (itoa raum_nummer)) myfile)
+                          (setq raum_nummer (1+ raum_nummer))
+                  )
+                 )
            )
 
            (setq raum_nummer 1)

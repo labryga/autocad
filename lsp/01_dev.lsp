@@ -3,7 +3,7 @@
   (if
       (setq entity (entnext entity))
       (progn
-        (foreach number (list 0 2 1 8)
+        (foreach number (list -1 0 2 1 8)
         (print (assoc number (entget entity)))
         (princ)
         )
@@ -19,7 +19,8 @@
                 myitems
                 counter
                 item
-                item_vla)
+                item_vla
+                entity)
 
   (setq myitem (entget (car (entsel))))
 
@@ -30,9 +31,31 @@
   )
 
   (repeat (sslength myitems)
-      (setq item (cdr (car (entget (ssname myitems counter)))))
-      (nested_block item)
-      (setq counter (1+ counter))
+    (setq entity (ssname myitems counter))
+
+    (defun get_attribute (cur_entity)
+      (if
+        (and
+           (setq entity (entnext entity))
+           (= 
+             "ATTRIB"
+             (cdr (assoc 0 (setq entity_entget (entget entity))))
+           )
+           (= "BAUTEIL_NUMMER" (cdr (assoc 2 entity_entget)))
+        )
+
+        (progn
+          (print "ja...")
+          (princ)
+        )
+
+        (get_attribute cur_entity)
+      )
+    )
+
+    (get_attribute entity)
+
+    (setq counter (1+ counter))
   )
 
   (princ)
@@ -53,10 +76,12 @@
     )
 
     (progn
-      (entmod (subst (cons 1 888) (assoc 1 entity_entget)) entity_entget)
-      (entup entity)
+      (setq entity_entget 
+            (subst (cons 1 "9999") (assoc 1 entity_entget) entity_entget))
+      (entmod entity_entget)
       (princ)
     )
+
     (get_attribute entity)
   )
 )
