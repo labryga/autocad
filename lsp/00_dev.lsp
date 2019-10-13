@@ -154,6 +154,7 @@
                 geschoss_prefix
                 wohnung
                 wohnung_nummer
+                raum_nummer
                 )
 
   (setq mylist (list '("wandvolumen" . 25) 
@@ -170,6 +171,7 @@
   (setq counter 1)
   (setq geschoss 1)
   (setq wohnung_nummer 1)
+  (setq raum_nummer 1)
 
   (while (< geschoss 15)
 
@@ -184,7 +186,13 @@
     )
 
     (while (< wohnung_nummer 5)
-           (write-line (strcat geschoss_prefix (itoa wohnung_nummer)) myfile)
+
+           (while (< raum_nummer 7)
+                  (write-line (strcat geschoss_prefix (itoa wohnung_nummer) ".0" (itoa raum_nummer)) myfile)
+                  (setq raum_nummer (1+ raum_nummer))
+           )
+
+           (setq raum_nummer 1)
            (setq wohnung_nummer (1+ wohnung_nummer))
     )
 
