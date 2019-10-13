@@ -10,7 +10,8 @@
   (defun get_next_item(block_item)
     (if block_item
         (progn
-          (print (setq block_item (entnext block_item)))
+          (setq block_item (entnext block_item))
+          (print (assoc 0 (entget block_item)))
           (get_next_item block_item)
         )
     )
