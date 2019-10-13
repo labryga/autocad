@@ -183,7 +183,11 @@
        )
     )
 
-    (write-line geschoss_prefix myfile)
+    (while (< wohnung_nummer 5)
+           (write-line (strcat geschoss_prefix (itoa wohnung_nummer)) myfile)
+           (setq wohnung_nummer (1+ wohnung_nummer))
+    )
+
 
     (setq geschoss (1+ geschoss))
     (setq wohnung_nummer 1)
