@@ -1,17 +1,23 @@
-(defun c:xfa( / object_entget
-                object_layer
-                block_entitiy
-                block_entitiy_entget
-                block_entity_vla)
+(defun c:xfa( / block_entitiy
+                block_entity_name
+                block_entity_hex)
 
-  (setq object_entget (car (entsel))
-        object_layer (cdr (assoc 2 (entget object_entget)))
-        block_entitiy (tblsearch "block" object_layer)
-        block_entitiy_entget (entget (cdr (assoc -2 block_entitiy)))
-        block_entity_vla (vlax-ename->vla-object 
-                           (cdr (assoc -1 block_entitiy_entget)))
+  (setq block_entitiy (car (entsel))
+        block_entity_name (cdr (assoc 2 (entget block_entitiy)))
+        block_entity_hex (tblobjname "block" block_entity_name)
   )
-  (print (vla-get-volume block_entity_vla))
+
+  (defun get_next_item(block_item)
+    (if block_item
+        (progn
+          (print (setq block_item (entnext block_item)))
+          (get_next_item block_item)
+        )
+    )
+  )
+
+  (get_next_item block_entity_hex)
+  ; (print (entget block_entity_hex))
   (princ)
 )
 
