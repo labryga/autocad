@@ -1,16 +1,18 @@
+(defun c:xfa( / object_entget
+                object_layer
+                block_entitiy
+                block_entitiy_entget
+                block_entity_vla)
 
-(defun nested_block(entity)
-  (if
-      (setq entity (entnext entity))
-      (progn
-        (foreach number (list -1 0 2 1 8)
-        (print (assoc number (entget entity)))
-        (princ)
-        )
-        (nested_block entity)
-      )
-      (print "ende..")
-    )
+  (setq object_entget (car (entsel))
+        object_layer (cdr (assoc 2 (entget object_entget)))
+        block_entitiy (tblsearch "block" object_layer)
+        block_entitiy_entget (entget (cdr (assoc -2 block_entitiy)))
+        block_entity_vla (vlax-ename->vla-object 
+                           (cdr (assoc -1 block_entitiy_entget)))
+  )
+  (print (vla-get-volume block_entity_vla))
+  (princ)
 )
 
 
@@ -33,28 +35,29 @@
   (repeat (sslength myitems)
     (setq entity (ssname myitems counter))
 
+
     (defun get_attribute (cur_entity)
       (if
-        (and
+        ; (and
            (setq entity (entnext entity))
-           (= 
-             "ATTRIB"
-             (cdr (assoc 0 (setq entity_entget (entget entity))))
-           )
-           (= "BAUTEIL_NUMMER" (cdr (assoc 2 entity_entget)))
-        )
+           ; (= 
+           ;   "ATTRIB"
+           ;   (cdr (assoc 0 (setq entity_entget (entget entity))))
+           ; )
+           ; (= "BAUTEIL_NUMMER" (cdr (assoc 2 entity_entget)))
+        ; )
 
         (progn
-          (print "ja...")
+          (print (assoc 0 entity_entget))
           (princ)
+          (get_attribute cur_entity)
         )
-
-        (get_attribute cur_entity)
       )
     )
 
-    (get_attribute entity)
 
+    (print entity)
+    (get_attribute entity)
     (setq counter (1+ counter))
   )
 
