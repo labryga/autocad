@@ -99,15 +99,15 @@
  )
 
 
-(defun c:get_attributes_of_insert( / insert_object_entitiy
-                                     insert_object_name
-                                     insert_block_name)
+(defun c:get_attributes_of_insert( / insert_entitiy
+                                     insert_name
+                                     block_name)
 
-  (setq insert_object_entitiy (car (entsel))
-        insert_object_name (cdr
+  (setq insert_entitiy (car (entsel))
+        insert_name (cdr
                            (assoc 2 
-                           (entget insert_object_entitiy)))
-        insert_block_name (tblobjname "block" insert_object_name)
+                           (entget insert_entitiy)))
+        block_name (tblobjname "block" insert_name)
   );setq
 
   (defun get_attribute (entity)
@@ -131,6 +131,7 @@
       (setq block_item (entnext block_item))
 
       (progn
+        (print (assoc 0 (entget block_item)))
         (print (assoc 2 (entget block_item)))
         (print (assoc 1 (entget block_item)))
         (princ)
@@ -139,11 +140,38 @@
     );if
   );defun
 
-  (print insert_object_name)
+  (print insert_name)
   (princ)
-  (get_block_entities insert_block_name)
-  (get_attribute insert_object_entitiy)
-  ; (print (assoc 0 (entget (entnext insert_block_name))))
+  (get_block_entities block_name)
+  ; (get_attribute insert_entitiy)
+  ; (print (assoc 0 (entget (entnext block_name))))
   (princ)
   
 );defun
+
+
+(defun my_length( / item
+                    item_vla)
+
+  (setq item (car (entsel))
+        item_vla (vlax-ename->vla-object item)
+  )
+
+  (print (* 0.0001 (vla-get-area item_vla)))
+  (print (* 0.01 (vla-get-length item_vla)))
+  (princ)
+
+);defun
+
+(defun set_attributes(/ items
+                        items_length
+                        counter)
+
+  (setq items (ssget "x")
+        items_length (sslength items)
+        counter 0
+  );setq
+
+  (command "-ATTDEF" "" att_name "" att_value (getpoint) "")
+);defun
+

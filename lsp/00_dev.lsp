@@ -66,7 +66,7 @@
                  att_name
                  att_value
                  att_point) 
-
+tt
   (setq att_name "volume")
   (setq object_entitiy (car (entsel)))
   (setq object_vla_entity (vlax-ename->vla-object object_entitiy))
