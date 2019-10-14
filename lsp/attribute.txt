@@ -1,0 +1,6 @@
+wandbreite
+wandhoehe
+wandstaerke
+wandflaeche
+wandumfang
+wandvolumen

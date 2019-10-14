@@ -119,6 +119,7 @@
 
       (progn
         (print (cdr (assoc 2 (entget entity))))
+        (print (cdr (assoc 1 (entget entity))))
         (princ)
         (get_attribute entity)
       )
@@ -130,14 +131,18 @@
       (setq block_item (entnext block_item))
 
       (progn
-        (print "ja...")
+        (print (assoc 2 (entget block_item)))
+        (print (assoc 1 (entget block_item)))
+        (princ)
         (get_block_entities block_item)
-      )
+      );progn
     );if
   );defun
 
+  (print insert_object_name)
+  (princ)
   (get_block_entities insert_block_name)
-  ; (get_attribute insert_object_entitiy)
+  (get_attribute insert_object_entitiy)
   ; (print (assoc 0 (entget (entnext insert_block_name))))
   (princ)
   
