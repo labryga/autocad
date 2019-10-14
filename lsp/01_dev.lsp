@@ -22,7 +22,6 @@
   (princ)
 )
 
-
 (defun c:xda( / myitem
                 myitem_layer
                 myitems
@@ -57,7 +56,7 @@
         );and
 
         (progn
-          (print (assoc 0 entity_entget))
+          (print (assoc 1 entity_entget))
           (princ)
           (get_attribute cur_entity)
         );progn
@@ -66,10 +65,10 @@
 
     (get_attribute entity)
     (setq counter (1+ counter))
-
     (princ)
-  );repeat
 
+  );repeat
+);defun
 
 (defun get_attribute(entity /
                      entity_entget)
@@ -98,3 +97,31 @@
 (defun c:get_att()
   (get_attribute (car (entsel)))
  )
+
+
+(defun c:get_attributes_of_insert( / insert_object_entitiy)
+
+  (setq insert_object_entitiy (car (entsel))
+  );setq
+
+  (defun get_attribute (entity)
+    (if
+
+      (and
+        (setq entity (entnext entity))
+        ; (= "ATTRIB" (cdr (assoc 0 (entget entity)))) 
+      );and
+
+      (progn
+        (print (cdr (assoc 2 (entget entity))))
+        (princ)
+        (get_attribute entity)
+      )
+
+    );if
+  );defun
+
+  (get_attribute insert_object_entitiy)
+  (princ)
+  
+);defun
