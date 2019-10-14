@@ -11,7 +11,7 @@
     (if block_item
         (progn
           (setq block_item (entnext block_item))
-          (print (assoc 0 (entget block_item)))
+          (print (assoc 2 (entget block_item)))
           (get_next_item block_item)
         )
     )
@@ -31,45 +31,44 @@
                 item_vla
                 entity)
 
-  (setq myitem (entget (car (entsel))))
+  
+  (setq myitem (entget (car (entsel)))
+        myitem_layer (cdr (assoc 8 myitem))
+        myitems (ssget "x" (list (cons 8 myitem_layer)))
+        counter 0 
+  );setq
 
-  (setq myitem_layer (cdr (assoc 8 myitem)))
 
-  (setq myitems (ssget "x" (list (cons 8 myitem_layer)))
-        counter 0
-  )
 
   (repeat (sslength myitems)
-    (setq entity (ssname myitems counter))
 
+    (setq entity (ssname myitems counter))
 
     (defun get_attribute (cur_entity)
       (if
-        ; (and
+        (and
            (setq entity (entnext entity))
-           ; (= 
-           ;   "ATTRIB"
-           ;   (cdr (assoc 0 (setq entity_entget (entget entity))))
+           (= 
+             "ATTRIB"
+             (cdr (assoc 0 (setq entity_entget (entget entity))))
            ; )
            ; (= "BAUTEIL_NUMMER" (cdr (assoc 2 entity_entget)))
-        ; )
+           )
+        );and
 
         (progn
           (print (assoc 0 entity_entget))
           (princ)
           (get_attribute cur_entity)
-        )
-      )
-    )
+        );progn
+      );if
+    );defun
 
-
-    (print entity)
     (get_attribute entity)
     (setq counter (1+ counter))
-  )
 
-  (princ)
-)
+    (princ)
+  );repeat
 
 
 (defun get_attribute(entity /
