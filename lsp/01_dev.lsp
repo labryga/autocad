@@ -172,6 +172,10 @@
         counter 0
   );setq
 
+  (while (counter > items_length)
+
+  );while
+
   (command "-ATTDEF" "" att_name "" att_value (getpoint) "")
 );defun
 
