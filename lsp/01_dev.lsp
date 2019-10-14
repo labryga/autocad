@@ -99,17 +99,22 @@
  )
 
 
-(defun c:get_attributes_of_insert( / insert_object_entitiy)
+(defun c:get_attributes_of_insert( / insert_object_entitiy
+                                     insert_object_name
+                                     insert_block_name)
 
   (setq insert_object_entitiy (car (entsel))
+        insert_object_name (cdr
+                           (assoc 2 
+                           (entget insert_object_entitiy)))
+        insert_block_name (tblobjname "block" insert_object_name)
   );setq
 
   (defun get_attribute (entity)
     (if
-
       (and
         (setq entity (entnext entity))
-        ; (= "ATTRIB" (cdr (assoc 0 (entget entity)))) 
+        (= "ATTRIB" (cdr (assoc 0 (entget entity)))) 
       );and
 
       (progn
@@ -117,11 +122,23 @@
         (princ)
         (get_attribute entity)
       )
-
     );if
   );defun
 
-  (get_attribute insert_object_entitiy)
+  (defun get_block_entities (block_item)
+    (if 
+      (setq block_item (entnext block_item))
+
+      (progn
+        (print "ja...")
+        (get_block_entities block_item)
+      )
+    );if
+  );defun
+
+  (get_block_entities insert_block_name)
+  ; (get_attribute insert_object_entitiy)
+  ; (print (assoc 0 (entget (entnext insert_block_name))))
   (princ)
   
 );defun
