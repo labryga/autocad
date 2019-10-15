@@ -215,7 +215,15 @@
         vla_block (vla-item vla_blocks insert_object_name)
   );setq
 
-  (print vla_block)
+  (vla-addattribute
+    (getvar 'textsize)
+    acattributemodelockposition
+    "bauteilnummer"
+    (vla-3D-point 0 0)
+    "bauteilnummer"
+    "bauteil 0000"
+  )
+
   (princ)
 
 );defun
