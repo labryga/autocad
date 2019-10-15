@@ -198,7 +198,22 @@
   (get_block_attribute insert_object)
 );defun
 
-(defun create_attribute (/ insert_object)
+(defun create_attribute (/ vla_acad_object
+                           vla_document
+                           vla_blocks
+                           insert_object_entity
+                           insert_object_entget
+                           insert_object_name)
 
+  (setq vla_acad_object (vlax-get-acad-object)
+        vla_document (vla-get-activedocument vla_acad_object)
+        vla_blocks (vla-get-blocks vla_document) 
+        insert_object_entity (car (entsel))
+        insert_object_entget (entget insert_object_entity)
+        insert_object_name (cdr (assoc 2 insert_object_entget))
+  )
+
+  (print insert_object_name)
+  (princ)
 
 );defun
