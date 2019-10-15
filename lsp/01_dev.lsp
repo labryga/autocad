@@ -216,12 +216,15 @@
   );setq
 
   (vla-addattribute
+    vla_block
     (getvar 'textsize)
     acattributemodelockposition
-    "bauteilnummer"
-    (vla-3D-point 0 0)
-    "bauteilnummer"
-    "bauteil 0000"
+    "wert_01"
+    (vlax-3D-point 0
+                   (* 1.5 (getvar 'textsize))
+                   0)
+    "wert_01"
+    "der wert 01"
   )
 
   (princ)
