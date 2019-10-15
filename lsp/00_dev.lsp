@@ -146,6 +146,7 @@ tt
 
 ; writing lists to csv file
 (defun c:wtf( / mylist
+
                 myfile
                 mywert
                 mywerte_length
@@ -168,7 +169,7 @@ tt
         ; (open ".\\next.csv" "w")
         )
 
-  (setq counter 1)
+(setq counter 1)
   (setq geschoss 1)
   (setq wohnung_nummer 1)
   (setq raum_nummer 1)

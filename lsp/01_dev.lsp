@@ -70,7 +70,7 @@
   );repeat
 );defun
 
-(defun get_attribute(entity /
+(defun set_attribute(entity /
                      entity_entget)
   (if
 
@@ -90,14 +90,13 @@
       (princ)
     )
 
-    (get_attribute entity)
+    (set_attribute entity)
   )
 )
 
 (defun c:get_att()
-  (get_attribute (car (entsel)))
+  (set_attribute (car (entsel)))
  )
-
 
 (defun c:get_attributes_of_insert( / insert_entitiy
                                      insert_name
@@ -149,7 +148,6 @@
   
 );defun
 
-
 (defun my_length( / item
                     item_vla)
 
@@ -178,4 +176,17 @@
 
   (command "-ATTDEF" "" att_name "" att_value (getpoint) "")
 );defun
+
+(defun get_block_attributes ( / insert_object)
+  (setq insert_object (car (entse)))
+
+  (defun get_block_attribute (insert_object)
+    (if
+      (and
+        (setq insert_object (entnext insert_object))
+        (= "ATTRIB" )
+      )
+    );if
+  );defun
+)
 
