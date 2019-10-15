@@ -241,11 +241,12 @@
 
         (cond
           ((= "3DSOLID" (cdr (assoc 0 block_entitiy_entget)))
-           (print (vla-get-volume block_entitiy_vla_object))
+           (print (* 0.000001 (vla-get-volume block_entitiy_vla_object)))
            (princ)
           )
           ((= "LWPOLYLINE" (cdr (assoc 0 block_entitiy_entget)))
-           (print (vla-get-length block_entitiy_vla_object))
+           (print (* 0.01 (vla-get-length block_entitiy_vla_object)))
+           (print (* 0.0001 (vla-get-area block_entitiy_vla_object)))
            (princ)
           )
         );cond
