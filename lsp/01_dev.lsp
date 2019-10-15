@@ -217,17 +217,6 @@
         object_types (list "3DSOLID" "DIMENSION" "LWPOLYLINE")
   );setq
 
-  ; (vla-addattribute
-  ;   vla_block
-  ;   (getvar 'textsize)
-  ;   acattributemodelockposition
-  ;   "wert_01"
-  ;   (vlax-3D-point 0
-  ;                  (* 1.5 (getvar 'textsize))
-  ;                  0)
-  ;   "wert_01"
-  ;   "der wert 01"
-  ; )
 
   (defun get_block_items (block_entitiy / block_entitiy_entget
                                           block_entitiy_vla_object)
@@ -240,21 +229,39 @@
         )
 
         (cond
+
           ((= "3DSOLID" (cdr (assoc 0 block_entitiy_entget)))
-           (print (* 0.000001 (vla-get-volume block_entitiy_vla_object)))
-           (princ)
-          )
+           ; (print (* 0.000001 (vla-get-volume block_entitiy_vla_object)))
+           (vla-addattribute
+             vla_block
+             (getvar 'textsize)
+             acattributemodelockposition
+             "wandvolumen"
+             (vlax-3D-point 0 0 0)
+             "wandvolumen"
+             (rtos (* 0.000001 (vla-get-volume block_entitiy_vla_object)) 2 2)
+           );vla-addattribute
+          );cond 01
+
           ((= "LWPOLYLINE" (cdr (assoc 0 block_entitiy_entget)))
-           (print (* 0.01 (vla-get-length block_entitiy_vla_object)))
-           (print (* 0.0001 (vla-get-area block_entitiy_vla_object)))
-           (princ)
-          )
+           ; (print (* 0.01 (vla-get-length block_entitiy_vla_object)))
+           (vla-addattribute
+             vla_block
+             (getvar 'textsize)
+             acattributemodelockposition
+             "wandflaeche"
+             (vlax-3D-point 0 (* 1.5 (getvar 'textsize)) 0)
+             "wandflaeche"
+             (rtos (* 0.0001 (vla-get-area block_entitiy_vla_object)) 2 2)
+           );vla-addattribute
+          );cond 02
+
         );cond
 
         (get_block_items block_entitiy)
-      )
-    );if
 
+      );progn
+    );if
   );defun
 
   (get_block_items block_entitiy)
