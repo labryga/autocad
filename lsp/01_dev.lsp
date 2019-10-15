@@ -203,7 +203,8 @@
                            vla_blocks
                            insert_object_entity
                            insert_object_entget
-                           insert_object_name)
+                           insert_object_name
+                           vla_block)
 
   (setq vla_acad_object (vlax-get-acad-object)
         vla_document (vla-get-activedocument vla_acad_object)
@@ -211,9 +212,10 @@
         insert_object_entity (car (entsel))
         insert_object_entget (entget insert_object_entity)
         insert_object_name (cdr (assoc 2 insert_object_entget))
-  )
+        vla_block (vla-item vla_blocks insert_object_name)
+  );setq
 
-  (print insert_object_name)
+  (print vla_block)
   (princ)
 
 );defun
