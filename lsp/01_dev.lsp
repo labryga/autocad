@@ -178,15 +178,27 @@
 );defun
 
 (defun get_block_attributes ( / insert_object)
-  (setq insert_object (car (entse)))
+  (setq insert_object (car (entsel)))
 
-  (defun get_block_attribute (insert_object)
+  (defun get_block_attribute (my_insert)
     (if
       (and
-        (setq insert_object (entnext insert_object))
-        (= "ATTRIB" )
+        (setq my_insert (entnext my_insert))
+        ; (= "ATTRIB" (cdr afone_lastschrift_28_06_2019ssoc 0 (entget my_insert))))
+      )
+
+      (progn
+       (print (assoc 2 (entget my_insert)))
+       (princ)
+       (get_block_attribute my_insert)
       )
     );if
   );defun
-)
 
+  (get_block_attribute insert_object)
+);defun
+
+(defun create_attribute (/ insert_object)
+
+
+);defun
