@@ -203,7 +203,8 @@
                            insert_object_entget
                            insert_object_name
                            vla_block
-                           block_entitiy)
+                           block_entitiy
+                           object_types)
 
   (setq vla_acad_object (vlax-get-acad-object)
         vla_document (vla-get-activedocument vla_acad_object)
@@ -213,6 +214,7 @@
         insert_object_name (cdr (assoc 2 insert_object_entget))
         vla_block (vla-item vla_blocks insert_object_name)
         block_entitiy (tblobjname "block" insert_object_name)
+        object_types (list "3DSOLID" "DIMENSION" "LWPOLYLINE")
   );setq
 
   ; (vla-addattribute
@@ -227,7 +229,34 @@
   ;   "der wert 01"
   ; )
 
-  (print block_entitiy)
+  (defun get_block_items (block_entitiy / block_entitiy_entget
+                                          block_entitiy_vla_object)
+    (if
+      (setq block_entitiy (entnext block_entitiy))
+
+      (progn
+        (setq block_entitiy_entget (entget block_entitiy)
+              block_entitiy_vla_object (vlax-ename->vla-object block_entitiy)
+        )
+
+        (cond
+          ((= "3DSOLID" (cdr (assoc 0 block_entitiy_entget)))
+           (print (vla-get-volume block_entitiy_vla_object))
+           (princ)
+          )
+          ((= "LWPOLYLINE" (cdr (assoc 0 block_entitiy_entget)))
+           (print (vla-get-length block_entitiy_vla_object))
+           (princ)
+          )
+        );cond
+
+        (get_block_items block_entitiy)
+      )
+    );if
+
+  );defun
+
+  (get_block_items block_entitiy)
   (princ)
 
 );defun
