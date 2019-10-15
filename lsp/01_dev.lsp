@@ -262,9 +262,29 @@
 
       );progn
     );if
-  );defun
+
+    (command "_.attsync" "_N" insert_object_name)
+  );defun get_block_items 
 
   (get_block_items block_entitiy)
-  (princ)
+
+  (defun get_insert_attributes (insert_object_entity / insert_object_entget)
+    (if
+      (setq insert_object_entity (entnext insert_object_entity))
+
+      (progn
+        (setq insert_object_entget (entget insert_object_entity))
+        (if
+          (= "ATTRIB" (cdr (assoc 0 insert_object_entget)))
+          (print "ja....")
+        );if
+        (get_insert_attributes insert_object_entity)
+      );progn
+
+    );if
+  );defun
+
+  (get_insert_attributes insert_object_entity)
 
 );defun
+
