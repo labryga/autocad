@@ -187,6 +187,7 @@
 
       (progn
        (print (assoc 2 (entget my_insert)))
+       (print (assoc 1 (entget my_insert)))
        (princ)
        (get_block_attribute my_insert)
       )
@@ -198,6 +199,7 @@
 
 (defun create_attribute (/ vla_acad_object
                            vla_document
+                           vla_model_space
                            vla_blocks
                            insert_object_entity
                            insert_object_entget
@@ -208,6 +210,7 @@
 
   (setq vla_acad_object (vlax-get-acad-object)
         vla_document (vla-get-activedocument vla_acad_object)
+        vla_model_space (vla-get-modelspace vla_document)
         vla_blocks (vla-get-blocks vla_document) 
         insert_object_entity (car (entsel))
         insert_object_entget (entget insert_object_entity)
@@ -276,7 +279,26 @@
         (setq insert_object_entget (entget insert_object_entity))
         (if
           (= "ATTRIB" (cdr (assoc 0 insert_object_entget)))
-          (print "ja....")
+          (progn
+            (vla-addattribute
+               vla_model_space
+               (getvar 'textsize)
+               acattributemodelockposition
+               (strcat 
+                 insert_object_name 
+                 "__"
+                 (cdr (assoc 2 insert_object_entget))
+               )
+               (vlax-3D-point 0 (* 1.5 (getvar 'textsize)) 0)
+               (strcat 
+                 insert_object_name 
+                 "__"
+                 (cdr (assoc 2 insert_object_entget))
+                 "__"
+               )
+               (cdr (assoc 1 insert_object_entget))
+            );vla-addattribute
+          );progn
         );if
         (get_insert_attributes insert_object_entity)
       );progn
