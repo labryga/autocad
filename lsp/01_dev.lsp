@@ -37,8 +37,6 @@
         counter 0 
   );setq
 
-
-
   (repeat (sslength myitems)
 
     (setq entity (ssname myitems counter))
@@ -204,7 +202,8 @@
                            insert_object_entity
                            insert_object_entget
                            insert_object_name
-                           vla_block)
+                           vla_block
+                           block_entitiy)
 
   (setq vla_acad_object (vlax-get-acad-object)
         vla_document (vla-get-activedocument vla_acad_object)
@@ -213,20 +212,22 @@
         insert_object_entget (entget insert_object_entity)
         insert_object_name (cdr (assoc 2 insert_object_entget))
         vla_block (vla-item vla_blocks insert_object_name)
+        block_entitiy (tblobjname "block" insert_object_name)
   );setq
 
-  (vla-addattribute
-    vla_block
-    (getvar 'textsize)
-    acattributemodelockposition
-    "wert_01"
-    (vlax-3D-point 0
-                   (* 1.5 (getvar 'textsize))
-                   0)
-    "wert_01"
-    "der wert 01"
-  )
+  ; (vla-addattribute
+  ;   vla_block
+  ;   (getvar 'textsize)
+  ;   acattributemodelockposition
+  ;   "wert_01"
+  ;   (vlax-3D-point 0
+  ;                  (* 1.5 (getvar 'textsize))
+  ;                  0)
+  ;   "wert_01"
+  ;   "der wert 01"
+  ; )
 
+  (print block_entitiy)
   (princ)
 
 );defun
