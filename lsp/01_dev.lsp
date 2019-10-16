@@ -310,6 +310,7 @@
 
 );defun
 
+
 (defun delete_attributes (/ vla_acad_object
                             vla_document
                             vla_model_space
@@ -318,7 +319,8 @@
                             block_entity
                             block_entity_entget
                             block_vla_object
-                            block_vla_object_convert)
+                            block_vla_object_convert
+                            attdef_list)
 
   (setq vla_acad_object          (vlax-get-acad-object)
         vla_document             (vla-get-activedocument vla_acad_object)
@@ -326,18 +328,29 @@
         insert_entitiy           (car (entsel))
         block_name               (cdr (assoc 2 (entget insert_entitiy)))
         block_entity             (tblobjname "block" block_name)
-        block_entity_entget      (entget block_entity)
         block_vla_object         (vla-item (vla-get-blocks vla_document) block_name)
         block_vla_object_convert (vlax-ename->vla-object block_entity)
   )
 
   (while block_entity
-
+    (setq block_entity_entget (entget block_entity))
+    (if
+      (= "ATTDEF" (cdr (assoc 0 block_entity_entget)))
+      (progn
+        (setq attdef_list (cons (vlax-ename->vla-object block_entity) attdef_list))
+      )
+    )
+    (setq block_entity (entnext block_entity))
   )
 
+  (foreach item attdef_list
+           (vla-delete item)
+  )
+  ; (command "_.attsync" "_N" block_entity)
   (princ)
 
 );defun delete_attributes
+
 
 (defun del_my_attdef ( / insert_object
                          block_name
