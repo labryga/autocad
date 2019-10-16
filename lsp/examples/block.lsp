@@ -57,3 +57,53 @@
 )
 (vl-load-com) (princ)
 defun;defun
+
+
+
+;;; Command to delete an attribute from a block
+(defun c:ATTDEL (/ blkname attname bn bd en ed attlst)
+  ;; Ask user for block name
+  (setq blkname (getstring "\nEnter the block's name: "))
+  ;; Check if block exists
+  (if (setq bn (tblobjname "BLOCK" blkname))
+    (progn
+      ;; Get list of attributes
+      (setq bd     (entget bn) ;Block def's data
+            en     (cdr (assoc -2 bd)) ;1st entity insie block
+            attlst nil ;Initialize list to empty
+      ) ;_ end of setq
+      (while en ;Step through all entities in block
+        (setq ed (entget en)) ;Get entity's data
+        ;; Check if entity is an attribute definition
+        (if (= "ATTDEF" (cdr (assoc 0 ed)))
+          ;; Add to list of attributes
+          (setq attlst (cons (cons (strcase (cdr (assoc 2 ed))) (vlax-ename->vla-object en)) attlst))
+        ) ;_ end of if
+        (setq en (entnext en)) ;Get next entity
+      ) ;_ end of while
+
+      ;; Ask user for attribute tag name
+      (setq attname (getstring "\nEnter the attribute Tag Name: "))
+      ;; Check if attribute exists
+      (if (setq en (assoc (strcase attname) attlst))
+        (progn
+          (setq ed (cdr en)) ;Get the VLA object of the attribute
+          (vla-Delete ed)
+          (princ
+            "\nAttribute successfully deleted from block definition.\nSynchronizing block references ..."
+          ) ;_ end of princ
+          (command "_.ATTSYNC" "_Name" blkname)
+        ) ;_ end of progn
+        (princ "\nThat Attribute doesn't exist in this drawing. Exiting ...")
+      ) ;_ end of if
+    ) ;_ end of progn
+    (princ "\nThat Block doesn't exist in this drawing. Exiting ...")
+  ) ;_ end of if
+  (princ)
+) ;_ end of defun
+
+
+
+
+
+

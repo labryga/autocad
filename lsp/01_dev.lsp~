@@ -319,13 +319,13 @@
                             block_vla_object
                             block_vla_object_convert)
 
-  (setq vla_acad_object          (vlax-get-acad-object)
-        vla_document             (vla-get-activedocument vla_acad_object)
-        vla_model_space          (vla-get-modelspace vla_document)
-        insert_entitiy           (car (entsel))
-        block_name               (cdr (assoc 2 (entget insert_entitiy)))
-        block_entity             (tblobjname "block" block_name)
-        block_vla_object         (vla-item (vla-get-blocks vla_document) block_name)
+  (setq vla_acad_object (vlax-get-acad-object)
+        vla_document (vla-get-activedocument vla_acad_object)
+        vla_model_space (vla-get-modelspace vla_document)
+        insert_entitiy (car (entsel))
+        block_name (cdr (assoc 2 (entget insert_entitiy)))
+        block_entity (tblobjname "block" block_name)
+        block_vla_object (vla-item (vla-get-blocks vla_document) block_name)
         block_vla_object_convert (vlax-ename->vla-object block_entity)
   )
 
@@ -366,9 +366,16 @@
                          block_entity)
 
   (setq insert_object (car (entsel))
-        block_name    (cdr (assoc 2 (entget insert_object)))
-        block_entity  (tblobjname "block" block_name)
+        block_name (cdr (assoc 2 (entget insert_object)))
+        block_entity (tblobjname "block" block_name)
   )
 
-  (print (entget block_entity))
+  (if
+    (setq block_entity (entnext block_entity))
+    (progn
+     (print (assoc 330 (entget block_entity)))
+     (princ)
+     (entdel block_entity)
+    )
+  )
 )
