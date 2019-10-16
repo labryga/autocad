@@ -197,7 +197,7 @@
   (get_block_attribute insert_object)
 );defun
 
-(defun create_attribute (/ vla_acad_object
+(defun create_attributes (/ vla_acad_object
                            vla_document
                            vla_model_space
                            vla_blocks
@@ -206,7 +206,8 @@
                            insert_object_name
                            vla_block
                            block_entitiy
-                           object_types)
+                           object_types
+                           attribute_y_position)
 
   (setq vla_acad_object       (vlax-get-acad-object)
         vla_document          (vla-get-activedocument vla_acad_object)
@@ -218,11 +219,12 @@
         vla_block             (vla-item vla_blocks insert_object_name)
         block_entitiy         (tblobjname "block" insert_object_name)
         object_types          (list "3DSOLID" "DIMENSION" "LWPOLYLINE")
+        attribute_y_position  (getvar 'textsize)
   );setq
 
 
   (defun set_block_attributes (block_entitiy / block_entitiy_entget
-                                          block_entitiy_vla_object)
+                                               block_entitiy_vla_object)
     (if
       (setq block_entitiy (entnext block_entitiy))
 
@@ -234,24 +236,26 @@
         (cond
 
           ((= "3DSOLID" (cdr (assoc 0 block_entitiy_entget)))
+           (setq attribute_y_position (+ (* 1.5 (getvar 'textsize)) attribute_y_position))
            (vla-addattribute
              vla_block
              (getvar 'textsize)
              acattributemodelockposition
              "wandvolumen"
-             (vlax-3D-point 0 0 0)
+             (vlax-3D-point 0 attribute_y_position 0)
              "wandvolumen"
              (rtos (* 0.000001 (vla-get-volume block_entitiy_vla_object)) 2 2)
            );vla-addattribute
           );cond 01
 
           ((= "LWPOLYLINE" (cdr (assoc 0 block_entitiy_entget)))
+           (setq attribute_y_position (+ (* 1.5 (getvar 'textsize)) attribute_y_position))
            (vla-addattribute
              vla_block
              (getvar 'textsize)
              acattributemodelockposition
              "wandflaeche"
-             (vlax-3D-point 0 (* 1.5 (getvar 'textsize)) 0)
+             (vlax-3D-point 0 attribute_y_position 0)
              "wandflaeche"
              (rtos (* 0.0001 (vla-get-area block_entitiy_vla_object)) 2 2)
            );vla-addattribute
@@ -269,7 +273,7 @@
 
   (set_block_attributes block_entitiy)
 
-  (defun get_insert_attributes (insert_object_entity / insert_object_entget)
+  (defun set_insert_attributes (insert_object_entity / insert_object_entget)
     (if
       (setq insert_object_entity (entnext insert_object_entity))
 
@@ -278,33 +282,32 @@
         (if
           (= "ATTRIB" (cdr (assoc 0 insert_object_entget)))
           (progn
+            (setq attribute_y_position (+ (* 1.5 (getvar 'textsize)) attribute_y_position))
             (vla-addattribute
                vla_model_space
                (getvar 'textsize)
                acattributemodelockposition
                (strcat 
                  insert_object_name 
-                 "__"
+                 "_"
                  (cdr (assoc 2 insert_object_entget))
                )
-               (vlax-3D-point 0 (* 1.5 (getvar 'textsize)) 0)
+               (vlax-3D-point 0 attribute_y_position 0)
                (strcat 
                  insert_object_name 
-                 "__"
                  (cdr (assoc 2 insert_object_entget))
-                 "__"
                )
                (cdr (assoc 1 insert_object_entget))
             );vla-addattribute
           );progn
         );if
-        (get_insert_attributes insert_object_entity)
+        (set_insert_attributes insert_object_entity)
       );progn
 
     );if
   );defun
 
-  (get_insert_attributes insert_object_entity)
+  (set_insert_attributes insert_object_entity)
 
 );defun create_attribute
 
