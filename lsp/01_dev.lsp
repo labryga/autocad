@@ -283,24 +283,32 @@
 
 
 (defun set_insert_attributes ( / insert_entity
-                                 block_name)
+                                 insert_attribute
+                                 block_name
+                                 model_space)
 
-  (setq insert_entity (car (entsel))
-        block_name (entnext insert_entity)
+  (setq insert_entity    (car (entsel))
+        block_name       (cdr (assoc 2 (entget insert_entitiy)))
+        insert_attribute (entnext insert_entity)
+        model_space      (get-modelspace (vla-get-activedocument (vlax-get-acad-object)))
   )
 
-  (if
+  (while 
     (and
-      (setq insert_entity (entnext insert_entity))
-      (= "ATTRIB" (cdr (assoc 0 (entget insert_entity))))
+      insert_attribute
+      (= "ATTRIB" (cdr (assoc 0 (entget insert_attribute))))
     )
-
-    (progn
-     (print "ja...")
-     (princ)
-     (set_insert_attributes)
+    (vla-addattribute
+      model_space
+      (getvar 'textsize)
+      acattributemodelockposition
+      ""
+      (vlax-3D-point 0 0 0)
+      (cdr (assoc 2 (entget insert_attribute)))
+      (cdr (assoc 1 (entget insert_attribute)))
     )
-  )
+    (setq insert_attribute (entnext insert_attribute))
+  )  
 
 );defun
 
