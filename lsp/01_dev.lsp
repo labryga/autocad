@@ -241,7 +241,7 @@
              vla_block
              (getvar 'textsize)
              acattributemodelockposition
-             "wandvolumen"
+             ""
              (vlax-3D-point 0 attribute_y_position 0)
              "wandvolumen"
              (rtos (* 0.000001 (vla-get-volume block_entitiy_vla_object)) 2 2)
@@ -254,7 +254,7 @@
              vla_block
              (getvar 'textsize)
              acattributemodelockposition
-             "wandflaeche"
+             ""
              (vlax-3D-point 0 attribute_y_position 0)
              "wandflaeche"
              (rtos (* 0.0001 (vla-get-area block_entitiy_vla_object)) 2 2)
@@ -273,6 +273,7 @@
 
   (set_block_attributes block_entitiy)
 
+
   (defun set_insert_attributes (insert_object_entity / insert_object_entget)
     (if
       (setq insert_object_entity (entnext insert_object_entity))
@@ -287,14 +288,11 @@
                vla_model_space
                (getvar 'textsize)
                acattributemodelockposition
-               (strcat 
-                 insert_object_name 
-                 "_"
-                 (cdr (assoc 2 insert_object_entget))
-               )
+               ""
                (vlax-3D-point 0 attribute_y_position 0)
                (strcat 
                  insert_object_name 
+                 "__"
                  (cdr (assoc 2 insert_object_entget))
                )
                (cdr (assoc 1 insert_object_entget))
@@ -310,7 +308,6 @@
   (set_insert_attributes insert_object_entity)
 
 );defun create_attribute
-
 
 (defun delete_attributes (/ vla_acad_object
                             vla_document
@@ -351,7 +348,6 @@
   (princ)
 
 );defun delete_attributes
-
 
 (defun del_my_attdef ( / insert_object
                          block_name
