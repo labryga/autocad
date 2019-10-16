@@ -316,6 +316,7 @@
                             insert_entitiy
                             block_name
                             block_entity
+                            block_entity_entget
                             block_vla_object
                             block_vla_object_convert)
 
@@ -325,38 +326,15 @@
         insert_entitiy           (car (entsel))
         block_name               (cdr (assoc 2 (entget insert_entitiy)))
         block_entity             (tblobjname "block" block_name)
+        block_entity_entget      (entget block_entity)
         block_vla_object         (vla-item (vla-get-blocks vla_document) block_name)
         block_vla_object_convert (vlax-ename->vla-object block_entity)
   )
 
-  (defun get_block_items (block_entity / 
-                          block_entity_entget)
-    (if
-      (setq block_entity (entnext block_entity))
-      (progn
-        (setq block_entity_entget (entget block_entity))
-        (if
-          (= "ATTDEF" (cdr (assoc 0 block_entity_entget)))
-          (progn
-           (print block_entity_entget)
-           (print block_entity)
-           (princ)
-          );progn
-        )
-        (get_block_items block_entity)
-      );progn
-    );if
-  );defun
+  (while block_entity
 
-  (get_block_items block_entity)
-  ; (command "_.attsync" "_N" block_name)
+  )
 
-  ; (mapcar 'print (list block_name
-  ;                      block_entity
-  ;                      block_vla_object
-  ;                      block_vla_object_convert)
-  ; )
-  (print block_entity)
   (princ)
 
 );defun delete_attributes
