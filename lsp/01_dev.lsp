@@ -208,20 +208,20 @@
                            block_entitiy
                            object_types)
 
-  (setq vla_acad_object (vlax-get-acad-object)
-        vla_document (vla-get-activedocument vla_acad_object)
-        vla_model_space (vla-get-modelspace vla_document)
-        vla_blocks (vla-get-blocks vla_document) 
-        insert_object_entity (car (entsel))
-        insert_object_entget (entget insert_object_entity)
-        insert_object_name (cdr (assoc 2 insert_object_entget))
-        vla_block (vla-item vla_blocks insert_object_name)
-        block_entitiy (tblobjname "block" insert_object_name)
-        object_types (list "3DSOLID" "DIMENSION" "LWPOLYLINE")
+  (setq vla_acad_object       (vlax-get-acad-object)
+        vla_document          (vla-get-activedocument vla_acad_object)
+        vla_model_space       (vla-get-modelspace vla_document)
+        vla_blocks            (vla-get-blocks vla_document) 
+        insert_object_entity  (car (entsel))
+        insert_object_entget  (entget insert_object_entity)
+        insert_object_name    (cdr (assoc 2 insert_object_entget))
+        vla_block             (vla-item vla_blocks insert_object_name)
+        block_entitiy         (tblobjname "block" insert_object_name)
+        object_types          (list "3DSOLID" "DIMENSION" "LWPOLYLINE")
   );setq
 
 
-  (defun get_block_items (block_entitiy / block_entitiy_entget
+  (defun set_block_attributes (block_entitiy / block_entitiy_entget
                                           block_entitiy_vla_object)
     (if
       (setq block_entitiy (entnext block_entitiy))
@@ -234,7 +234,6 @@
         (cond
 
           ((= "3DSOLID" (cdr (assoc 0 block_entitiy_entget)))
-           ; (print (* 0.000001 (vla-get-volume block_entitiy_vla_object)))
            (vla-addattribute
              vla_block
              (getvar 'textsize)
@@ -247,7 +246,6 @@
           );cond 01
 
           ((= "LWPOLYLINE" (cdr (assoc 0 block_entitiy_entget)))
-           ; (print (* 0.01 (vla-get-length block_entitiy_vla_object)))
            (vla-addattribute
              vla_block
              (getvar 'textsize)
@@ -261,15 +259,15 @@
 
         );cond
 
-        (get_block_items block_entitiy)
+        (set_block_attributes block_entitiy)
 
       );progn
     );if
 
     (command "_.attsync" "_N" insert_object_name)
-  );defun get_block_items 
+  );defun set_block_attributes 
 
-  (get_block_items block_entitiy)
+  (set_block_attributes block_entitiy)
 
   (defun get_insert_attributes (insert_object_entity / insert_object_entget)
     (if
@@ -308,7 +306,7 @@
 
   (get_insert_attributes insert_object_entity)
 
-);defun
+);defun create_attribute
 
 
 (defun delete_attributes (/ vla_acad_object
