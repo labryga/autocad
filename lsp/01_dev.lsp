@@ -223,14 +223,14 @@
   );setq
 
 
-  (defun set_block_attributes (block_entitiy / block_entitiy_entget
+  (defun set_block_attributes (item_entity / block_entitiy_entget
                                                block_entitiy_vla_object)
     (if
-      (setq block_entitiy (entnext block_entitiy))
+      (setq item_entity (entnext item_entity))
 
       (progn
-        (setq block_entitiy_entget (entget block_entitiy)
-              block_entitiy_vla_object (vlax-ename->vla-object block_entitiy)
+        (setq block_entitiy_entget (entget item_entity)
+              block_entitiy_vla_object (vlax-ename->vla-object item_entity)
         )
 
         (cond
@@ -263,7 +263,7 @@
 
         );cond
 
-        (set_block_attributes block_entitiy)
+        (set_block_attributes item_entity)
 
       );progn
     );if
@@ -274,40 +274,49 @@
   (set_block_attributes block_entitiy)
 
 
-  (defun set_insert_attributes (insert_object_entity / insert_object_entget)
-    (if
-      (setq insert_object_entity (entnext insert_object_entity))
 
-      (progn
-        (setq insert_object_entget (entget insert_object_entity))
-        (if
-          (= "ATTRIB" (cdr (assoc 0 insert_object_entget)))
-          (progn
-            (setq attribute_y_position (+ (* 1.5 (getvar 'textsize)) attribute_y_position))
-            (vla-addattribute
-               vla_model_space
-               (getvar 'textsize)
-               acattributemodelockposition
-               ""
-               (vlax-3D-point 0 attribute_y_position 0)
-               (strcat 
-                 insert_object_name 
-                 "__"
-                 (cdr (assoc 2 insert_object_entget))
-               )
-               (cdr (assoc 1 insert_object_entget))
-            );vla-addattribute
-          );progn
-        );if
-        (set_insert_attributes insert_object_entity)
-      );progn
-
-    );if
-  );defun
-
-  (set_insert_attributes insert_object_entity)
+  ; (set_insert_attributes insert_object_entity)
 
 );defun create_attribute
+
+
+(defun set_insert_attributes ( / insert_entity
+                                 insert_object_entget
+                                 attribute_y_position)
+
+  (setq insert_entitiy       (car (entsel))
+        attribute_y_position 0
+  )
+
+  (if
+    (setq insert_entity (entnext insert_entity))
+
+    (progn
+      (setq insert_object_entget (entget insert_entity))
+      (if
+        (= "ATTRIB" (cdr (assoc 0 insert_object_entget)))
+        (progn
+          (setq attribute_y_position (+ (* 1.5 (getvar 'textsize)) attribute_y_position))
+          (vla-addattribute
+             vla_model_space
+             (getvar 'textsize)
+             acattributemodelockposition
+             ""
+             (vlax-3D-point 0 attribute_y_position 0)
+             (strcat 
+               insert_object_name 
+               "__"
+               (cdr (assoc 2 insert_object_entget))
+             )
+             (cdr (assoc 1 insert_object_entget))
+          );vla-addattribute
+        );progn
+      );if
+      (set_insert_attributes)
+    );progn
+  );if
+);defun
+
 
 (defun delete_attributes (/ vla_acad_object
                             vla_document
