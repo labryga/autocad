@@ -288,9 +288,9 @@
                                  model_space)
 
   (setq insert_entity    (car (entsel))
-        block_name       (cdr (assoc 2 (entget insert_entitiy)))
+        block_name       (cdr (assoc 2 (entget insert_entity)))
         insert_attribute (entnext insert_entity)
-        model_space      (get-modelspace (vla-get-activedocument (vlax-get-acad-object)))
+        model_space      (vla-get-modelspace (vla-get-activedocument (vlax-get-acad-object)))
   )
 
   (while 
@@ -304,9 +304,12 @@
       acattributemodelockposition
       ""
       (vlax-3D-point 0 0 0)
-      (cdr (assoc 2 (entget insert_attribute)))
+      (strcat block_name "__" (cdr (assoc 2 (entget insert_attribute))))
       (cdr (assoc 1 (entget insert_attribute)))
     )
+    (print (assoc 2 (entget insert_attribute)))
+    (print block_name)
+    (princ)
     (setq insert_attribute (entnext insert_attribute))
   )  
 
