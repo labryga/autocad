@@ -7,6 +7,7 @@
 !.gitignore
 *.swp
 *.dfs
+*.~$
 dev*.lsp
 .DS_Store
 doc.lsp
