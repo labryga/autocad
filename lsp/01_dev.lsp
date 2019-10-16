@@ -123,6 +123,9 @@
     );if
   );defun
 
+  (get_attribute insert_entitiy)
+
+
   (defun get_block_entities (block_item)
     (if 
       (setq block_item (entnext block_item))
@@ -139,8 +142,7 @@
 
   (print insert_name)
   (princ)
-  (get_block_entities block_name)
-  ; (get_attribute insert_entitiy)
+  ; (get_block_entities block_name)
   ; (print (assoc 0 (entget (entnext block_name))))
   (princ)
   
@@ -281,40 +283,25 @@
 
 
 (defun set_insert_attributes ( / insert_entity
-                                 insert_object_entget
-                                 attribute_y_position)
+                                 block_name)
 
-  (setq insert_entitiy       (car (entsel))
-        attribute_y_position 0
+  (setq insert_entity (car (entsel))
+        block_name (entnext insert_entity)
   )
 
   (if
-    (setq insert_entity (entnext insert_entity))
+    (and
+      (setq insert_entity (entnext insert_entity))
+      (= "ATTRIB" (cdr (assoc 0 (entget insert_entity))))
+    )
 
     (progn
-      (setq insert_object_entget (entget insert_entity))
-      (if
-        (= "ATTRIB" (cdr (assoc 0 insert_object_entget)))
-        (progn
-          (setq attribute_y_position (+ (* 1.5 (getvar 'textsize)) attribute_y_position))
-          (vla-addattribute
-             vla_model_space
-             (getvar 'textsize)
-             acattributemodelockposition
-             ""
-             (vlax-3D-point 0 attribute_y_position 0)
-             (strcat 
-               insert_object_name 
-               "__"
-               (cdr (assoc 2 insert_object_entget))
-             )
-             (cdr (assoc 1 insert_object_entget))
-          );vla-addattribute
-        );progn
-      );if
-      (set_insert_attributes)
-    );progn
-  );if
+     (print "ja...")
+     (princ)
+     (set_insert_attributes)
+    )
+  )
+
 );defun
 
 
