@@ -248,7 +248,7 @@
              "wandvolumen"
              (rtos (* 0.000001 (vla-get-volume block_entitiy_vla_object)) 2 2)
            );vla-addattribute
-          );cond 01
+          );cond 3DSOLID
 
           ((= "LWPOLYLINE" (cdr (assoc 0 block_entitiy_entget)))
            (setq attribute_y_position (+ (* 1.5 (getvar 'textsize)) attribute_y_position))
@@ -261,7 +261,7 @@
              "wandflaeche"
              (rtos (* 0.0001 (vla-get-area block_entitiy_vla_object)) 2 2)
            );vla-addattribute
-          );cond 02
+          );cond LWPOLYLINE
 
         );cond
 
@@ -314,7 +314,6 @@
   )  
 
 );defun
-
 
 (defun delete_attributes (/ vla_acad_object
                             vla_document
