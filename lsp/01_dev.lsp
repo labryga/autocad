@@ -275,12 +275,9 @@
 
   (set_block_attributes block_entitiy)
 
-
-
   ; (set_insert_attributes insert_object_entity)
 
 );defun create_attribute
-
 
 (defun set_insert_attributes ( / insert_entity
                                  insert_attribute
@@ -307,9 +304,9 @@
       (strcat block_name "__" (cdr (assoc 2 (entget insert_attribute))))
       (cdr (assoc 1 (entget insert_attribute)))
     )
-    (print (assoc 2 (entget insert_attribute)))
-    (print block_name)
-    (princ)
+    ; (print (assoc 2 (entget insert_attribute)))
+    ; (print block_name)
+    ; (princ)
     (setq insert_attribute (entnext insert_attribute))
   )  
 
