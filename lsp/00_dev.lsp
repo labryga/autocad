@@ -169,7 +169,7 @@ tt
         ; (open ".\\next.csv" "w")
         )
 
-(setq counter 1)
+  (setq counter 1)
   (setq geschoss 1)
   (setq wohnung_nummer 1)
   (setq raum_nummer 1)
@@ -198,7 +198,7 @@ tt
                   )
                  )
 
-           ((or (= wohnung_nummer 3) (= wohnung_nummer 4))
+                 ((or (= wohnung_nummer 3) (= wohnung_nummer 4))
                   (while (< raum_nummer 6)
                           (write-line (strcat geschoss_prefix
                                               (itoa wohnung_nummer)
