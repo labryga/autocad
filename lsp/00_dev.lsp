@@ -211,7 +211,7 @@ tt
 
            (setq raum_nummer 1)
            (setq wohnung_nummer (1+ wohnung_nummer))
-    )
+    );while
 
 
     (setq geschoss (1+ geschoss))
