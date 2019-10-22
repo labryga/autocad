@@ -154,16 +154,26 @@ tt
                 geschoss_prefix
                 wohnung
                 wohnung_nummer
-                raum_nummer)
+                raum_nummer
+                wohnung_typ_2
+                raum_06
+                wohnung_typ_1)
 
-  (setq mylist (list '("wandvolumen" . 25) 
-                     '("wandbreite" . 5)
-                     '("wandhoehe" . 2.5)
-               )
+  (setq wohnung_typ_2 (list
+                        (list "Korridor" 01)
+                        (list "Bad" 02)
+                        (list "Kueche" 03)
+                        (list "Wohnen" 04)
+                        (list "Zimmer" 05)
+                      )
+       raum_06 (list (list "zimmer" 06))
+       wohnung_typ_1 (append wohnung_typ_2 raum_06)
   )
 
+
   (setq myfile 
-        (open "c:\\Users\\topos\\autocad\\next.csv" "w")
+        (open "c:\\Users\\m.labryga\\Documents\\acad\\next.csv" "w")
+        ; (open "c:\\Users\\topos\\autocad\\next.csv" "w") 
         ; (open ".\\next.csv" "w")
         )
 
@@ -191,10 +201,15 @@ tt
                           (write-line (strcat geschoss_prefix
                                               (itoa wohnung_nummer)
                                               "\t0"
-                                              (itoa raum_nummer)) myfile)
+                                              (itoa raum_nummer)
+                                              "\t"
+                                              (nth 0 (car mylist))
+                                              "\t"
+                                              (itoa (nth 1 (car mylist)))
+                                              ) myfile)
                           (setq raum_nummer (1+ raum_nummer))
                   )
-                 )
+                 ); Bedingung Wohnung Typ 1
 
                  ((or (= wohnung_nummer 3) (= wohnung_nummer 4))
                   (while (< raum_nummer 6)
@@ -204,7 +219,7 @@ tt
                                               (itoa raum_nummer)) myfile)
                           (setq raum_nummer (1+ raum_nummer))
                   )
-                 )
+                 ); Bedingung Wohnung Typ 2
            )
 
            (setq raum_nummer 1)
@@ -217,5 +232,24 @@ tt
   )
 
   (close myfile)
+  (princ)
+)
+
+(defun mytest( / wohnung_typ_1
+                 wohnung_typ_2
+                 raum_06)
+
+ (setq wohnung_typ_2 (list
+                        (list "Korridor" 01)
+                        (list "Bad" 02)
+                        (list "Kueche" 03)
+                        (list "Wohnen" 04)
+                        (list "Zimmer" 05)
+                      )
+       raum_06 (list (list "zimmer" 06))
+       wohnung_typ_1 (append wohnung_typ_2 raum_06)
+  ) 
+
+  (print wohnung_typ_1)
   (princ)
 )
