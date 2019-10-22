@@ -238,7 +238,7 @@ tt
 
   (setq myentity (car (entsel))
         myblockname (cdr (assoc 2 (entget myentity)))
-        myselection (ssget "x" list((cons 2 myblockname)))
+        myselection (ssget "x" (list (cons 2 myblockname)))
   )
 
   (princ)
