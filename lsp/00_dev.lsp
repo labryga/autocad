@@ -167,10 +167,10 @@ tt
         ; (open ".\\next.csv" "w")
         )
 
-  (setq counter 1)
-  (setq geschoss 1)
-  (setq wohnung_nummer 1)
-  (setq raum_nummer 1)
+  (setq counter 1
+        geschoss 1
+        wohnung_nummer 1
+        raum_nummer 1)
 
   (while (< geschoss 15)
 
