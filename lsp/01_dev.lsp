@@ -199,17 +199,17 @@
   (get_block_attribute insert_object)
 );defun
 
-(defun create_attributes (/ vla_acad_object
-                           vla_document
-                           vla_model_space
-                           vla_blocks
-                           insert_object_entity
-                           insert_object_entget
-                           insert_object_name
-                           vla_block
-                           block_entitiy
-                           object_types
-                           attribute_y_position)
+(defun create_attributes ( / vla_acad_object
+                             vla_document
+                             vla_model_space
+                             vla_blocks
+                             insert_object_entity
+                             insert_object_entget
+                             insert_object_name
+                             vla_block
+                             block_entitiy
+                             object_types
+                             attribute_y_position)
 
   (setq vla_acad_object       (vlax-get-acad-object)
         vla_document          (vla-get-activedocument vla_acad_object)
