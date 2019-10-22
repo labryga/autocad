@@ -227,7 +227,7 @@
 
 
   (defun set_block_attributes (item_entity / block_entitiy_entget
-                                               block_entitiy_vla_object)
+                                             block_entitiy_vla_object)
     (if
       (setq item_entity (entnext item_entity))
 
