@@ -160,14 +160,14 @@ tt
                 wohnung_typ_1)
 
   (setq wohnung_typ_2 (list
-                        (list "Korridor" 01)
-                        (list "Bad" 02)
-                        (list "Kueche" 03)
-                        (list "Wohnen" 04)
-                        (list "Zimmer" 05)
+                        (list "Korridor" "01")
+                        (list "Bad" "02")
+                        (list "Kueche" "03")
+                        (list "Wohnen" "04")
+                        (list "Zimmer" "05")
                       )
-       raum_06 (list (list "zimmer" 06))
-       wohnung_typ_1 (append wohnung_typ_2 raum_06)
+       raum_06        (list (list "Zimmer" "06"))
+       wohnung_typ_1  (append wohnung_typ_2 raum_06)
   )
 
 
@@ -197,26 +197,23 @@ tt
     (while (< wohnung_nummer 5)
 
            (cond ((or (= wohnung_nummer 1) (= wohnung_nummer 2))
-                  (while (< raum_nummer 7)
+                  (foreach raum wohnung_typ_1
                           (write-line (strcat geschoss_prefix
-                                              (itoa wohnung_nummer)
-                                              "\t0"
-                                              (itoa raum_nummer)
-                                              "\t"
-                                              (nth 0 (car mylist))
-                                              "\t"
-                                              (itoa (nth 1 (car mylist)))
-                                              ) myfile)
+                                              (itoa wohnung_nummer) "."
+                                              (cadr raum) "\t"
+                                              (car raum)
+                                      ) myfile)
                           (setq raum_nummer (1+ raum_nummer))
                   )
                  ); Bedingung Wohnung Typ 1
 
                  ((or (= wohnung_nummer 3) (= wohnung_nummer 4))
-                  (while (< raum_nummer 6)
+                  (foreach raum wohnung_typ_2
                           (write-line (strcat geschoss_prefix
-                                              (itoa wohnung_nummer)
-                                              "\t0"
-                                              (itoa raum_nummer)) myfile)
+                                              (itoa wohnung_nummer) "."
+                                              (cadr raum) "\t"
+                                              (car raum)
+                                      ) myfile)
                           (setq raum_nummer (1+ raum_nummer))
                   )
                  ); Bedingung Wohnung Typ 2
@@ -240,16 +237,17 @@ tt
                  raum_06)
 
  (setq wohnung_typ_2 (list
-                        (list "Korridor" 01)
-                        (list "Bad" 02)
-                        (list "Kueche" 03)
-                        (list "Wohnen" 04)
-                        (list "Zimmer" 05)
+                        (list "Korridor" "01")
+                        (list "Bad" "02")
+                        (list "Kueche" "03")
+                        (list "Wohnen" "04")
+                        (list "Zimmer" "05")
                       )
-       raum_06 (list (list "zimmer" 06))
+       raum_06 (list (list "zimmer" "06"))
        wohnung_typ_1 (append wohnung_typ_2 raum_06)
   ) 
+  
+  (mapcar 'print wohnung_typ_2)
 
-  (print wohnung_typ_1)
   (princ)
 )
