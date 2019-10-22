@@ -207,6 +207,7 @@
                              insert_object_entget
                              insert_object_name
                              vla_block
+                             vla_blocks
                              block_entitiy
                              object_types
                              attribute_y_position)
