@@ -232,14 +232,15 @@ tt
   (princ)
 )
 
-(defun mytest( / myentity
-                 myblockname
-                 myselection)
+(defun mytest( / raum
+                 raum_name
+                 raum_satz)
 
-  (setq myentity (car (entsel))
-        myblockname (cdr (assoc 2 (entget myentity)))
-        myselection (ssget "x" (list (cons 2 myblockname)))
+  (setq raum (car (entsel))
+        raum_name (cdr (assoc 2 (entget raum)))
+        raum_satz (ssget "x" (list (cons 2 raum_name)))
   )
 
+  (print (sslength raum_satz))
   (princ)
 )
