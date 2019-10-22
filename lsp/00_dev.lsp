@@ -212,8 +212,8 @@ tt
     );while
 
 
-    (setq geschoss (1+ geschoss))
     (setq wohnung_nummer 1)
+    (setq geschoss (1+ geschoss))
   )
 
   (close myfile)
