@@ -254,6 +254,7 @@ tt
                   (= "ATTRIB" (cdr (assoc 0 (entget zwischenraum))))
                 )
                 (print (cdr (assoc 2 (entget zwischenraum))))
+                (print (cdr (assoc 1 (entget zwischenraum))))
                 (princ)
                 (setq zwischenraum (entnext zwischenraum))
          )
