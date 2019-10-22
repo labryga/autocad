@@ -236,23 +236,27 @@ tt
 (defun mytest( / raum
                  raum_name
                  raum_satz
-                 zwischenraum)
+                 raum_einheit
+                 zwischenraum
+                 counter
+                 item)
 
   (setq raum (car (entsel))
         raum_name (cdr (assoc 2 (entget raum)))
         raum_satz (ssget "x" (list (cons 2 raum_name)))
+        counter -1
   )
 
-  (foreach raum_einheit raum_satz
-           (setq zwischenraum (entnext raum_einheit))
-           (while (and
-                    zwischenraum
-                    (= "ATTRIB" (cdr (assoc 0 (entget zwischenraum))))
-                  )
-                  (print (assoc 2 (entget zwischenraum)))
-                  (princ)
-                  (setq zwischenraum (entnext zwischenraum))
-           )
+  (while (setq raum_einheit (ssname raum_satz (setq counter (1+ counter))))
+         (setq zwischenraum (entnext raum_einheit))
+         (while (and
+                  zwischenraum
+                  (= "ATTRIB" (cdr (assoc 0 (entget zwischenraum))))
+                )
+                (print (cdr (assoc 2 (entget zwischenraum))))
+                (princ)
+                (setq zwischenraum (entnext zwischenraum))
+         )
   )
 
   (print (sslength raum_satz))
