@@ -146,7 +146,6 @@ tt
 
 ; writing lists to csv file
 (defun c:wtf( / mylist
-
                 myfile
                 mywert
                 mywerte_length
@@ -155,8 +154,7 @@ tt
                 geschoss_prefix
                 wohnung
                 wohnung_nummer
-                raum_nummer
-                )
+                raum_nummer)
 
   (setq mylist (list '("wandvolumen" . 25) 
                      '("wandbreite" . 5)
