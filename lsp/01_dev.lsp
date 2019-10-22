@@ -126,22 +126,22 @@
   (get_attribute insert_entitiy)
 
 
-  (defun get_block_entities (block_item)
-    (if 
-      (setq block_item (entnext block_item))
+  ; (defun get_block_entities (block_item)
+  ;   (if 
+  ;     (setq block_item (entnext block_item))
+  ;
+  ;     (progn
+  ;       (print (assoc 0 (entget block_item)))
+  ;       (print (assoc 2 (entget block_item)))
+  ;       (print (assoc 1 (entget block_item)))
+  ;       (princ)
+  ;       (get_block_entities block_item)
+  ;     );progn
+  ;   );if
+  ; );defun
 
-      (progn
-        (print (assoc 0 (entget block_item)))
-        (print (assoc 2 (entget block_item)))
-        (print (assoc 1 (entget block_item)))
-        (princ)
-        (get_block_entities block_item)
-      );progn
-    );if
-  );defun
-
-  (print insert_name)
-  (princ)
+  ; (print insert_name)
+  ; (princ)
   ; (get_block_entities block_name)
   ; (print (assoc 0 (entget (entnext block_name))))
   (princ)
@@ -353,14 +353,3 @@
 
 );defun delete_attributes
 
-(defun del_my_attdef ( / insert_object
-                         block_name
-                         block_entity)
-
-  (setq insert_object (car (entsel))
-        block_name    (cdr (assoc 2 (entget insert_object)))
-        block_entity  (tblobjname "block" block_name)
-  )
-
-  (print (entget block_entity))
-)

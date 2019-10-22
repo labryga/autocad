@@ -232,22 +232,14 @@ tt
   (princ)
 )
 
-(defun mytest( / wohnung_typ_1
-                 wohnung_typ_2
-                 raum_06)
+(defun mytest( / myentity
+                 myblockname
+                 myselection)
 
- (setq wohnung_typ_2 (list
-                        (list "Korridor" "01")
-                        (list "Bad" "02")
-                        (list "Kueche" "03")
-                        (list "Wohnen" "04")
-                        (list "Zimmer" "05")
-                      )
-       raum_06 (list (list "zimmer" "06"))
-       wohnung_typ_1 (append wohnung_typ_2 raum_06)
-  ) 
-  
-  (mapcar 'print wohnung_typ_2)
+  (setq myentity (car (entsel))
+        myblockname (cdr (assoc 2 (entget myentity)))
+        myselection (ssget "x" list((cons 2 myblockname)))
+  )
 
   (princ)
 )
