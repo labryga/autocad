@@ -248,22 +248,30 @@ tt
   )
 
   (while (< (setq wohnung_nummer (1+ wohnung_nummer)) 5)
-         (while (setq raum_item (ssname raum_selection (setq ssget_counter (1+ ssget_counter))))
-                (while (and
-                         (setq raum_item (entnext raum_item))
-                         (= "ATTRIB" (cdr (assoc 0 (entget raum_item))))
-                         ; (= "WOHNUNG_NUMMER" (cdr (assoc 2 (entget raum_item))))
-                       )
-                       (print (cdr (assoc 2 (entget raum_item))))
-                       (print (cdr (assoc 1 (entget raum_item))))
-                       (print "ja...")
-                       (princ)
-                )
-                (princ)
-         )
 
+         (while (setq raum_item (ssname raum_selection (setq ssget_counter (1+ ssget_counter))))
+
+                (while 
+                  (and
+                    (setq raum_item (entnext raum_item))
+                    (= "ATTRIB" (cdr (assoc 0 (entget raum_item))))
+                  )
+
+                  (if
+                    (and
+                     (= "WOHNUNG_NUMMER" (cdr (assoc 2 (entget raum_item))))
+                     (= (itoa wohnung_nummer) (cdr (assoc 1 (entget raum_item))))
+                    )
+                    (progn
+                      (print (assoc 2 (entget raum_item)))
+                      (print (assoc 1 (entget raum_item)))
+                      (princ)
+                    )
+                  )
+
+                )
+         )
+         (setq ssget_counter -1)
   )
 
-  (print (sslength raum_selection))
-  (princ)
 )
