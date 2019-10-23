@@ -233,18 +233,37 @@ tt
 )
 
 
-(defun mytest( / raum_entget
-                 raum_bezeichnung
-                 raum_nummer
-                 raum_satz
-                 raum_einheit
-                 zwischenraum)
+(defun mytest( / raum_entget 
+                 raum_insert_name
+                 raum_selection
+                 wohnung_nummer
+                 ssget_counter
+                 raum_item)
 
-  (setq raum_entget (entget (car (entsel)))
-        raum_bezeichnung (cdr (assoc 2 raum_entget))
-        raum_nummer (substr raum_bezeichnung (- (strlen raum_bezeichnung) 2))
+  (setq raum_entget (entget (car (entsel))) 
+        raum_insert_name (cdr (assoc 2 raum_entget))
+        raum_selection (ssget "x" (list (cons 2 raum_insert_name)))
+        wohnung_nummer 0
+        ssget_counter -1
   )
 
-  (print raum_nummer)
+  (while (< (setq wohnung_nummer (1+ wohnung_nummer)) 5)
+         (while (setq raum_item (ssname raum_selection (setq ssget_counter (1+ ssget_counter))))
+                (while (and
+                         (setq raum_item (entnext raum_item))
+                         (= "ATTRIB" (cdr (assoc 0 (entget raum_item))))
+                         ; (= "WOHNUNG_NUMMER" (cdr (assoc 2 (entget raum_item))))
+                       )
+                       (print (cdr (assoc 2 (entget raum_item))))
+                       (print (cdr (assoc 1 (entget raum_item))))
+                       (print "ja...")
+                       (princ)
+                )
+                (princ)
+         )
+
+  )
+
+  (print (sslength raum_selection))
   (princ)
 )
