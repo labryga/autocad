@@ -155,11 +155,11 @@ tt
                 wohnung
                 wohnung_nummer
                 raum_nummer
-                wohnung_typ_2
+                wohnung_1_2
                 raum_06
-                wohnung_typ_1)
+                wohnung_1_1)
 
-  (setq wohnung_typ_2 (list
+  (setq wohnung_1_2 (list
                         (list "Korridor" "01")
                         (list "Bad" "02")
                         (list "Kueche" "03")
@@ -167,7 +167,7 @@ tt
                         (list "Zimmer" "05")
                       )
        raum_06        (list (list "Zimmer" "06"))
-       wohnung_typ_1  (append wohnung_typ_2 raum_06)
+       wohnung_1_1  (append wohnung_1_2 raum_06)
   )
 
 
@@ -197,7 +197,7 @@ tt
     (while (< wohnung_nummer 5)
 
            (cond ((or (= wohnung_nummer 1) (= wohnung_nummer 2))
-                  (foreach raum wohnung_typ_1
+                  (foreach raum wohnung_1_1
                           (write-line (strcat geschoss_prefix
                                               (itoa wohnung_nummer) "."
                                               (cadr raum) "\t"
@@ -208,7 +208,7 @@ tt
                  ); Bedingung Wohnung Typ 1
 
                  ((or (= wohnung_nummer 3) (= wohnung_nummer 4))
-                  (foreach raum wohnung_typ_2
+                  (foreach raum wohnung_1_2
                           (write-line (strcat geschoss_prefix
                                               (itoa wohnung_nummer) "."
                                               (cadr raum) "\t"
@@ -233,33 +233,18 @@ tt
 )
 
 
-(defun mytest( / raum
-                 raum_name
+(defun mytest( / raum_entget
+                 raum_bezeichnung
+                 raum_nummer
                  raum_satz
                  raum_einheit
-                 zwischenraum
-                 counter
-                 item)
+                 zwischenraum)
 
-  (setq raum (car (entsel))
-        raum_name (cdr (assoc 2 (entget raum)))
-        raum_satz (ssget "x" (list (cons 2 raum_name)))
-        counter -1
+  (setq raum_entget (entget (car (entsel)))
+        raum_bezeichnung (cdr (assoc 2 raum_entget))
+        raum_nummer (substr raum_bezeichnung (- (strlen raum_bezeichnung) 2))
   )
 
-  (while (setq raum_einheit (ssname raum_satz (setq counter (1+ counter))))
-         (setq zwischenraum (entnext raum_einheit))
-         (while (and
-                  zwischenraum
-                  (= "ATTRIB" (cdr (assoc 0 (entget zwischenraum))))
-                )
-                (print (cdr (assoc 2 (entget zwischenraum))))
-                (print (cdr (assoc 1 (entget zwischenraum))))
-                (princ)
-                (setq zwischenraum (entnext zwischenraum))
-         )
-  )
-
-  (print (sslength raum_satz))
+  (print raum_nummer)
   (princ)
 )
