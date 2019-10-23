@@ -321,7 +321,6 @@
                             block_entity
                             block_entity_entget
                             block_vla_object
-                            block_vla_object_convert
                             attdef_list)
 
   (setq vla_acad_object          (vlax-get-acad-object)
@@ -331,7 +330,6 @@
         block_name               (cdr (assoc 2 (entget insert_entitiy)))
         block_entity             (tblobjname "block" block_name)
         block_vla_object         (vla-item (vla-get-blocks vla_document) block_name)
-        block_vla_object_convert (vlax-ename->vla-object block_entity)
   )
 
   (while block_entity
