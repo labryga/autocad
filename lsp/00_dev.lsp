@@ -283,6 +283,18 @@
         solid_volume      (vla-get-volume solid_vla_object)
   )
   
-  (print solid_volume)
+  (print (* 0.000001 solid_volume))
+  (princ)
+)
+
+
+(defun my_volume_sum(/ soild_layer
+                       solid_selection_set)
+
+  (setq solid_layer (cdr (assoc 8 (entget (car (entsel)))))
+        solid_selection_set (ssget "x" (list (cons 8 solid_layer)))
+  )
+
+  (print (sslength solid_selection_set))
   (princ)
 )
