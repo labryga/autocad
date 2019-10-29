@@ -27,7 +27,6 @@
   )
 )
 
-
 (defun c:xxsa( / myblock
                  attribute
                  mylist
@@ -66,7 +65,7 @@
                  att_name
                  att_value
                  att_point) 
-tt
+
   (setq att_name "volume")
   (setq object_entitiy (car (entsel)))
   (setq object_vla_entity (vlax-ename->vla-object object_entitiy))
@@ -232,7 +231,6 @@ tt
   (princ)
 )
 
-
 (defun mytest( / raum_entget 
                  raum_insert_name
                  raum_selection
@@ -275,3 +273,9 @@ tt
   )
 
 )
+
+(defun my_volume(/ solid_entity
+                   solid_vla_object
+                   solid_volume) 
+)
+
