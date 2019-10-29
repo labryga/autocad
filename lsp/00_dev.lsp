@@ -289,12 +289,25 @@
 
 
 (defun my_volume_sum(/ soild_layer
-                       solid_selection_set)
+                       solid_selection_set
+                       counter
+                       solid_entity
+                       solid_vla_object
+                       volume_sum)
 
-  (setq solid_layer (cdr (assoc 8 (entget (car (entsel)))))
+  (setq solid_layer         (cdr (assoc 8 (entget (car (entsel)))))
         solid_selection_set (ssget "x" (list (cons 8 solid_layer)))
+        counter -1
+        volume_sum 0
   )
 
-  (print (sslength solid_selection_set))
+  (while (< counter (sslength solid_selection_set))
+         (setq solid_entity (ssname solid_selection_set (setq counter (1+ counter))))
+         (entget solid_entity)
+
+  )
+
+  (print volume_sum)
   (princ)
+
 )
