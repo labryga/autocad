@@ -313,6 +313,7 @@
 
 );defun
 
+
 (defun delete_attributes (/ vla_acad_object
                             vla_document
                             vla_model_space
