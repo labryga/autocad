@@ -277,5 +277,12 @@
 (defun my_volume(/ solid_entity
                    solid_vla_object
                    solid_volume) 
-)
 
+  (setq solid_entity      (car (entsel))
+        solid_vla_object  (vlax-ename->vla-object solid_entity)
+        solid_volume      (vla-get-volume solid_vla_object)
+  )
+  
+  (print solid_volume)
+  (princ)
+)
