@@ -304,10 +304,12 @@
   )
 
   (while (< counter solid_selection_set_length)
-         (print (ssname solid_selection_set (setq counter (1+ counter))))
+         (setq solid_entity (ssname solid_selection_set (setq counter (1+ counter)))
+               solid_vla_object (vlax-ename->vla-object solid_entity)
+               volumen_summe (+ volumen_summe (* 0.000001 (vla-get-volume solid_vla_object)))
+         )
   )
 
-
+  (print volumen_summe)
   (princ)
-
 )
