@@ -287,7 +287,6 @@
   (princ)
 )
 
-
 (defun my_surface(/ entity
                     entity_entget
                     entity_vla_object)
@@ -299,7 +298,6 @@
   (print (vla-get-area entity_vla_object))
   (princ)
 )
-
 
 (defun my_volume_sum(/ soild_layer
                        solid_selection_set
@@ -325,4 +323,22 @@
 
   (print volumen_summe)
   (princ)
+)
+
+(defun my_block_items(/ insert
+                        insert_entget
+                        insert_name
+                        block_entitiy)
+
+  (setq insert        (car (entsel))
+        insert_entget (entget insert)
+        insert_name   (cdr (assoc 2 insert_entget))
+        block_entitiy (tblobjname "block" insert_name)
+  )
+
+  (while (setq block_entitiy (entnext block_entitiy))
+         (print (assoc 0 (entget block_entitiy)))
+         (princ)
+  )
+
 )
