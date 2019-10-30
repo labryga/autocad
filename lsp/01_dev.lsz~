@@ -353,22 +353,17 @@
 );defun delete_attributes
 
 
-(defun my_string_list(string_content
-                      string_delimiter /
-                      string_position)
-
+(defun my_string_list(string_content string_delimiter / string_position)
   (if (setq string_position (vl-string-search string_delimiter string_content))
       ((cons 
          (substr string_content 1 string_position)
-         (my_string_list 
-           (substr string_content (+ 1 string_position (strlen string_delimiter))) 
-           string_delimiter)
+         (my_string_list (substr string_content (+ 1 string_position (strlen string_delimiter))) string_delimiter)
        ) 
       )
       (list string_content)
   )
 )
 
-(defun my_test()
-  (my_string_list "das,war,eins" ",")
+(defun my_test(/)
+  (my_string_list "das-war-eins" "-")
 )
