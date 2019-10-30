@@ -352,3 +352,15 @@
 
 );defun delete_attributes
 
+
+(defun my_string_list(string_content string_delimiter / string_position)
+  (if (setq string_position (vla-string-search string_delimiter string_content))
+      ((cons 
+         (substr 1 string_position)
+         (my_string_list (substr (+ 1 string_position (strlen string_delimiter))) string_delimiter)
+       ) 
+      )
+      (list string_content)
+  )
+)
+
