@@ -336,8 +336,11 @@
         block_entitiy (tblobjname "block" insert_name)
   )
 
+  (print insert_name)
+  (princ)
+
   (while (setq block_entitiy (entnext block_entitiy))
-         (print (assoc 0 (entget block_entitiy)))
+         (print (assoc 8 (entget block_entitiy)))
          (princ)
   )
 
