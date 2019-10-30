@@ -288,6 +288,19 @@
 )
 
 
+(defun my_surface(/ entity
+                    entity_entget
+                    entity_vla_object)
+  (setq entity (car (entsel))
+        entity_entget (entget entity)
+        entity_vla_object (vlax-ename->vla-object entity)
+  )
+
+  (print (vla-get-area entity_vla_object))
+  (princ)
+)
+
+
 (defun my_volume_sum(/ soild_layer
                        solid_selection_set
                        solid_selection_set_length

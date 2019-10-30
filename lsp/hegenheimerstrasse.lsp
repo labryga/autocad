@@ -46,7 +46,7 @@
     )
 
     ((= "3DSOLID" (cdr (assoc 0 item_entity_entget)))
-         (setq putzvolumen (selection_loop putzvolumen vla-get-volume))
+     (setq putzvolumen (selection_loop putzvolumen vla-get-volume))
     )
   )
 )
