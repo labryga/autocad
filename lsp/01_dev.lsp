@@ -353,22 +353,30 @@
 );defun delete_attributes
 
 
-(defun my_string_list(string_content
-                      string_delimiter /
-                      string_position)
+(defun my_string_list (string_value string_delimiter / string_position)
+  (if (setq string_position (vl-string-search string_delimiter string_value))
 
-  (if (setq string_position (vl-string-search string_delimiter string_content))
-      ((cons 
-         (substr string_content 1 string_position)
-         (my_string_list 
-           (substr string_content (+ 1 string_position (strlen string_delimiter))) 
-           string_delimiter)
-       ) 
+      (cons  (substr string_value 1 string_position)
+             (my_string_list (substr string_value (+ 1 string_position (strlen string_delimiter))) string_delimiter)
       )
-      (list string_content)
+
+      (list string_value)
   )
 )
 
 (defun my_test()
   (my_string_list "das,war,eins" ",")
+)
+
+
+(defun os_string_list ( str del / pos )
+    (if (setq pos (vl-string-search del str))
+
+        (cons 
+          (substr str 1 pos) 
+          (os_string_list (substr str (+ pos 1 (strlen del))) del)
+        )
+
+        (list str)
+    )
 )
