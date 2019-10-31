@@ -1,52 +1,65 @@
-(setq ebkp
-      (list
-        (list "flaeche" vla-get-area)
-        (list "umfang"  Vla-get-length)
-        (list "volumen" vla-get-volume)
-      )
-)
 
 (defun my_loop (/ insert
                   block_name
                   block_entity
-                  block_inner_item_types
-                  temp_list)
+                  next_entget
+                  next_vla_object
+                  next_layer
+                  next_type
+                  next_layer_list
+                  next_entity_list)
 
   (setq insert (car (entsel))
-        block_name  (cdr (assoc 8 (entget insert)))
+        block_name  (cdr (assoc 2 (entget insert)))
         block_entity  (tblobjname "block" block_name)
+        items (list)
   )
 
   (while (setq block_entity (entnext block_entity))
-         (if (not (assoc (cdr (assoc 8 (entget block_entity))) block_inner_item_types))
-             (progn
-               (setq block_inner_item_types 
-                 (cons 
-                  (list
-                    (cdr (assoc 8 (entget block_entity)))
-                    (cdr (assoc 0 (entget block_entity)))
-                  )
-                  block_inner_item_types
-                 )
-               )
-             )
+         (setq next_entget (entget block_entity)
+               next_layer  (cdr (assoc 8 next_entget))
+               next_entity_list (cons block_entity next_entity_list)
          )
+         (if (not (member next_layer next_layer_list))
+             (progn
+               (setq next_layer_list (cons next_layer next_layer_list))
+             )
+          )
   )
 
-  (foreach item block_inner_item_types
-           (foreach typus item
-                    (if (member typus (list "3DSOLID" "LWPOLYLINE"))
-                        (print typus)
-                    )
+  (foreach eintrag next_layer_list
+           (print eintrag)
+           (set (read eintrag) 0)
+           (print (eval (read eintrag)))
+  )
+
+
+  (foreach einheit next_entity_list
+           (setq next_entget (entget einheit)
+                 next_type (cdr (assoc 0 next_entget))
+                 next_layer (cdr (assoc 8 next_entget))
+                 next_vla_object (vlax-ename->vla-object einheit)
+           )
+
+           (cond
+             ((= "3DSOLID" next_type)
+              (print next_layer)
+             )
+
+             ((= "LWPOLYLINE" next_type)
+              (set (read next_layer)
+                   (+
+                     (eval (read next_layer))
+                     (vla-get-area next_vla_object)
+                   )
+              )
+             )
            )
   )
 
-  (princ)
-)
-
-(defun my_ebkp ()
-  (foreach item ebkp
-     (print (last item))
+  (foreach eintrag next_layer_list
+           (print (eval (read eintrag)))
   )
+
   (princ)
 )
