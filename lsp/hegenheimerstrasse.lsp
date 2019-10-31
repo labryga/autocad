@@ -1,3 +1,10 @@
+(setq ebkp
+      (list
+        (list "flaeche" vla-get-area)
+        (list "umfang"  Vla-get-length)
+        (list "volumen" vla-get-volume)
+      )
+)
 
 (defun my_loop (/ insert
                   block_name
@@ -16,9 +23,8 @@
                (setq block_inner_item_types 
                  (cons 
                   (list
-                    (foreach x (list 0 8)
-                             (cdr (assoc 8 (entget block_entity)))
-                    )
+                    (cdr (assoc 8 (entget block_entity)))
+                    (cdr (assoc 0 (entget block_entity)))
                   )
                   block_inner_item_types
                  )
@@ -28,8 +34,19 @@
   )
 
   (foreach item block_inner_item_types
-           (foreach typus item (print typus))
+           (foreach typus item
+                    (if (member typus (list "3DSOLID" "LWPOLYLINE"))
+                        (print typus)
+                    )
+           )
   )
 
+  (princ)
+)
+
+(defun my_ebkp ()
+  (foreach item ebkp
+     (print (last item))
+  )
   (princ)
 )
