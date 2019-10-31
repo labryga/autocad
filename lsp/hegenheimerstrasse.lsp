@@ -15,9 +15,10 @@
              (progn
                (setq block_inner_item_types 
                  (cons 
-                  (cons
-                    (cdr (assoc 8 (entget block_entity)))
-                    (cdr (assoc 0 (entget block_entity)))
+                  (list
+                    (foreach x (list 0 8)
+                             (cdr (assoc 8 (entget block_entity)))
+                    )
                   )
                   block_inner_item_types
                  )
@@ -26,6 +27,9 @@
          )
   )
 
-  (print block_inner_item_types)
+  (foreach item block_inner_item_types
+           (foreach typus item (print typus))
+  )
+
   (princ)
 )
