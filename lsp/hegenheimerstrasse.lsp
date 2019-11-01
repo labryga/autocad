@@ -27,6 +27,11 @@
           )
   )
 
+  (set (read (nth 0 next_layer_list)) 4444)
+  (set (read (nth 1 next_layer_list)) 8888)
+
+  (print (eval (read (nth 0 next_layer_list))))
+  (print (eval (read (nth 1 next_layer_list))))
 
   (princ)
 )
@@ -48,4 +53,10 @@
   )
 
   (princ)
+)
+
+
+(defun my_test ( / object_acad
+                   object_document
+                   object_layers)
 )
