@@ -172,10 +172,13 @@
 ; split string to list function
 
 (defun string_to_list (string_value delimiter / delimiter_position)
-  (if (setq delimiter_position (vla-string-position delimiter string_value))
-    (cons (substr 1 delimiter_position string_value)
-          (string_to_list (substr (+ 2 delimiter_position)))
-    )
-    string_value
+
+  (if (setq delimiter_position (vl-string-search delimiter string_value))
+
+      (cons (substr string_value 1 delimiter_position)
+            (string_to_list (substr string_value (+ 2 delimiter_position)) delimiter)
+      )
+
+      (list string_value)
   )
 )
