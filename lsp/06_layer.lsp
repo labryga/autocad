@@ -169,3 +169,13 @@
   (princ)
 )
 
+; split string to list function
+
+(defun string_to_list (string_value delimiter / delimiter_position)
+  (if (setq delimiter_position (vla-string-position delimiter string_value))
+    (cons (substr 1 delimiter_position string_value)
+          (string_to_list (substr (+ 2 delimiter_position)))
+    )
+    string_value
+  )
+)
