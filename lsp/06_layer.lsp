@@ -135,3 +135,37 @@
                   (list "co" "sh" "050" "100"))
   (princ)
 )
+
+; renaming layers
+
+
+(defun my_test ( / object_acad
+                   object_document
+                   object_layers
+                   entity_layer)
+
+  (setq object_acad     (vlax-get-acad-object)
+        object_document (vla-get-activedocument object_acad)
+        object_layers   (vla-get-layers object_document)
+  )
+
+  (vlax-for objekt object_layers
+
+            (setq entity_layer (vla-get-name objekt))
+
+            (if (vl-string-search "_" entity_layer)
+
+               (progn
+                  (while (vl-string-search "_" entity_layer)
+                         (setq entity_layer (vl-string-subst "" "_" entity_layer))
+                  )
+
+                  (vla-put-name objekt entity_layer)
+               )
+
+            )
+  )
+
+  (princ)
+)
+
