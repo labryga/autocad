@@ -2,6 +2,7 @@
 (defun my_loop (/ insert
                   block_name
                   block_entity
+
                   next_entget
                   next_vla_object
                   next_layer
@@ -23,11 +24,15 @@
                next_entity_list (cons block_entity next_entity_list)
          )
 
+
+
          (if (not (member next_layer next_layer_list))
              (progn
                (setq next_layer_list (cons next_layer next_layer_list))
              )
          )
+
+
   )
 
   (foreach next_layer next_layer_list
