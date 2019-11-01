@@ -70,3 +70,6 @@
   (princ)
 )
 
+(defun get_itemas (/)
+
+)
