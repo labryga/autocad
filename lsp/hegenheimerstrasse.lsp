@@ -27,38 +27,24 @@
           )
   )
 
-  (foreach eintrag next_layer_list
-           (print eintrag)
-           (set (read eintrag) 0)
-           (print (eval (read eintrag)))
+
+  (princ)
+)
+
+(defun my_test (/ f_list
+                  s_list)
+
+  (setq f_list (list (list "erste-variable" 444) 
+                     (list "zweite-variable" 888)
+               )
   )
 
-
-  (foreach einheit next_entity_list
-           (setq next_entget (entget einheit)
-                 next_type (cdr (assoc 0 next_entget))
-                 next_layer (cdr (assoc 8 next_entget))
-                 next_vla_object (vlax-ename->vla-object einheit)
-           )
-
-           (cond
-             ((= "3DSOLID" next_type)
-              (print next_layer)
-             )
-
-             ((= "LWPOLYLINE" next_type)
-              (set (read next_layer)
-                   (+
-                     (eval (read next_layer))
-                     (vla-get-area next_vla_object)
-                   )
-              )
-             )
-           )
+  (foreach eintrag f_list
+           (set (read (car eintrag)) (cadr eintrag))
   )
 
-  (foreach eintrag next_layer_list
-           (print (eval (read eintrag)))
+  (foreach eintrag f_list
+           (print (eval (read (car eintrag))))
   )
 
   (princ)
