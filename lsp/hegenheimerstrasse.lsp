@@ -70,22 +70,3 @@
   (princ)
 )
 
-(defun my_test (/ f_list
-                  s_list)
-
-  (setq f_list (list (list "erste-variable" 444) 
-                     (list "zweite-variable" 888)
-               )
-  )
-
-  (foreach eintrag f_list
-           (set (read (car eintrag)) (cadr eintrag))
-  )
-
-  (foreach eintrag f_list
-           (print (eval (read (car eintrag))))
-  )
-
-  (princ)
-)
-
