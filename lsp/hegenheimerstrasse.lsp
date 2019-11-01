@@ -6,6 +6,7 @@
                   next_vla_object
                   next_layer
                   next_type
+                  next_type_foreach
                   next_layer_list
                   next_entity_list)
 
@@ -16,22 +17,55 @@
   )
 
   (while (setq block_entity (entnext block_entity))
+
          (setq next_entget (entget block_entity)
                next_layer  (cdr (assoc 8 next_entget))
                next_entity_list (cons block_entity next_entity_list)
          )
+
          (if (not (member next_layer next_layer_list))
              (progn
                (setq next_layer_list (cons next_layer next_layer_list))
              )
-          )
+         )
   )
 
-  (set (read (nth 0 next_layer_list)) 4444)
-  (set (read (nth 1 next_layer_list)) 8888)
+  (foreach next_layer next_layer_list
+           (set (read next_layer) 0)
+  )
 
-  (print (eval (read (nth 0 next_layer_list))))
-  (print (eval (read (nth 1 next_layer_list))))
+  (foreach eintrag next_entity_list
+
+           (setq next_entget      (entget eintrag)
+                 next_vla_object  (vlax-ename->vla-object eintrag)
+                 next_layer (cdr  (assoc 8 next_entget))
+                 next_type (cdr   (assoc 0 next_entget))
+           )
+
+           (foreach wert (list 
+                            (list "3DSOLID" vla-get-volume)
+                            (list "LWPOLYLINE" vla-get-length)
+                          )
+
+                    (if (setq next_type_foreach (member next_type wert))
+                        (progn
+                          (set (read next_layer)
+                               (+ 
+                                 (eval (read next_layer))
+                                 ((cadr wert) next_vla_object)
+                               )
+                          )
+                        )
+
+                    )
+           )
+
+  )
+
+  (foreach eintrag next_layer_list
+           (print eintrag)
+           (print (eval (read eintrag)))
+  )
 
   (princ)
 )
@@ -55,7 +89,6 @@
   (princ)
 )
 
-
 (defun my_test ( / object_acad
                    object_document
                    object_layers
@@ -70,11 +103,11 @@
 
             (setq entity_layer (vla-get-name objekt))
 
-            (if (vl-string-search "." entity_layer)
+            (if (vl-string-search "_" entity_layer)
 
                (progn
-                  (while (vl-string-search "." entity_layer)
-                         (setq entity_layer (vl-string-subst "" "." entity_layer))
+                  (while (vl-string-search "_" entity_layer)
+                         (setq entity_layer (vl-string-subst "" "_" entity_layer))
                   )
 
                   (vla-put-name objekt entity_layer)
