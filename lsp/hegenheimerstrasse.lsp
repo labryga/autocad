@@ -53,8 +53,6 @@
 
         (setq next_property_method (cadr (assoc (last next_layer_name_to_list) property_methods)))
 
-        (setq next_layer_name_to_list (list (layer_name_to_string next_layer_name)))
-
         (if (not (assoc next_layer_name next_data_list))
 
            (setq next_data_list
@@ -66,7 +64,7 @@
         )
   )
 
-  ; create variables for each layer name of next_data_list
+  create variables for each layer name of next_data_list
   (foreach eintrag next_data_list
            (set (read (car eintrag)) 0)
   )
@@ -98,6 +96,7 @@
              )
            )
   )
+
   (princ)
 )
 
