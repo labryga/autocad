@@ -1,7 +1,5 @@
 
-(defun my_loop (/ object_document
-                  object_modelspace
-
+(defun my_loop (/ 
                   insert
                   block_name
                   block_entity
@@ -21,19 +19,14 @@
                   next_type
                   next_entity_list)
 
-  (setq 
-    
-        insert (car (entsel))
-        object_document   (vla-get-activedocument (vlax-get-acad-object))
-        object_modelspace (vla-get-modelspace)
-
-        block_name        (cdr (assoc 2 (entget insert)))
-        block_entity      (tblobjname "block" block_name)
-        property_methods  (list
-                            (list "umfang"  (list vla-get-length 0.01))
-                            (list "volumen" (list vla-get-volume 0.000001))
-                            (list "flaeche" (list vla-get-area 0.0001))
-                          )
+  (setq insert (car (entsel))
+        block_name  (cdr (assoc 2 (entget insert)))
+        block_entity  (tblobjname "block" block_name)
+        property_methods (list
+                          (list "umfang"  (list vla-get-length 0.01))
+                          (list "volumen" (list vla-get-volume 0.000001))
+                          (list "flaeche" (list vla-get-area 0.0001))
+                        )
   )
 
   ; create data list for each object type
