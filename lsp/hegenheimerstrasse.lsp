@@ -20,10 +20,10 @@
   (setq insert (car (entsel))
         block_name  (cdr (assoc 2 (entget insert)))
         block_entity  (tblobjname "block" block_name)
-        items (list)
         property_methods (list
-                          (list "umfang" vla-get-length)
+                          (list "umfang"  vla-get-length)
                           (list "volumen" vla-get-volume)
+                          (list "flaeche" vla-get-area)
                         )
   )
 
@@ -64,6 +64,7 @@
         )
   )
 
+  ; create variables for each layer name of next_data_list
   (foreach eintrag next_data_list
            (set (read (car eintrag)) 0)
   )
@@ -75,8 +76,15 @@
                  next_layer_name (cdr (assoc 8 next_entget))
                  next_data (assoc next_layer_name next_data_list)
                  next_property_method (last next_data)
+                 next_vla_object (vlax-ename->vla-object eintrag)
            )
 
+           (set (read next_layer_name)
+                (+
+                  (eval (read next_layer_name))
+                  (next_property_method next_vla_object)
+                )
+           )
   )
 
   (foreach eintrag next_data_list
@@ -84,3 +92,4 @@
   )
   (princ)
 )
+
