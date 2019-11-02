@@ -5,10 +5,12 @@
 
                   next_entget
                   next_vla_object
-                  next_layer
+
+                  next_layer_name
+                  next_layer_name_to_list
+                  next_layer_data_list
+
                   next_type
-                  next_type_foreach
-                  next_layer_list
                   next_entity_list)
 
   (setq insert (car (entsel))
@@ -20,61 +22,32 @@
   (while (setq block_entity (entnext block_entity))
 
          (setq next_entget (entget block_entity)
-               next_layer  (cdr (assoc 8 next_entget))
+               next_layer_name  (cdr (assoc 8 next_entget))
                next_entity_list (cons block_entity next_entity_list)
          )
 
-
-
-         (if (not (member next_layer next_layer_list))
-             (progn
-               (setq next_layer_list (cons next_layer next_layer_list))
-             )
+         (defun layer_name_to_string (layer_name / delimiter_position)
+           (if (setq delimiter_position (vl-string-search "-" layer_name))
+               (progn
+                 (cons (substr layer_name 1 delimiter_position)
+                       (layer_name_to_string (substr layer_name (+ 2 delimiter_position)))
+                 )
+               )
+               (list layer_name)
+           )
          )
 
+         (setq next_layer_name_to_list (list (layer_name_to_string next_layer_name)))
 
+         (setq next_layer_data_list
+            (cons
+              (cons next_layer_name next_layer_name_to_list)
+              next_layer_data_list
+            )
+         )
   )
 
-  (foreach next_layer next_layer_list
-           (set (read next_layer) 0)
-  )
-
-  (foreach eintrag next_entity_list
-
-           (setq next_entget      (entget eintrag)
-                 next_vla_object  (vlax-ename->vla-object eintrag)
-                 next_layer (cdr  (assoc 8 next_entget))
-                 next_type (cdr   (assoc 0 next_entget))
-           )
-
-           (foreach wert (list 
-                            (list "3DSOLID" vla-get-volume)
-                            (list "LWPOLYLINE" vla-get-length)
-                          )
-
-                    (if (setq next_type_foreach (member next_type wert))
-                        (progn
-                          (set (read next_layer)
-                               (+ 
-                                 (eval (read next_layer))
-                                 ((cadr wert) next_vla_object)
-                               )
-                          )
-                        )
-
-                    )
-           )
-
-  )
-
-  (foreach eintrag next_layer_list
-           (print eintrag)
-           (print (eval (read eintrag)))
-  )
-
+  (print next_layer_data_list)
   (princ)
 )
 
-(defun get_itemas (/)
-
-)
