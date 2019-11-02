@@ -1,5 +1,7 @@
 
 (defun my_loop (/ 
+                  activedocument
+                  modelspace
                   insert
                   block_name
                   block_entity
@@ -19,14 +21,18 @@
                   next_type
                   next_entity_list)
 
-  (setq insert (car (entsel))
-        block_name  (cdr (assoc 2 (entget insert)))
-        block_entity  (tblobjname "block" block_name)
-        property_methods (list
-                          (list "umfang"  (list vla-get-length 0.01))
-                          (list "volumen" (list vla-get-volume 0.000001))
-                          (list "flaeche" (list vla-get-area 0.0001))
-                        )
+  (setq 
+        activedocument    (vla-get-activedocument (vlax-get-acad-object))
+        modelspace        (vla-get-modelspace activedocument)
+
+        insert            (car (entsel))
+        block_name        (cdr (assoc 2 (entget insert)))
+        block_entity      (tblobjname "block" block_name)
+        property_methods  (list
+                            (list "umfang"  (list vla-get-length 0.01))
+                            (list "volumen" (list vla-get-volume 0.000001))
+                            (list "flaeche" (list vla-get-area 0.0001))
+                          )
   )
 
   ; create data list for each object type
@@ -64,7 +70,7 @@
         )
   )
 
-  create variables for each layer name of next_data_list
+  ; create variables for each layer name of next_data_list
   (foreach eintrag next_data_list
            (set (read (car eintrag)) 0)
   )
@@ -89,14 +95,52 @@
   )
 
   (foreach eintrag next_data_list
-           (print
-             (list
-                (car eintrag)
-                (eval (read (car eintrag)))
-             )
+           (vla-addattribute
+             modelspace
+             (getvar "textsize")
+             acattributemodelockposition
+             ""
+             (vlax-3D-point 0 0 0)
+             (car eintrag)
+             (eval (read (car eintrag)))
            )
   )
 
   (princ)
 )
 
+(defun rename_layer ( /
+                      collection_layer
+                      layer_name
+                      layer_replace
+                      layer_ebpk_nummer
+                      layer_name_rest
+                      ebkp_nummer_wert
+                    )
+
+  (setq
+    collection_layer (vla-get-layers (vla-get-activedocument (vlax-get-acad-object)))
+    layer_replace (list
+                    (list "G22" "-Unterkonstruktion_fertiger_Bodenbelag")
+                    (list "G23" "-Fertiger_Bodenbelag")
+                    (list "G14" "-Innetür")
+                  )
+  )
+
+  (vlax-for eintrag collection_layer
+
+            (setq layer_name        (vla-get-name eintrag)
+                  layer_ebpk_nummer (substr layer_name  1 3)
+                  layer_name_rest   (substr layer_name 4)
+                  ebkp_nummer_wert  (cadr (assoc layer_ebpk_nummer layer_replace))
+            )
+
+            (if ebkp_nummer_wert
+              (vla-put-name eintrag
+                (strcat layer_ebpk_nummer ebkp_nummer_wert layer_name_rest)
+              )
+            )
+  )
+
+  (princ)
+)
