@@ -64,8 +64,23 @@
         )
   )
 
+  (foreach eintrag next_data_list
+           (set (read (car eintrag)) 0)
+  )
 
-  (print next_data_list)
+
+  (foreach eintrag next_entity_list
+
+           (setq next_entget (entget eintrag) 
+                 next_layer_name (cdr (assoc 8 next_entget))
+                 next_data (assoc next_layer_name next_data_list)
+                 next_property_method (last next_data)
+           )
+
+  )
+
+  (foreach eintrag next_data_list
+           (print (eval (read (car eintrag))))
+  )
   (princ)
 )
-
