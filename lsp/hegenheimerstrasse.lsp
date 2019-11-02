@@ -1,5 +1,8 @@
 
-(defun my_loop (/ insert
+(defun my_loop (/ object_document
+                  object_modelspace
+
+                  insert
                   block_name
                   block_entity
                   property_methods
@@ -10,6 +13,7 @@
                   next_layer_name
                   next_layer_name_to_list
                   next_property_method
+                  next_property_method_factor
                   next_data_list
 
                   next_data
@@ -17,14 +21,19 @@
                   next_type
                   next_entity_list)
 
-  (setq insert (car (entsel))
-        block_name  (cdr (assoc 2 (entget insert)))
-        block_entity  (tblobjname "block" block_name)
-        property_methods (list
-                          (list "umfang"  vla-get-length)
-                          (list "volumen" vla-get-volume)
-                          (list "flaeche" vla-get-area)
-                        )
+  (setq 
+    
+        insert (car (entsel))
+        object_document   (vla-get-activedocument (vlax-get-acad-object))
+        object_modelspace (vla-get-modelspace)
+
+        block_name        (cdr (assoc 2 (entget insert)))
+        block_entity      (tblobjname "block" block_name)
+        property_methods  (list
+                            (list "umfang"  (list vla-get-length 0.01))
+                            (list "volumen" (list vla-get-volume 0.000001))
+                            (list "flaeche" (list vla-get-area 0.0001))
+                          )
   )
 
   ; create data list for each object type
@@ -75,20 +84,26 @@
            (setq next_entget (entget eintrag) 
                  next_layer_name (cdr (assoc 8 next_entget))
                  next_data (assoc next_layer_name next_data_list)
-                 next_property_method (last next_data)
+                 next_property_method (car (last next_data))
+                 next_property_method_factor (cadr (last next_data))
                  next_vla_object (vlax-ename->vla-object eintrag)
            )
 
            (set (read next_layer_name)
                 (+
                   (eval (read next_layer_name))
-                  (next_property_method next_vla_object)
+                  (* next_property_method_factor (next_property_method next_vla_object))
                 )
            )
   )
 
   (foreach eintrag next_data_list
-           (print (eval (read (car eintrag))))
+           (print
+             (list
+                (car eintrag)
+                (eval (read (car eintrag)))
+             )
+           )
   )
   (princ)
 )
