@@ -109,44 +109,53 @@
   (princ)
 )
 
-(defun mytest ( / 
-                collection_blocks
-                block_name
-                block_entity
+(defun check_for_items (/
+                         collection_blocks
+                         block_name
+                         block_entity
+                       )
 
-                ebkp_nummern
-                ebkp_nummer_eintrag
-                ebkp_nummer
-                ebkp_bezeichnung
-              )
   (setq
     collection_blocks (vla-get-blocks (vla-get-activedocument (vlax-get-acad-object)))
-    ebkp_nummern   (list
-                        (list "G22" "-Unterkonstruktion_fertiger_Bodenbelag")
-                        (list "G23" "-Fertiger_Bodenbelag")
-                        (list "G33" "-Wandbekleidung")
-                      ) 
   )
 
-  (vlax-for item collection_blocks
+  (defun check_next_entity (block_entity /
+                            object_type_entget
+                            object_type_name
+                            object_type_name_list)
+
+    (setq
+      object_type_entget (entget block_entity)
+      object_type_name  (cdr (assoc 0 object_type_entget))
+      object_type_name_list (list "3DSOLID" "LWPOLYLINE")
+    )
+
+    (if (setq block_entity (entnext block_entity))
+
+        (progn
+          (if (not (member object_type_name object_type_name_list))
+              (print object_type_name)
+          )
+
+          (check_next_entity block_entity)
+        )
+    )
+  )
+
+  (vlax-for block_entity_vla collection_blocks
 
             (setq
-              block_name (vla-get-name item)
-              block_entity (tblobjname "block" block_name)
+              block_name (vla-get-name block_entity_vla)
+              block_entity  (tblobjname "block" block_name)
             )
 
-            (if 
-               (wcmatch block_name "[G]##-*")
-
-               (progn
-                 (foreach group_code (list 0 8)
-                          (print
-                            (assoc group_code (entget (entnext block_entity)))
-                          )
-                 )
-                 ; (print (assoc 0 (entget (entnext block_entity))))
-               )
+            (if
+              (wcmatch block_name "[G]##*")
+              ; (print block_entity)
+              (check_next_entity block_entity)
             )
+            
+
   )
 
   (princ)
