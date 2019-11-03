@@ -112,6 +112,7 @@
 (defun mytest ( / 
                 collection_blocks
                 block_name
+                block_entity
 
                 ebkp_nummern
                 ebkp_nummer_eintrag
@@ -129,23 +130,21 @@
 
   (vlax-for item collection_blocks
 
-            (setq block_name (vla-get-name item))
+            (setq
+              block_name (vla-get-name item)
+              block_entity (tblobjname "block" block_name)
+            )
 
             (if 
-              (and
-               (wcmatch block_name "?##*")
-               (setq ebkp_nummer_eintrag (assoc (substr block_name 1 3) ebkp_nummern))
-               )
+               (wcmatch block_name "[G]##-*")
 
-              (progn
-                (vla-put-name
-                  item
-                  (vl-string-subst
-                    (strcat (car ebkp_nummer_eintrag) (cadr ebkp_nummer_eintrag))
-                    (car ebkp_nummer_eintrag)
-                    block_name
-                  )
-                )
+               (progn
+                 (foreach group_code (list 0 8)
+                          (print
+                            (assoc group_code (entget (entnext block_entity)))
+                          )
+                 )
+                 ; (print (assoc 0 (entget (entnext block_entity))))
                )
             )
   )
