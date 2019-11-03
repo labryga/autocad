@@ -116,25 +116,39 @@
                        )
 
   (setq
-    collection_blocks (vla-get-blocks (vla-get-activedocument (vlax-get-acad-object)))
+    collection_blocks (vla-get-blocks
+                        (vla-get-activedocument (vlax-get-acad-object)))
   )
 
+
   (defun check_next_entity (block_entity /
+                            block_entity_vla_object
                             object_type_entget
                             object_type_name
                             object_type_name_list)
 
     (setq
-      object_type_entget (entget block_entity)
-      object_type_name  (cdr (assoc 0 object_type_entget))
-      object_type_name_list (list "3DSOLID" "LWPOLYLINE")
+      object_type_entget      (entget block_entity)
+      block_entity_vla_object (vlax-ename->vla-object block_entity)
+      object_type_name        (cdr (assoc 0 object_type_entget))
+      object_type_name_list   (list "3DSOLID" "LWPOLYLINE" "BLOCK")
     )
 
     (if (setq block_entity (entnext block_entity))
 
         (progn
-          (if (not (member object_type_name object_type_name_list))
-              (print object_type_name)
+          (if 
+            (not (member object_type_name object_type_name_list))
+            (vla-delete block_entity_vla_object)
+          )
+
+          (if
+            (and
+              (= object_type_name "LWPOLYLINE")
+              (= (vla-get-closed block_entity_vla_object) :vlax-false)
+            )
+
+            (vla-delete block_entity_vla_object)
           )
 
           (check_next_entity block_entity)
@@ -145,7 +159,7 @@
   (vlax-for block_entity_vla collection_blocks
 
             (setq
-              block_name (vla-get-name block_entity_vla)
+              block_name    (vla-get-name block_entity_vla)
               block_entity  (tblobjname "block" block_name)
             )
 
@@ -154,7 +168,6 @@
               ; (print block_entity)
               (check_next_entity block_entity)
             )
-            
 
   )
 
