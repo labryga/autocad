@@ -109,36 +109,22 @@
   (princ)
 )
 
-(defun rename_layer ( /
-                      collection_layer
-                      layer_name
-                      layer_replace
-                      layer_ebpk_nummer
-                      layer_name_rest
-                      ebkp_nummer_wert
-                    )
+(defun mytest (/ collection_blocks
+                 ebkp_kategorien
+                 block_name)
 
   (setq
-    collection_layer (vla-get-layers (vla-get-activedocument (vlax-get-acad-object)))
-    layer_replace (list
-                    (list "G22" "-Unterkonstruktion_fertiger_Bodenbelag")
-                    (list "G23" "-Fertiger_Bodenbelag")
-                    (list "G14" "-Innetür")
-                  )
+    collection_blocks (vla-get-blocks (vla-get-activedocument (vlax-get-acad-object)))
+    ebkp_kategorien (list )
   )
 
-  (vlax-for eintrag collection_layer
-
-            (setq layer_name        (vla-get-name eintrag)
-                  layer_ebpk_nummer (substr layer_name  1 3)
-                  layer_name_rest   (substr layer_name 4)
-                  ebkp_nummer_wert  (cadr (assoc layer_ebpk_nummer layer_replace))
-            )
-
-            (if ebkp_nummer_wert
-              (vla-put-name eintrag
-                (strcat layer_ebpk_nummer ebkp_nummer_wert layer_name_rest)
-              )
+  (vlax-for item collection_blocks
+            (setq block_name (vla-get-name item))
+            (if (wcmatch block_name "?##*")
+                (progn
+                 (print block_name)
+                 (print (substr block_name 1 3))
+                 )
             )
   )
 
