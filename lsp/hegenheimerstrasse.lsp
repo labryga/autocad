@@ -109,22 +109,44 @@
   (princ)
 )
 
-(defun mytest (/ collection_blocks
-                 ebkp_kategorien
-                 block_name)
+(defun mytest ( / 
+                collection_blocks
+                block_name
 
+                ebkp_nummern
+                ebkp_nummer_eintrag
+                ebkp_nummer
+                ebkp_bezeichnung
+              )
   (setq
     collection_blocks (vla-get-blocks (vla-get-activedocument (vlax-get-acad-object)))
-    ebkp_kategorien (list )
+    ebkp_nummern   (list
+                        (list "G22" "-Unterkonstruktion_fertiger_Bodenbelag")
+                        (list "G23" "-Fertiger_Bodenbelag")
+                        (list "G33" "-Wandbekleidung")
+                      ) 
   )
 
   (vlax-for item collection_blocks
+
             (setq block_name (vla-get-name item))
-            (if (wcmatch block_name "?##*")
-                (progn
-                 (print block_name)
-                 (print (substr block_name 1 3))
-                 )
+
+            (if 
+              (and
+               (wcmatch block_name "?##*")
+               (setq ebkp_nummer_eintrag (assoc (substr block_name 1 3) ebkp_nummern))
+               )
+
+              (progn
+                (vla-put-name
+                  item
+                  (vl-string-subst
+                    (strcat (car ebkp_nummer_eintrag) (cadr ebkp_nummer_eintrag))
+                    (car ebkp_nummer_eintrag)
+                    block_name
+                  )
+                )
+               )
             )
   )
 
