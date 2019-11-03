@@ -173,3 +173,29 @@
 
   (princ)
 )
+
+(defun write_attributes (/
+                          insert_entity_selectionset
+                          insert_entity_counter
+                          insert_entity
+                          insert_entity_list
+                        )
+  
+  (setq
+    insert_entity_selectionset  (ssget "x" '((0 . "INSERT")))
+    insert_entity_counter -1
+  )
+
+  (while (< insert_entity_counter (sslength insert_entity_selectionset))
+
+         (setq insert_entity
+           (ssname insert_entity_selectionset
+                   (setq insert_entity_counter (1+ insert_entity_counter))))
+
+         (setq insert_entity_list (cons insert_entity insert_entity_list))
+  )
+
+  (print insert_entity_list)
+  (princ)
+)
+
