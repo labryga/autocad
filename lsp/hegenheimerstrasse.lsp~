@@ -1,3 +1,4 @@
+:v:
 (defun my_loop (/ insert
                   block_name
                   block_entity
