@@ -29,23 +29,16 @@
 
           ; put corresponding insert block entities in a list
           (if (not (member insert_entity_block_name insert_block_entity_list))
-              (setq insert_block_entity_list
-                (cons (tblobjname "block" insert_entity_block_name) insert_block_entity_list)
-              );setq
+              (cons (tblobjname "block" insert_entity_block_name) insert_block_entity_list)
           );if
 
   );repeat
 
-  ; create global variables for each block type to store corresponding inserts
   (foreach block_entity insert_block_entity_list
-           (setq insert_entity_block_name (cdr (assoc 2 (entget block_entity))))
-           (set (read insert_entity_block_name) nil)
-
-           (print (eval (read insert_entity_block_name)))
+           (print "ja...")
 
   );foreach
 
-  (print "geht...")
   (princ)
 );defun
 
