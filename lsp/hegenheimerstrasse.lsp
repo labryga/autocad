@@ -2,7 +2,7 @@
 (defun my_loop (/ 
                   activedocument
                   modelspace
-                  insert
+                  insert_entity
                   block_name
                   block_entity
                   property_methods
@@ -25,8 +25,8 @@
         activedocument    (vla-get-activedocument (vlax-get-acad-object))
         modelspace        (vla-get-modelspace activedocument)
 
-        insert            (car (entsel))
-        block_name        (cdr (assoc 2 (entget insert)))
+        insert_entity            (car (entsel))
+        block_name        (cdr (assoc 2 (entget insert_entity)))
         block_entity      (tblobjname "block" block_name)
         property_methods  (list
                             (list "umfang"  (list vla-get-length 0.01))
@@ -171,6 +171,7 @@
 
   )
 
+
   (princ)
 )
 
@@ -192,3 +193,6 @@
 
   (princ)
 )
+
+(defun 
+);defun
