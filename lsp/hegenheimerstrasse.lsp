@@ -1,51 +1,25 @@
 
 (defun write_attributes (/
                           insert_selection_set
-                          insert_selection_counter
-
-                          insert_entity
-                          insert_entity_block_name
-                          insert_entity_list
-
-                          insert_block_entity_list
+                          insert_selection_set_iterator
+                          insert_selection_entity_entget
+                          insert_block_name
+                          insert_block_entity
                         )
-
-  (setq insert_selection_set (ssget "x" '((0 . "INSERT")))
-        insert_entity_counter 0
+  (setq 
+    insert_selection_set (ssget "x" '((0 . "INSERT")))
+    insert_selection_set_iterator 0
   );setq
 
-
   (repeat (sslength insert_selection_set)
-
-          (setq insert_entity (ssname insert_selection_set insert_entity_counter)
-                insert_entity_block_name (cdr (assoc 2 (entget insert_entity)))
-                insert_entity_counter (1+ insert_entity_counter)
+          (setq 
+            insert_selection_entity_entget (entget (ssname insert_selection_set insert_selection_set_iterator))
+            insert_block_name (cdr (assoc 2 insert_selection_entity_entget))
+            insert_block_entity (tblobjname "block" insert_block_name)
+            insert_selection_set_iterator (1+ insert_selection_set_iterator)
           );setq
-
-          ; get insert items into list filterd by corresponding ebkp number
-          (if (wcmatch insert_entity_block_name "[G]##*")
-              (setq insert_entity_list (cons insert_entity insert_entity_list))
-          );if
-
-          ; put corresponding insert block entities in a list
-          (if (not (member insert_entity_block_name insert_block_entity_list))
-              (setq insert_block_entity_list
-                (cons (tblobjname "block" insert_entity_block_name) insert_block_entity_list)
-              );setq
-          );if
-
+          (print (assoc 2 insert_selection_entity_entget))
   );repeat
 
-  ; create global variables for each block type to store corresponding inserts
-  (foreach block_entity insert_block_entity_list
-           (setq insert_entity_block_name (cdr (assoc 2 (entget block_entity))))
-           (set (read insert_entity_block_name) nil)
-
-           (print (eval (read insert_entity_block_name)))
-
-  );foreach
-
-  (print "geht...")
   (princ)
 );defun
-
