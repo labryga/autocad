@@ -10,10 +10,23 @@
                           next_entity
                           next_entity_entget
                           next_entity_layer_name
+                          next_entity_layer_names_list
+                          next_entity_vla-object
+
+                          next_type_methods_list
+                          next_type_method
+                          next_type_factor
+                          next_type_result
                         )
   (setq 
     insert_selection_set (ssget "x" '((0 . "INSERT")))
     insert_selection_set_iterator 0
+
+    next_type_methods_list (list 
+                             (list "flaeche"  (list vla-get-area 0.0001))
+                             (list "umfang"   (list vla-get-length 0.01))
+                             (list "volumen"  (list vla-get-volume 0.000001))
+                           );list
   );setq
 
   (repeat (sslength insert_selection_set)
@@ -36,8 +49,49 @@
                   (setq next_entity_entget      (entget next_entity)
                         next_entity_layer_name  (cdr (assoc 8 next_entity_entget))
                   );setq
+
+                  (if (not (member next_entity_layer_name next_entity_layer_names_list))
+                    (setq next_entity_layer_names_list (cons next_entity_layer_name
+                                                             next_entity_layer_names_list
+                                                       );cons
+                    );setq
+                  );if
+
+                  (set (read next_entity_layer_name) 0);set
            );while
   );foreach
 
+  (foreach next_entity insert_selection_block_entities_list
+           (while (setq next_entity (entnext next_entity))
+                  (setq next_entity_entget      (entget next_entity)
+                        next_entity_layer_name  (cdr (assoc 8 next_entity_entget))
+                  );setq
+
+                  (foreach eintrag next_type_methods_list
+                           (if (wcmatch next_entity_layer_name (strcat "*-" (car eintrag)))
+                               (progn 
+                                 (setq next_type_method (car (cadr eintrag))
+                                       next_type_factor (cadr (cadr eintrag))
+                                       next_entity_vla-object (vlax-ename->vla-object next_entity)
+                                       next_type_result (next_type_method next_entity_vla-object)
+                                 );setq
+                                 (set (read next_entity_layer_name)
+                                      (+
+                                        (eval (read next_entity_layer_name))
+                                        (* next_type_result next_type_factor)
+                                      )
+                                 );set
+                               );progn
+                           );if
+                  );foreach
+           );while
+  );foreach
+
+  (foreach layer_name next_entity_layer_names_list
+           (print layer_name)
+           (print (eval (read layer_name)))
+  );foreach
+  
+  
   (princ)
 );defun
