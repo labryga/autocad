@@ -17,16 +17,22 @@
                           next_type_method
                           next_type_factor
                           next_type_result
+
+                          model_space
                         )
   (setq 
-    insert_selection_set (ssget "x" '((0 . "INSERT")))
+    insert_selection_set    (ssget "x" '((0 . "INSERT")))
     insert_selection_set_iterator 0
 
-    next_type_methods_list (list 
+    next_type_methods_list  (list 
                              (list "flaeche"  (list vla-get-area 0.0001))
                              (list "umfang"   (list vla-get-length 0.01))
+                             (list "laenge"   (list vla-get-length 0.01))
                              (list "volumen"  (list vla-get-volume 0.000001))
-                           );list
+                            );list
+
+    model_space             (vla-get-modelspace
+                              (vla-get-activedocument (vlax-get-acad-object)))
   );setq
 
   (repeat (sslength insert_selection_set)
@@ -87,11 +93,18 @@
            );while
   );foreach
 
-  (foreach layer_name next_entity_layer_names_list
-           (print layer_name)
-           (print (eval (read layer_name)))
+  (foreach eintrag next_entity_layer_names_list
+    (vla-addattribute 
+      model_space
+      (getvar 'textsize)
+      acattributemodelockposition
+      ""
+      (vlax-3d-point 0 0 0)
+      eintrag
+      (eval (read eintrag))
+    );vla-addattribute
   );foreach
-  
+
   
   (princ)
 );defun
