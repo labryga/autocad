@@ -29,6 +29,8 @@
                              (list "umfang"   (list vla-get-length 0.01))
                              (list "laenge"   (list vla-get-length 0.01))
                              (list "volumen"  (list vla-get-volume 0.000001))
+                             (list "breite"   (list vla-get-measurement 1))
+                             (list "hoehe"    (list vla-get-measurement 1))
                             );list
 
     model_space             (vla-get-modelspace
