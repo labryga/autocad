@@ -246,3 +246,45 @@
   (vla-regen activedocument acAllViewports)
   (princ)
 );defun
+
+(defun create_layers (string_prefix /
+                      collection_layers
+                      attribute_list
+                      layer_name
+                      layer_vla_object
+                     )
+
+  (setq 
+    collection_layers (vla-get-layers
+                        (vla-get-activedocument
+                          (vlax-get-acad-object)))
+
+    attribute_list (list (list "umfang"   "6")
+                         (list "breite"   "7")
+                         (list "hoehe"    "7")
+                         (list "volumen"  "140")
+                         (list "flaeche"  "3")
+                         (list "nummer"   "5")
+                   );list
+  );setq
+
+  (vla-add collection_layers string_prefix)
+
+  (foreach attribute attribute_list
+
+           (setq layer_name (strcat
+                              string_prefix
+                              "-"
+                              (car attribute)
+                            );strcat
+
+                 layer_vla_object (vla-add collection_layers
+                                           layer_name
+                                  );vla-add
+           );setq
+
+           (vla-put-color layer_vla_object (cadr attribute))
+  );foreach
+
+  (princ)
+);defun
