@@ -313,7 +313,6 @@
 
 );defun
 
-
 (defun delete_attributes (/ vla_acad_object
                             vla_document
                             vla_model_space
@@ -352,7 +351,6 @@
 
 );defun delete_attributes
 
-
 (defun my_string_list (string_value string_delimiter / string_position)
   (if (setq string_position (vl-string-search string_delimiter string_value))
 
@@ -363,11 +361,6 @@
       (list string_value)
   )
 )
-
-(defun my_test()
-  (my_string_list "das,war,eins" ",")
-)
-
 
 (defun os_string_list ( str del / pos )
     (if (setq pos (vl-string-search del str))
@@ -380,3 +373,6 @@
         (list str)
     )
 )
+
+
+

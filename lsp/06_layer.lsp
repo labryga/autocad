@@ -138,8 +138,7 @@
 
 ; renaming layers
 
-
-(defun my_test ( / object_acad
+(defun my_test_eins ( / object_acad
                    object_document
                    object_layers
                    entity_layer)
@@ -169,8 +168,36 @@
   (princ)
 )
 
-; split string to list function
 
+; rename wall layer names
+(defun rename_wall (/
+                     layer_name
+                     layer_rename
+                   )
+
+  (setq collection_layers (vla-get-layers
+                            (vla-get-activedocument (vlax-get-acad-object)))
+  );setq
+
+  (vlax-for layer_vla_object collection_layers
+            (setq layer_name (vla-get-name layer_vla_object))
+
+            (if (vl-string-search "Holztafelbau" layer_name )
+
+                (progn 
+                  (setq layer_rename (vl-string-subst "Holzelementbau" "Holztafelbau" layer_name)
+                  );setq 
+                  (vla-put-name layer_vla_object layer_rename)
+                );progn
+
+            );if
+  );vlax-for
+
+  (princ)
+);defun
+
+
+; split string to list function
 (defun string_to_list (string_value delimiter / delimiter_position)
 
   (if (setq delimiter_position (vl-string-search delimiter string_value))
@@ -182,3 +209,40 @@
       (list string_value)
   )
 )
+
+(defun remove_attdef (/
+                       activedocument
+                       ssget_attdef
+                       ssget_attdef_iterator
+                       attdef_entity
+                       attdef_vla_object
+                       attdef_vla_objects_list
+                     )
+  (setq activedocument (vla-get-activedocument (vlax-get-acad-object))
+        ssget_attdef (ssget "x" '((0 . "ATTDEF")))
+        ssget_attdef_iterator 0
+  );setq
+
+  (repeat (sslength ssget_attdef)
+
+          (setq 
+            attdef_entity (ssname ssget_attdef ssget_attdef_iterator)
+            attdef_vla_object (vlax-ename->vla-object attdef_entity)
+            ssget_attdef_iterator (1+ ssget_attdef_iterator)
+          );setq
+
+          (if (not (member attdef_vla_object attdef_vla_objects_list))
+              (setq attdef_vla_objects_list
+                    (cons attdef_vla_object attdef_vla_objects_list)
+              );setq
+          );if
+  );repeat
+
+  (foreach attdef_vla attdef_vla_objects_list
+           (vla-delete attdef_vla)
+  );foreach
+
+  (print attdef_vla_objects_list)
+  (vla-regen activedocument acAllViewports)
+  (princ)
+);defun
