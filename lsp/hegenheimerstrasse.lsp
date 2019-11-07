@@ -78,8 +78,10 @@
 
   (foreach next_entity insert_selection_block_entities_list
            (while (setq next_entity (entnext next_entity))
+
                   (setq next_entity_entget      (entget next_entity)
                         next_entity_layer_name  (cdr (assoc 8 next_entity_entget))
+                        next_entity_vla-object (vlax-ename->vla-object next_entity)
                   );setq
 
                   (foreach eintrag next_type_methods_list
@@ -87,7 +89,6 @@
                                (progn 
                                  (setq next_type_method (car (cadr eintrag))
                                        next_type_factor (cadr (cadr eintrag))
-                                       next_entity_vla-object (vlax-ename->vla-object next_entity)
                                        next_type_result (next_type_method next_entity_vla-object)
                                  );setq
                                  (set (read next_entity_layer_name)
@@ -141,4 +142,55 @@
   (princ)
 );defun
 
+(defun my_test (/
+                 insert_entity
+                 insert_entity_entget
+                 insert_entity_name
+                 insert_selection
+                 insert_selection_iterator
 
+                 selection_entity 
+                 selection_entity_entget
+                 selection_entity_layer_name
+                 selection_entity_vla_object
+                 selection_entity_attributes
+                 selection_entity_variant
+                 selection_entity_variant_iterator
+               )
+
+  (setq insert_entity                 (car (entsel))
+        insert_entity_entget          (entget insert_entity)
+        insert_entity_name            (cdr (assoc 2 insert_entity_entget))
+        insert_selection              (ssget "x" (list (cons 2 insert_entity_name)))
+        insert_selection_iterator     0
+  );setq
+
+  (repeat (sslength insert_selection)
+
+          (setq 
+            selection_entity                  (ssname insert_selection insert_selection_iterator)
+            selection_entity_entget           (entget selection_entity)
+            selection_entity_layer_name       (cdr (assoc 8 selection_entity_entget))
+            insert_selection_iterator         (1+ insert_selection_iterator)
+            selection_entity_vla_object       (vlax-ename->vla-object selection_entity)
+            selection_entity_attributes       (vla-getAttributes selection_entity_vla_object)
+            selection_entity_variant          (vlax-variant-value selection_entity_attributes)
+            selection_entity_variant_iterator 0
+          );setq
+
+          (while (>=
+                   (vlax-safearray-get-u-bound selection_entity_variant 1)
+                   selection_entity_variant_iterator
+                 )
+                 (print 
+                   (vla-get-TextString (vlax-safearray-get-element selection_entity_variant selection_entity_variant_iterator))
+                 )
+                 (setq selection_entity_variant_iterator (1+ selection_entity_variant_iterator))
+          );while
+          
+          (print selection_entity_variant)
+
+  );repeat
+
+  (princ)
+);defun
