@@ -156,6 +156,7 @@
                  selection_entity_attributes
                  selection_entity_variant
                  selection_entity_variant_iterator
+                 selection_entity_attributes_data
                )
 
   (setq insert_entity                 (car (entsel))
@@ -182,15 +183,33 @@
                    (vlax-safearray-get-u-bound selection_entity_variant 1)
                    selection_entity_variant_iterator
                  )
-                 (print 
-                   (vla-get-TextString (vlax-safearray-get-element selection_entity_variant selection_entity_variant_iterator))
-                 )
+                  
+                 (setq selection_entity_attributes_data
+                   (cons 
+                     (cons 
+                       (vla-get-tagstring 
+                         (vlax-safearray-get-element 
+                           selection_entity_variant
+                           selection_entity_variant_iterator
+                         );vlax-safearray-get-element
+                       );vla-get-tagstring
+
+                       (vla-get-textstring 
+                         (vlax-safearray-get-element 
+                           selection_entity_variant
+                           selection_entity_variant_iterator
+                         );vlax-safearray-get-element
+                       );vla-get-textstring
+                     );cons
+
+                     selection_entity_attributes_data
+                   );cons
+                 );setq
+
                  (setq selection_entity_variant_iterator (1+ selection_entity_variant_iterator))
           );while
-          
-          (print selection_entity_variant)
-
   );repeat
 
+  selection_entity_attributes_data
   (princ)
 );defun
