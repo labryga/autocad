@@ -19,8 +19,9 @@
                           next_type_result
 
                           model_space
-
                           csv_file
+                          wall_data
+                          wall_data_entry_name
                         )
 
   (setq 
@@ -120,39 +121,66 @@
   ; );foreach
 
   ; write variables to csv
-  (foreach eintrag next_entity_layer_names_list
-           (write-line (strcat
-                    eintrag "\t"
-                    (rtos (eval (read eintrag)))
-              ) csv_file)
+  ; (foreach eintrag next_entity_layer_names_list
+  ;          (write-line (strcat
+  ;                   eintrag "\t"
+  ;                   (rtos (eval (read eintrag)))
+  ;             ) csv_file)
+  ; );foreach
+
+
+  (setq wall_data (my_test insert_selection_set)) 
+
+  (foreach  item insert_selection_block_entities_list
+            (write-line (cdr (assoc 2 (entget item))) csv_file)
+            ; (princ)
+
+            (foreach eintrag wall_data
+                     (if  (vl-string-search (cdr (assoc 2 (entget item))) (car eintrag))
+                          (progn 
+                              (write-line (strcat
+                                        (cdr (assoc 2 (entget item)))
+                                        "------"
+                                        (nth 1 eintrag)
+                                        "---"
+                                        (nth 2 eintrag)) csv_file)
+
+                              (foreach wand_attribut next_entity_layer_names_list
+                                  (if (and
+                                         vl-string-search (cdr (assoc 2 (entget item))) wand_attribut
+                                         ; (not (wcmatch wand_attribut "*-nummer"))
+                                      );and
+                                      (write-line (strcat 
+                                                    wand_attribut
+                                                    "---"
+                                                    (nth 2 eintrag)
+                                                  );strcat
+                                                  csv_file)
+                                  );if
+                               )
+                          );progn
+                     );if
+
+                     ;foreach
+
+                     ; (setq wall_data_entry_name (strcat (car eintrag)))
+                     ; (foreach layer_name next_entity_layer_names_list
+                     ;          (if (vl-string-search (cdr (assoc 2 (entget item))) layer_name)
+                     ;              (print (strcat layer_name "--" (last eintrag)))
+                     ;          );if
+                     ; );foreach
+            );foreach
   );foreach
 
+  (princ)
   (close csv_file)  
-
-  (princ)
 );defun
 
-(defun write_csv (/
-                   the_file
-                 )
-  (setq the_file
-        (open "c:\\Users\\affe\\Documents\\the_file.csv" "w")
-  );setq
 
-  (repeat 10
-    (write-line "meine datei" the_file)
-  );repeat
-
-  (close the_file)
-
-  (princ)
-);defun
-
-(defun my_test (/
+(defun my_test ( insert_selection /
                  insert_entity
                  insert_entity_entget
                  insert_entity_name
-                 insert_selection
                  insert_selection_iterator
 
                  selection_entity 
@@ -165,11 +193,12 @@
                  selection_entity_attributes_data
                )
 
-  (setq insert_entity                 (car (entsel))
-        insert_entity_entget          (entget insert_entity)
-        insert_entity_name            (cdr (assoc 2 insert_entity_entget))
-        insert_selection              (ssget "x" (list (cons 2 insert_entity_name)))
-        insert_selection_iterator     0
+  (setq 
+    ; insert_entity                 (car (entsel))
+    ; insert_entity_entget          (entget insert_entity)
+    ; insert_entity_name            (cdr (assoc 2 insert_entity_entget))
+    ; insert_selection              (ssget "x" (list (cons 2 insert_entity_name)))
+    insert_selection_iterator     0
   );setq
 
   (repeat (sslength insert_selection)
@@ -192,7 +221,9 @@
                   
                  (setq selection_entity_attributes_data
                    (cons 
-                     (cons 
+                     (list 
+                       selection_entity_layer_name
+
                        (vla-get-tagstring 
                          (vlax-safearray-get-element 
                            selection_entity_variant
@@ -206,7 +237,8 @@
                            selection_entity_variant_iterator
                          );vlax-safearray-get-element
                        );vla-get-textstring
-                     );cons
+
+                     );list
 
                      selection_entity_attributes_data
                    );cons
@@ -216,6 +248,8 @@
           );while
   );repeat
 
-  (print selection_entity_attributes_data)
-  (princ)
+  ; (foreach eintrag selection_entity_attributes_data
+  ;          (print eintrag)
+  ; );foreach
+  selection_entity_attributes_data
 );defun
