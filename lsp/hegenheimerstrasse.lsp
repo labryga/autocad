@@ -22,17 +22,18 @@
 
                           csv_file
                         )
+
   (setq 
     insert_selection_set    (ssget "x" '((0 . "INSERT")))
     insert_selection_set_iterator 0
 
     next_type_methods_list  (list 
-                             (list "flaeche"  (list vla-get-area 0.0001))
-                             (list "umfang"   (list vla-get-length 0.01))
-                             (list "laenge"   (list vla-get-length 0.01))
-                             (list "volumen"  (list vla-get-volume 0.000001))
-                             (list "breite"   (list vla-get-measurement 1))
-                             (list "hoehe"    (list vla-get-measurement 1))
+                               (list "flaeche"  (list vla-get-area 0.0001))
+                               (list "umfang"   (list vla-get-length 0.01))
+                               (list "laenge"   (list vla-get-length 0.01))
+                               (list "volumen"  (list vla-get-volume 0.000001))
+                               (list "breite"   (list vla-get-measurement 1))
+                               (list "hoehe"    (list vla-get-measurement 1))
                             );list
 
     model_space             (vla-get-modelspace
@@ -40,6 +41,7 @@
     csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
+  ; write insert block entities to list
   (repeat (sslength insert_selection_set)
           (setq insert_selectin_set_entity          (ssname insert_selection_set insert_selection_set_iterator)
                 insert_selection_set_iterator       (1+ insert_selection_set_iterator)
@@ -76,12 +78,13 @@
            (set (read next_entity_layer_name) 0);set
   );foreach
 
+  ; sum up each next block entities and write to corresponding variable
   (foreach next_entity insert_selection_block_entities_list
-           (while (setq next_entity (entnext next_entity))
 
+           (while (setq next_entity (entnext next_entity))
                   (setq next_entity_entget      (entget next_entity)
                         next_entity_layer_name  (cdr (assoc 8 next_entity_entget))
-                        next_entity_vla-object (vlax-ename->vla-object next_entity)
+                        next_entity_vla-object  (vlax-ename->vla-object next_entity)
                   );setq
 
                   (foreach eintrag next_type_methods_list
@@ -103,6 +106,7 @@
            );while
   );foreach
 
+  ; write attributes of each entity variable
   ; (foreach eintrag next_entity_layer_names_list
   ;   (vla-addattribute 
   ;     model_space
@@ -115,6 +119,7 @@
   ;   );vla-addattribute
   ; );foreach
 
+  ; write variables to csv
   (foreach eintrag next_entity_layer_names_list
            (write-line (strcat
                     eintrag "\t"
@@ -123,6 +128,7 @@
   );foreach
 
   (close csv_file)  
+
   (princ)
 );defun
 
@@ -210,6 +216,6 @@
           );while
   );repeat
 
-  selection_entity_attributes_data
+  (print selection_entity_attributes_data)
   (princ)
 );defun
