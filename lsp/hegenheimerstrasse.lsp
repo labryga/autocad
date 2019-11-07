@@ -19,6 +19,8 @@
                           next_type_result
 
                           model_space
+
+                          csv_file
                         )
   (setq 
     insert_selection_set    (ssget "x" '((0 . "INSERT")))
@@ -35,6 +37,7 @@
 
     model_space             (vla-get-modelspace
                               (vla-get-activedocument (vlax-get-acad-object)))
+    csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
   (repeat (sslength insert_selection_set)
@@ -52,6 +55,7 @@
           );if
   );repeat
 
+  ; write set of next block entity layer names
   (foreach next_entity insert_selection_block_entities_list
            (while (setq next_entity             (entnext next_entity))
                   (setq next_entity_entget      (entget next_entity)
@@ -64,9 +68,12 @@
                                                        );cons
                     );setq
                   );if
-
-                  (set (read next_entity_layer_name) 0);set
            );while
+  );foreach
+
+  ; set/reset each next entity layer name variable to zero
+  (foreach next_entity_layer_name next_entity_layer_names_list
+           (set (read next_entity_layer_name) 0);set
   );foreach
 
   (foreach next_entity insert_selection_block_entities_list
@@ -95,18 +102,43 @@
            );while
   );foreach
 
+  ; (foreach eintrag next_entity_layer_names_list
+  ;   (vla-addattribute 
+  ;     model_space
+  ;     (getvar 'textsize)
+  ;     acattributemodelockposition
+  ;     ""
+  ;     (vlax-3d-point 0 0 0)
+  ;     eintrag
+  ;     (eval (read eintrag))
+  ;   );vla-addattribute
+  ; );foreach
+
   (foreach eintrag next_entity_layer_names_list
-    (vla-addattribute 
-      model_space
-      (getvar 'textsize)
-      acattributemodelockposition
-      ""
-      (vlax-3d-point 0 0 0)
-      eintrag
-      (eval (read eintrag))
-    );vla-addattribute
+           (write-line (strcat
+                    eintrag "\t"
+                    (rtos (eval (read eintrag)))
+              ) csv_file)
   );foreach
 
-  
+  (close csv_file)  
   (princ)
 );defun
+
+(defun write_csv (/
+                   the_file
+                 )
+  (setq the_file
+        (open "c:\\Users\\affe\\Documents\\the_file.csv" "w")
+  );setq
+
+  (repeat 10
+    (write-line "meine datei" the_file)
+  );repeat
+
+  (close the_file)
+
+  (princ)
+);defun
+
+
