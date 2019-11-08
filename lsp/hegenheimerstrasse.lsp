@@ -39,7 +39,7 @@
 
     model_space             (vla-get-modelspace
                               (vla-get-activedocument (vlax-get-acad-object)))
-    csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
+    csv_file                (open "c:\\Users\\topos\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
   ; write insert block entities to list
@@ -139,25 +139,28 @@
                      (if  (vl-string-search (cdr (assoc 2 (entget item))) (car eintrag))
                           (progn 
                               (write-line (strcat
-                                        (cdr (assoc 2 (entget item)))
-                                        "------"
-                                        (nth 1 eintrag)
-                                        "---"
-                                        (nth 2 eintrag)) csv_file)
+                                            (nth 0 eintrag)
+                                            "-"
+                                            (nth 2 eintrag)
+                                            )
+                                          csv_file)
 
                               (foreach wand_attribut next_entity_layer_names_list
                                   (if (and
-                                         vl-string-search (cdr (assoc 2 (entget item))) wand_attribut
-                                         ; (not (wcmatch wand_attribut "*-nummer"))
+                                         (vl-string-search (cdr (assoc 2 (entget item))) wand_attribut)
+                                         (not (wcmatch wand_attribut "*-nummer"))
                                       );and
                                       (write-line (strcat 
                                                     wand_attribut
                                                     "---"
                                                     (nth 2 eintrag)
+                                                    "---"
+                                                    (rtos (eval (read wand_attribut)))
                                                   );strcat
                                                   csv_file)
                                   );if
-                               )
+                               );foreach
+                              (write-line "\n" csv_file)
                           );progn
                      );if
 
