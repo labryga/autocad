@@ -89,7 +89,7 @@
                   );setq
 
                   (foreach eintrag next_type_methods_list
-                           (if (wcmatch next_entity_layer_name (strcat "*-" (car eintrag)))
+                           (if (wcmatch next_entity_layer_name (strcat "*_" (car eintrag)))
                                (progn 
                                  (setq next_type_method (car (cadr eintrag))
                                        next_type_factor (cadr (cadr eintrag))
@@ -133,48 +133,41 @@
 
   (foreach  item insert_selection_block_entities_list
             (write-line (cdr (assoc 2 (entget item))) csv_file)
-            ; (princ)
 
-            (foreach eintrag wall_data
-                     (if  (vl-string-search (cdr (assoc 2 (entget item))) (car eintrag))
-                          (progn 
-                              (write-line (strcat
-                                            (nth 0 eintrag)
-                                            "-"
-                                            (nth 2 eintrag)
-                                            )
-                                          csv_file)
+            (foreach wall_data_item wall_data
+                     (if (wcmatch (car wall_data_item) (cdr (assoc 2 (entget item))))
+                         (progn 
+                           (setq wall_data_entry_name (strcat 
+                                                        (nth 0 wall_data_item)
+                                                        "-"
+                                                        (nth 2 wall_data_item)
+                                                      )
+                           );setq
 
-                              (foreach wand_attribut next_entity_layer_names_list
-                                  (if (and
-                                         (vl-string-search (cdr (assoc 2 (entget item))) wand_attribut)
-                                         (not (wcmatch wand_attribut "*-nummer"))
-                                      );and
-                                      (write-line (strcat 
-                                                    wand_attribut
-                                                    "---"
-                                                    (nth 2 eintrag)
-                                                    "---"
-                                                    (rtos (eval (read wand_attribut)))
-                                                  );strcat
-                                                  csv_file)
-                                  );if
-                               );foreach
-                              (write-line "\n" csv_file)
-                          );progn
+                           (foreach eintrag next_entity_layer_names_list
+                                    (if 
+					(wcmatch eintrag
+                                                 (strcat "*" (cdr (assoc 2 (entget item))) "*")
+                                        )
+
+					(setq wall_data_entry_name (strcat
+								     wall_data_entry_name
+								     " "
+								     (rtos (eval (read eintrag)))
+								   )
+					);setq
+                                    );if
+                           );foreach
+
+                         (write-line wall_data_entry_name csv_file)
+                         );progn
                      );if
-
-                     ;foreach
-
-                     ; (setq wall_data_entry_name (strcat (car eintrag)))
-                     ; (foreach layer_name next_entity_layer_names_list
-                     ;          (if (vl-string-search (cdr (assoc 2 (entget item))) layer_name)
-                     ;              (print (strcat layer_name "--" (last eintrag)))
-                     ;          );if
-                     ; );foreach
             );foreach
+
+            (write-line "\n" csv_file)
   );foreach
 
+  (print wall_data)
   (princ)
   (close csv_file)  
 );defun
@@ -256,3 +249,4 @@
   ; );foreach
   selection_entity_attributes_data
 );defun
+

@@ -318,3 +318,34 @@
   (princ)
 );defun
  
+(defun rename_blocks (  /
+                        collection_blocks
+                        block_name
+                        kategorie
+                     )
+  (setq 
+    collection_blocks (vla-get-blocks (vla-get-activedocument (vlax-get-acad-object)))
+    kategorie         (list "NZ" "ET" "TH" "WT");list
+  );setq
+
+  (vlax-for block collection_blocks
+            (setq block_name (vla-get-name block))
+
+            (foreach eintrag kategorie
+                     (if (wcmatch block_name (strcat "*" eintrag "*"))
+                         (progn 
+                            (setq block_name  (vl-string-subst
+                                              (strcat eintrag "-")
+                                              (strcat eintrag "_")
+                                              block_name
+                                              )
+                            );setq
+
+                            (vla-put-name block block_name)
+                         );progn
+                     );if
+            );foreach
+  );vlax-for
+                      
+  (princ)
+);defun
