@@ -26,6 +26,8 @@
 
   (setq 
     insert_selection_set    (ssget "x" '((0 . "INSERT")))
+    insert_selection_block_entities_list  (get_list_of_insert_block_entities
+                                            insert_selection_set)
     insert_selection_set_iterator 0
 
     next_type_methods_list  (list 
@@ -39,24 +41,24 @@
 
     model_space             (vla-get-modelspace
                               (vla-get-activedocument (vlax-get-acad-object)))
-    csv_file                (open "c:\\Users\\topos\\Documents\\hegenheimerstrasse.csv" "w")
+    csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
   ; write insert block entities to list
-  (repeat (sslength insert_selection_set)
-          (setq insert_selectin_set_entity          (ssname insert_selection_set insert_selection_set_iterator)
-                insert_selection_set_iterator       (1+ insert_selection_set_iterator)
-                insert_selection_entity_block_name  (cdr (assoc 2 (entget insert_selectin_set_entity)))
-                insert_selection_entity_block       (tblobjname "block" insert_selection_entity_block_name)
-          );setq
-
-          (if (not (member insert_selection_entity_block insert_selection_block_entities_list))
-              (setq insert_selection_block_entities_list (cons insert_selection_entity_block
-                                                               insert_selection_block_entities_list
-                                                         );cons
-              );setq
-          );if
-  );repeat
+  ; (repeat (sslength insert_selection_set)
+  ;         (setq insert_selectin_set_entity          (ssname insert_selection_set insert_selection_set_iterator)
+  ;               insert_selection_set_iterator       (1+ insert_selection_set_iterator)
+  ;               insert_selection_entity_block_name  (cdr (assoc 2 (entget insert_selectin_set_entity)))
+  ;               insert_selection_entity_block       (tblobjname "block" insert_selection_entity_block_name)
+  ;         );setq
+  ;
+  ;         (if (not (member insert_selection_entity_block insert_selection_block_entities_list))
+  ;             (setq insert_selection_block_entities_list (cons insert_selection_entity_block
+  ;                                                              insert_selection_block_entities_list
+  ;                                                        );cons
+  ;             );setq
+  ;         );if
+  ; );repeat
 
   ; write set of next block entity layer names
   (foreach next_entity insert_selection_block_entities_list
@@ -121,53 +123,52 @@
   ; );foreach
 
   ; write variables to csv
-  ; (foreach eintrag next_entity_layer_names_list
-  ;          (write-line (strcat
-  ;                   eintrag "\t"
-  ;                   (rtos (eval (read eintrag)))
-  ;             ) csv_file)
-  ; );foreach
+  (foreach eintrag next_entity_layer_names_list
+           (write-line (strcat
+                    eintrag "\t"
+                    (rtos (eval (read eintrag)))
+              ) csv_file)
+  );foreach
 
 
   (setq wall_data (my_test insert_selection_set)) 
 
-  (foreach  item insert_selection_block_entities_list
-            (write-line (cdr (assoc 2 (entget item))) csv_file)
+  ; (foreach  item insert_selection_block_entities_list
+  ;           (write-line (cdr (assoc 2 (entget item))) csv_file)
+  ;
+  ;           (foreach wall_data_item wall_data
+  ;                    (if (wcmatch (car wall_data_item) (cdr (assoc 2 (entget item))))
+  ;                        (progn 
+  ;                          (setq wall_data_entry_name (strcat 
+  ;                                                       (nth 0 wall_data_item)
+  ;                                                       "-"
+  ;                                                       (nth 2 wall_data_item)
+  ;                                                     )
+  ;                          );setq
+  ;
+  ;                          (foreach eintrag next_entity_layer_names_list
+  ;                                   (if 
+	; 				(wcmatch eintrag
+  ;                                                (strcat "*" (cdr (assoc 2 (entget item))) "*")
+  ;                                       )
+  ;
+	; 				(setq wall_data_entry_name (strcat
+	; 							     wall_data_entry_name
+	; 							     " "
+	; 							     (rtos (eval (read eintrag)))
+	; 							   )
+	; 				);setq
+  ;                                   );if
+  ;                          );foreach
+  ;
+  ;                        (write-line wall_data_entry_name csv_file)
+  ;                        );progn
+  ;                    );if
+  ;           );foreach
+  ;
+  ;           (write-line "\n" csv_file)
+  ; );foreach
 
-            (foreach wall_data_item wall_data
-                     (if (wcmatch (car wall_data_item) (cdr (assoc 2 (entget item))))
-                         (progn 
-                           (setq wall_data_entry_name (strcat 
-                                                        (nth 0 wall_data_item)
-                                                        "-"
-                                                        (nth 2 wall_data_item)
-                                                      )
-                           );setq
-
-                           (foreach eintrag next_entity_layer_names_list
-                                    (if 
-					(wcmatch eintrag
-                                                 (strcat "*" (cdr (assoc 2 (entget item))) "*")
-                                        )
-
-					(setq wall_data_entry_name (strcat
-								     wall_data_entry_name
-								     " "
-								     (rtos (eval (read eintrag)))
-								   )
-					);setq
-                                    );if
-                           );foreach
-
-                         (write-line wall_data_entry_name csv_file)
-                         );progn
-                     );if
-            );foreach
-
-            (write-line "\n" csv_file)
-  );foreach
-
-  (print wall_data)
   (princ)
   (close csv_file)  
 );defun
@@ -250,3 +251,40 @@
   selection_entity_attributes_data
 );defun
 
+(defun get_list_of_insert_block_entities ( insert_selection_set
+                                           /
+                                           insert_selection_iterator
+
+                                           insert_entity
+                                           insert_entity_entget
+                                           insert_entity_block_name
+                                           insert_entity_block_entity
+                                           insert_entities_block_list
+                                         )
+  (setq 
+    insert_selection_iterator 0
+  );setq
+
+  (repeat (sslength insert_selection_set)
+          (setq 
+            insert_entity               (ssname insert_selection_set
+                                                insert_selection_iterator
+                                        );ssname
+            insert_entity_entget        (entget insert_entity)
+            insert_entity_block_name    (cdr (assoc 2 (entget insert_entity))) 
+            insert_entity_block_entity  (tblobjname "block" insert_entity_block_name)
+            insert_selection_iterator   (1+ insert_selection_iterator)
+          );setq
+
+          (if (not (member insert_entity_block_entity insert_entities_block_list))
+              (setq insert_entities_block_list (cons insert_entity_block_entity
+                                                     insert_entities_block_list
+                                               );cons
+              );setq
+          );if
+
+  );repeat
+
+  ; return block entitites list
+  insert_entities_block_list
+)

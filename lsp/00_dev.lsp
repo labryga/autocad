@@ -345,3 +345,16 @@
   )
 
 )
+
+
+
+(defun x_test ( /
+                x_selection_set
+              )
+
+  (setq x_selection_set (ssget "x" '((0 . "INSERT")))
+  );setq
+
+  (get_list_of_insert_block_entities x_selection_set)
+
+);defun
