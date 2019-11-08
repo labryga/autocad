@@ -6,16 +6,8 @@
                           insert_selection_entity_block
                           insert_selection_block_entities_list
 
-                          next_entity
-                          next_entity_entget
                           next_entity_layer_name
                           next_entity_layer_names_list
-                          next_entity_vla-object
-
-                          next_type_methods_list
-                          next_type_method
-                          next_type_factor
-                          next_type_result
 
                           model_space
                           csv_file
@@ -25,19 +17,20 @@
 
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
+
     insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
 
     next_entity_layer_names_list          (get_list_of_next_block_entities_layers
                                             insert_selection_block_entities_list)
 
-    next_type_methods_list  (list 
-                               (list "flaeche"  (list vla-get-area 0.0001))
-                               (list "umfang"   (list vla-get-length 0.01))
-                               (list "laenge"   (list vla-get-length 0.01))
-                               (list "volumen"  (list vla-get-volume 0.000001))
-                               (list "breite"   (list vla-get-measurement 1))
-                               (list "hoehe"    (list vla-get-measurement 1))
-                            );list
+    next_type_methods_list                (list 
+                                             (list "flaeche"  (list vla-get-area 0.0001))
+                                             (list "umfang"   (list vla-get-length 0.01))
+                                             (list "laenge"   (list vla-get-length 0.01))
+                                             (list "volumen"  (list vla-get-volume 0.000001))
+                                             (list "breite"   (list vla-get-measurement 1))
+                                             (list "hoehe"    (list vla-get-measurement 1))
+                                          );list
 
     model_space                             (vla-get-modelspace (vla-get-activedocument
                                                                   (vlax-get-acad-object)))
@@ -52,45 +45,7 @@
   );foreach
 
   ; sum up each next block entities and write to corresponding variable
-  (foreach next_entity insert_selection_block_entities_list
-
-           (while (setq next_entity (entnext next_entity))
-                  (setq next_entity_entget      (entget next_entity)
-                        next_entity_layer_name  (cdr (assoc 8 next_entity_entget))
-                        next_entity_vla-object  (vlax-ename->vla-object next_entity)
-                  );setq
-
-                  (foreach eintrag next_type_methods_list
-                           (if (wcmatch next_entity_layer_name (strcat "*_" (car eintrag)))
-                               (progn 
-                                 (setq next_type_method (car (cadr eintrag))
-                                       next_type_factor (cadr (cadr eintrag))
-                                       next_type_result (next_type_method next_entity_vla-object)
-                                 );setq
-                                 (set (read next_entity_layer_name)
-                                      (+
-                                        (eval (read next_entity_layer_name))
-                                        (* next_type_result next_type_factor)
-                                      )
-                                 );set
-                               );progn
-                           );if
-                  );foreach
-           );while
-  );foreach
-
-  ; write attributes of each entity variable
-  ; (foreach eintrag next_entity_layer_names_list
-  ;   (vla-addattribute 
-  ;     model_space
-  ;     (getvar 'textsize)
-  ;     acattributemodelockposition
-  ;     ""
-  ;     (vlax-3d-point 0 0 0)
-  ;     eintrag
-  ;     (eval (read eintrag))
-  ;   );vla-addattribute
-  ; );foreach
+  (write_next_block_entity_to_variable insert_selection_block_entities_list) 
 
   ; write variables to csv
   (foreach eintrag next_entity_layer_names_list
@@ -282,4 +237,59 @@
 
   ; return list of next entities layers
   block_entities_layer_names_list
+);defun
+
+(defun write_next_block_entity_to_variable ( insert_block_entities_list 
+                                             /
+                                             next_type_methods_list
+
+                                             next_entity
+                                             next_entity_entget
+                                             next_entity_layer_name
+                                             next_entity_vla_object
+
+                                             method_attribute
+                                             method_function
+                                             method_factor
+                                           )
+
+  (setq 
+    next_type_methods_list  (list  
+                              (list "breite"  vla-get-measurement 1)
+                              (list "hoehe"   vla-get-measurement 1)
+                              (list "umfang"  vla-get-length      0.01)
+                              (list "flaeche" vla-get-area        0.0001)
+                              (list "laenge"  vla-get-length      0.01)
+                              (list "volumen" vla-get-volume      0.000001)
+                            );list
+  );setq
+
+  (foreach next_entity insert_block_entities_list
+
+   (while (setq next_entity (entnext next_entity))
+          (setq next_entity_entget     (entget next_entity)
+                next_entity_layer_name (cdr (assoc 8 next_entity_entget))
+                next_entity_vla_object (vlax-ename->vla-object next_entity)
+          );setq
+
+          (foreach method_data next_type_methods_list
+             (setq method_attribute (nth 0 method_data)
+                   method_function  (nth 1 method_data)
+                   method_factor    (nth 2 method_data)
+             );setq
+
+             (if (wcmatch next_entity_layer_name (strcat "*_" method_attribute))
+                 (progn 
+                   (set (read next_entity_layer_name)
+                        (+
+                          (eval (read next_entity_layer_name))
+                          (* method_factor (method_function next_entity_vla_object))
+                        )
+                   );set
+                 );progn
+             );if
+          );foreach
+   );while
+  );foreach
+
 );defun
