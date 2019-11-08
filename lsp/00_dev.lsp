@@ -350,11 +350,13 @@
 
 (defun x_test ( /
                 x_selection_set
+                x_block_entities_list
               )
 
   (setq x_selection_set (ssget "x" '((0 . "INSERT")))
+        x_block_entities_list (get_list_of_insert_block_entities x_selection_set)
   );setq
 
-  (get_list_of_insert_block_entities x_selection_set)
+  (get_list_of_next_block_entities_layers x_block_entities_list)
 
 );defun

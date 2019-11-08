@@ -2,7 +2,6 @@
 (defun write_attributes (/
                           insert_selection_set
                           insert_selectin_set_entity
-                          insert_selection_set_iterator
                           insert_selection_entity_block_name
                           insert_selection_entity_block
                           insert_selection_block_entities_list
@@ -25,10 +24,11 @@
                         )
 
   (setq 
-    insert_selection_set    (ssget "x" '((0 . "INSERT")))
-    insert_selection_block_entities_list  (get_list_of_insert_block_entities
-                                            insert_selection_set)
-    insert_selection_set_iterator 0
+    insert_selection_set                  (ssget "x" '((0 . "INSERT")))
+    insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
+
+    next_entity_layer_names_list          (get_list_of_next_block_entities_layers
+                                            insert_selection_block_entities_list)
 
     next_type_methods_list  (list 
                                (list "flaeche"  (list vla-get-area 0.0001))
@@ -39,42 +39,12 @@
                                (list "hoehe"    (list vla-get-measurement 1))
                             );list
 
-    model_space             (vla-get-modelspace
-                              (vla-get-activedocument (vlax-get-acad-object)))
+    model_space                             (vla-get-modelspace (vla-get-activedocument
+                                                                  (vlax-get-acad-object)))
+
     csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
-  ; write insert block entities to list
-  ; (repeat (sslength insert_selection_set)
-  ;         (setq insert_selectin_set_entity          (ssname insert_selection_set insert_selection_set_iterator)
-  ;               insert_selection_set_iterator       (1+ insert_selection_set_iterator)
-  ;               insert_selection_entity_block_name  (cdr (assoc 2 (entget insert_selectin_set_entity)))
-  ;               insert_selection_entity_block       (tblobjname "block" insert_selection_entity_block_name)
-  ;         );setq
-  ;
-  ;         (if (not (member insert_selection_entity_block insert_selection_block_entities_list))
-  ;             (setq insert_selection_block_entities_list (cons insert_selection_entity_block
-  ;                                                              insert_selection_block_entities_list
-  ;                                                        );cons
-  ;             );setq
-  ;         );if
-  ; );repeat
-
-  ; write set of next block entity layer names
-  (foreach next_entity insert_selection_block_entities_list
-           (while (setq next_entity             (entnext next_entity))
-                  (setq next_entity_entget      (entget next_entity)
-                        next_entity_layer_name  (cdr (assoc 8 next_entity_entget))
-                  );setq
-
-                  (if (not (member next_entity_layer_name next_entity_layer_names_list))
-                    (setq next_entity_layer_names_list (cons next_entity_layer_name
-                                                             next_entity_layer_names_list
-                                                       );cons
-                    );setq
-                  );if
-           );while
-  );foreach
 
   ; set/reset each next entity layer name variable to zero
   (foreach next_entity_layer_name next_entity_layer_names_list
@@ -129,7 +99,6 @@
                     (rtos (eval (read eintrag)))
               ) csv_file)
   );foreach
-
 
   (setq wall_data (my_test insert_selection_set)) 
 
@@ -288,3 +257,29 @@
   ; return block entitites list
   insert_entities_block_list
 )
+
+(defun get_list_of_next_block_entities_layers ( block_entities_list
+                                                /
+                                                block_entity_entget
+                                                block_entities_layer_names_list
+                                              )
+
+  (foreach block_entity block_entities_list
+
+           (while (setq block_entity            (entnext block_entity))
+                  (setq block_entity_entget     (entget block_entity)
+                        block_entity_layer_name (cdr (assoc 8 block_entity_entget))
+                  );setq
+
+                  (if (not (member block_entity_layer_name block_entities_layer_names_list))
+                      (setq block_entities_layer_names_list (cons block_entity_layer_name
+                                                                  block_entities_layer_names_list
+                                                            );cons
+                      );setq
+                  );if
+           );while
+  );foreach
+
+  ; return list of next entities layers
+  block_entities_layer_names_list
+);defun
