@@ -31,20 +31,11 @@
 
 
   ; set/reset each next entity layer name variable to zero
-  (foreach next_entity_layer_name next_entity_layer_names_list
-           (set (read next_entity_layer_name) 0);set
-  );foreach
+  (set_next_entity_layer_names_to_variables next_entity_layer_names_list)
 
   ; sum up each next block entities and write to corresponding variable
   (write_next_block_entity_to_variable insert_selection_block_entities_list) 
 
-  ; write variables to csv
-  (foreach eintrag next_entity_layer_names_list
-           (write-line (strcat
-                    eintrag "\t"
-                    (rtos (eval (read eintrag)))
-              ) csv_file)
-  );foreach
 
   (setq insert_entities_data (get_insert_entities_data insert_selection_set)) 
 
@@ -228,6 +219,12 @@
 
   ; return list of next entities layers
   block_entities_layer_names_list
+);defun
+
+(defun set_next_entity_layer_names_to_variables ( next_entity_layer_names_list /)
+  (foreach layer_name next_entity_layer_names_list
+           (set (read layer_name)  0);set
+  );foreach
 );defun
 
 (defun write_next_block_entity_to_variable ( insert_block_entities_list 
