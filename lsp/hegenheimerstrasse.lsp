@@ -1,7 +1,6 @@
 
 (defun write_attributes (/
                           insert_selection_set
-                          insert_entities_list
                           insert_selectin_set_entity
                           insert_selection_entity_block_name
                           insert_selection_entity_block
@@ -18,17 +17,15 @@
 
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
-    insert_entities_list                  (get_insert_entities_list insert_selection_set)
     insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
     next_entity_layer_names_list          (get_list_of_next_block_entities_layers
                                             insert_selection_block_entities_list)
+    insert_entities_data                  (get_insert_entities_data insert_selection_set) 
     model_space                           (vla-get-modelspace (vla-get-activedocument
                                                                   (vlax-get-acad-object)))
 
-    csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
+    ; csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
-
-  (get_insert_entities_list insert_selection_set)
 
   ; set/reset each next entity layer name variable to zero
   (set_next_entity_layer_names_to_variables next_entity_layer_names_list)
@@ -36,8 +33,6 @@
   ; sum up each next block entities and write to corresponding variable
   (write_next_block_entity_to_variable insert_selection_block_entities_list) 
 
-
-  (setq insert_entities_data (get_insert_entities_data insert_selection_set)) 
 
   ; (foreach  item insert_selection_block_entities_list
   ;           (write-line (cdr (assoc 2 (entget item))) csv_file)
@@ -75,8 +70,10 @@
   ;           (write-line "\n" csv_file)
   ; );foreach
 
+  (write_data_to_csv_file insert_entities_data)
+
   (princ)
-  (close csv_file)  
+  ; (close csv_file)  
 );defun
 
 
@@ -149,31 +146,6 @@
   ;          (print eintrag)
   ; );foreach
   selection_entity_attributes_data
-);defun
-
-(defun get_insert_entities_list ( selection_set
-                                  /
-                                  selection_entity
-                                  selection_entities_list
-                                )
-
-  (setq selection_set_iterator  0
-  );setq
-
-  (repeat (sslength selection_set)
-
-          (setq selection_entity        (ssname selection_set selection_set_iterator)
-                selection_set_iterator  (1+ selection_set_iterator)
-          );setq
-
-          (if (not (member selection_entity selection_entities_list))
-              (setq selection_entities_list (cons selection_entity
-                                                  selection_entities_list
-                                            );cons
-              );setq
-          );if
-  );repeat
-  (print selection_entities_list)
 );defun
 
 (defun get_list_of_insert_block_entities ( insert_selection_set
@@ -301,3 +273,17 @@
 
 );defun
 
+(defun write_data_to_csv_file ( insert_entities_data
+                                /
+                                insert_entget
+                                insert_block_name
+                                insert_layer_name
+                              )
+
+  (foreach insert_data insert_entities_data
+
+           (print insert_data)
+           (princ) 
+  );foreach
+
+);defun
