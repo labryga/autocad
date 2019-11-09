@@ -1,6 +1,7 @@
 
 (defun write_attributes (/
                           insert_selection_set
+                          insert_entities_list
                           insert_selectin_set_entity
                           insert_selection_entity_block_name
                           insert_selection_entity_block
@@ -17,18 +18,17 @@
 
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
-
+    insert_entities_list                  (get_insert_entities_list insert_selection_set)
     insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
-
     next_entity_layer_names_list          (get_list_of_next_block_entities_layers
                                             insert_selection_block_entities_list)
-
-    model_space                             (vla-get-modelspace (vla-get-activedocument
+    model_space                           (vla-get-modelspace (vla-get-activedocument
                                                                   (vlax-get-acad-object)))
 
     csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
+  (get_insert_entities_list insert_selection_set)
 
   ; set/reset each next entity layer name variable to zero
   (set_next_entity_layer_names_to_variables next_entity_layer_names_list)
@@ -96,13 +96,7 @@
                                  selection_entity_attributes_data
                                )
 
-  (setq 
-    ; insert_entity                 (car (entsel))
-    ; insert_entity_entget          (entget insert_entity)
-    ; insert_entity_name            (cdr (assoc 2 insert_entity_entget))
-    ; insert_selection              (ssget "x" (list (cons 2 insert_entity_name)))
-    insert_selection_iterator     0
-  );setq
+  (setq insert_selection_iterator 0);setq
 
   (repeat (sslength insert_selection)
 
@@ -155,6 +149,31 @@
   ;          (print eintrag)
   ; );foreach
   selection_entity_attributes_data
+);defun
+
+(defun get_insert_entities_list ( selection_set
+                                  /
+                                  selection_entity
+                                  selection_entities_list
+                                )
+
+  (setq selection_set_iterator  0
+  );setq
+
+  (repeat (sslength selection_set)
+
+          (setq selection_entity        (ssname selection_set selection_set_iterator)
+                selection_set_iterator  (1+ selection_set_iterator)
+          );setq
+
+          (if (not (member selection_entity selection_entities_list))
+              (setq selection_entities_list (cons selection_entity
+                                                  selection_entities_list
+                                            );cons
+              );setq
+          );if
+  );repeat
+  (print selection_entities_list)
 );defun
 
 (defun get_list_of_insert_block_entities ( insert_selection_set
@@ -281,3 +300,4 @@
   );foreach
 
 );defun
+
