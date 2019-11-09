@@ -11,7 +11,7 @@
 
                           model_space
                           csv_file
-                          wall_data
+                          insert_entities_data
                           wall_data_entry_name
                         )
 
@@ -22,15 +22,6 @@
 
     next_entity_layer_names_list          (get_list_of_next_block_entities_layers
                                             insert_selection_block_entities_list)
-
-    next_type_methods_list                (list 
-                                             (list "flaeche"  (list vla-get-area 0.0001))
-                                             (list "umfang"   (list vla-get-length 0.01))
-                                             (list "laenge"   (list vla-get-length 0.01))
-                                             (list "volumen"  (list vla-get-volume 0.000001))
-                                             (list "breite"   (list vla-get-measurement 1))
-                                             (list "hoehe"    (list vla-get-measurement 1))
-                                          );list
 
     model_space                             (vla-get-modelspace (vla-get-activedocument
                                                                   (vlax-get-acad-object)))
@@ -55,12 +46,12 @@
               ) csv_file)
   );foreach
 
-  (setq wall_data (my_test insert_selection_set)) 
+  (setq insert_entities_data (get_insert_entities_data insert_selection_set)) 
 
   ; (foreach  item insert_selection_block_entities_list
   ;           (write-line (cdr (assoc 2 (entget item))) csv_file)
   ;
-  ;           (foreach wall_data_item wall_data
+  ;           (foreach wall_data_item insert_entities_data
   ;                    (if (wcmatch (car wall_data_item) (cdr (assoc 2 (entget item))))
   ;                        (progn 
   ;                          (setq wall_data_entry_name (strcat 
@@ -98,21 +89,21 @@
 );defun
 
 
-(defun my_test ( insert_selection /
-                 insert_entity
-                 insert_entity_entget
-                 insert_entity_name
-                 insert_selection_iterator
+(defun get_insert_entities_data (insert_selection /
+                                 insert_entity
+                                 insert_entity_entget
+                                 insert_entity_name
+                                 insert_selection_iterator
 
-                 selection_entity 
-                 selection_entity_entget
-                 selection_entity_layer_name
-                 selection_entity_vla_object
-                 selection_entity_attributes
-                 selection_entity_variant
-                 selection_entity_variant_iterator
-                 selection_entity_attributes_data
-               )
+                                 selection_entity 
+                                 selection_entity_entget
+                                 selection_entity_layer_name
+                                 selection_entity_vla_object
+                                 selection_entity_attributes
+                                 selection_entity_variant
+                                 selection_entity_variant_iterator
+                                 selection_entity_attributes_data
+                               )
 
   (setq 
     ; insert_entity                 (car (entsel))
