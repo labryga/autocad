@@ -297,24 +297,18 @@
 
   (setq 
     collection_layers (vla-get-layers (vla-get-activedocument (vlax-get-acad-object)))
-    kategorie         (list "NZ" "ET" "TH" "WT");list
   );setq
 
   (vlax-for layer collection_layers
-            (setq 
-              layer_name  (vla-get-name layer)
+            (setq layer_name  (vla-get-name layer)
             );setq
-            (foreach eintrag kategorie
-                     (if (wcmatch layer_name (strcat "*" eintrag "_" "*"))
-                          (progn 
-                            (setq layer_name
-                                  (vl-string-subst (strcat eintrag "-") (strcat eintrag "_") layer_name)
-                            );setq
-                            (vla-put-name layer layer_name)
-                          );progn
-                     );if
-            );foreach
+
+            (if (wcmatch layer_name "*2143*")
+                (setq layer_name (vl-string-subst "$0&" "_0_" layer_name))
+                (print layer_name)
+            );if
   );vlax-for
+
   (princ)
 );defun
  

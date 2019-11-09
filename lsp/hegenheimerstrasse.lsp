@@ -29,6 +29,8 @@
   ; sum up each next block entities and write to corresponding variable
   (write_next_block_entity_to_variable insert_selection_block_entities_list) 
 
+  (write_data_to_csv_file insert_entities_data)
+
   (princ)
   ; (close csv_file)  
 );defun
@@ -242,14 +244,23 @@
 
 (defun write_data_to_csv_file ( insert_entities_data
                                 /
-                                insert_entget
-                                insert_block_name
-                                insert_layer_name
+                                insert_name
+                                insert_instances
                               )
 
   (foreach insert_data insert_entities_data
+           (setq insert_name      (nth 0 insert_data)
+                 insert_instances (nth 1 insert_data)
+           );setq
+           (print insert_name)
 
-           (print insert_data)
+           (foreach insert_instance insert_instances
+                    (print (strcat insert_name "-"
+                                   insert_instance
+                           );strcat
+                    )
+           );foreach
+
            (princ) 
   );foreach
 
