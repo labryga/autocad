@@ -14,16 +14,12 @@
                           insert_entities_data
                           wall_data_entry_name
                         )
-
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
+    insert_entities_data                  (get_insert_entities_data insert_selection_set) 
     insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
     next_entity_layer_names_list          (get_list_of_next_block_entities_layers
                                             insert_selection_block_entities_list)
-    insert_entities_data                  (get_insert_entities_data insert_selection_set) 
-    model_space                           (vla-get-modelspace (vla-get-activedocument
-                                                                  (vlax-get-acad-object)))
-
     ; csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
@@ -33,54 +29,11 @@
   ; sum up each next block entities and write to corresponding variable
   (write_next_block_entity_to_variable insert_selection_block_entities_list) 
 
-
-  ; (foreach  item insert_selection_block_entities_list
-  ;           (write-line (cdr (assoc 2 (entget item))) csv_file)
-  ;
-  ;           (foreach wall_data_item insert_entities_data
-  ;                    (if (wcmatch (car wall_data_item) (cdr (assoc 2 (entget item))))
-  ;                        (progn 
-  ;                          (setq wall_data_entry_name (strcat 
-  ;                                                       (nth 0 wall_data_item)
-  ;                                                       "-"
-  ;                                                       (nth 2 wall_data_item)
-  ;                                                     )
-  ;                          );setq
-  ;
-  ;                          (foreach eintrag next_entity_layer_names_list
-  ;                                   (if 
-	; 				(wcmatch eintrag
-  ;                                                (strcat "*" (cdr (assoc 2 (entget item))) "*")
-  ;                                       )
-  ;
-	; 				(setq wall_data_entry_name (strcat
-	; 							     wall_data_entry_name
-	; 							     " "
-	; 							     (rtos (eval (read eintrag)))
-	; 							   )
-	; 				);setq
-  ;                                   );if
-  ;                          );foreach
-  ;
-  ;                        (write-line wall_data_entry_name csv_file)
-  ;                        );progn
-  ;                    );if
-  ;           );foreach
-  ;
-  ;           (write-line "\n" csv_file)
-  ; );foreach
-
-  (write_data_to_csv_file insert_entities_data)
-
   (princ)
   ; (close csv_file)  
 );defun
 
-
 (defun get_insert_entities_data (insert_selection /
-                                 insert_entity
-                                 insert_entity_entget
-                                 insert_entity_name
                                  insert_selection_iterator
 
                                  selection_entity 
@@ -90,7 +43,12 @@
                                  selection_entity_attributes
                                  selection_entity_variant
                                  selection_entity_variant_iterator
-                                 selection_entity_attributes_data
+                                 selection_entity_tagstring
+                                 selection_entity_data
+                                 selection_entity_data_attributes
+                                 selection_entity_data_new
+
+                                 selection_inserts_data
                                )
 
   (setq insert_selection_iterator 0);setq
@@ -112,41 +70,50 @@
                    (vlax-safearray-get-u-bound selection_entity_variant 1)
                    selection_entity_variant_iterator
                  )
-                  
-                 (setq selection_entity_attributes_data
-                   (cons 
-                     (list 
-                       selection_entity_layer_name
 
-                       (vla-get-tagstring 
-                         (vlax-safearray-get-element 
-                           selection_entity_variant
-                           selection_entity_variant_iterator
-                         );vlax-safearray-get-element
-                       );vla-get-tagstring
-
-                       (vla-get-textstring 
-                         (vlax-safearray-get-element 
-                           selection_entity_variant
-                           selection_entity_variant_iterator
-                         );vlax-safearray-get-element
-                       );vla-get-textstring
-
-                     );list
-
-                     selection_entity_attributes_data
-                   );cons
+                 (setq selection_entity_tagstring (vla-get-textstring
+                                                    (vlax-safearray-get-element
+                                                      selection_entity_variant
+                                                      selection_entity_variant_iterator
+                                                    );vlax-safearray-get-element
+                                                  );vla-get-tagstring
                  );setq
+
+                 (if (not (assoc selection_entity_layer_name selection_inserts_data))
+                     (progn 
+                       (setq selection_inserts_data (cons (list selection_entity_layer_name
+                                                                (list selection_entity_tagstring)
+                                                          );list
+                                                          selection_inserts_data
+                                                    );cons
+                       );setq
+                     );progn
+
+                     (progn 
+                       (setq selection_entity_data (assoc selection_entity_layer_name selection_inserts_data)
+                             selection_entity_data_attributes (vl-sort 
+                                                                (cons selection_entity_tagstring
+                                                                      (nth 1 selection_entity_data)
+                                                                );cons
+                                                                '<
+                                                              );vl-sort
+                             selection_entity_data_new  (list selection_entity_layer_name
+                                                              selection_entity_data_attributes
+                                                        );list
+
+                             selection_inserts_data     (subst selection_entity_data_new selection_entity_data
+                                                               selection_inserts_data
+                                                        );subst
+                       );setq
+                     );progn
+                 );if
 
                  (setq selection_entity_variant_iterator (1+ selection_entity_variant_iterator))
           );while
   );repeat
 
-  ; (foreach eintrag selection_entity_attributes_data
-  ;          (print eintrag)
-  ; );foreach
-  selection_entity_attributes_data
-);defun
+  selection_inserts_data
+)
 
 (defun get_list_of_insert_block_entities ( insert_selection_set
                                            /
@@ -287,3 +254,6 @@
   );foreach
 
 );defun
+
+
+
