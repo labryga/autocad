@@ -27,7 +27,7 @@
   (set_next_entity_layer_names_to_variables next_entity_layer_names_list)
 
   ; sum up each next block entities and write to corresponding variable
-  (write_next_block_entity_to_variable insert_selection_block_entities_list) 
+  (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
   (write_data_to_csv_file insert_entities_data)
 
@@ -187,19 +187,19 @@
   );foreach
 );defun
 
-(defun write_next_block_entity_to_variable ( insert_block_entities_list 
-                                             /
-                                             next_type_methods_list
+(defun write_next_block_entities_to_variables ( insert_block_entities_list 
+                                               /
+                                               next_type_methods_list
 
-                                             next_entity
-                                             next_entity_entget
-                                             next_entity_layer_name
-                                             next_entity_vla_object
+                                               next_entity
+                                               next_entity_entget
+                                               next_entity_layer_name
+                                               next_entity_vla_object
 
-                                             method_attribute
-                                             method_function
-                                             method_factor
-                                           )
+                                               method_attribute
+                                               method_function
+                                               method_factor
+                                             )
 
   (setq 
     next_type_methods_list  (list  
