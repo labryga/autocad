@@ -32,6 +32,7 @@
   (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
 
+  (write_data_to_csv csv_data)
   (princ)
   ; (close csv_file)  
 );defun
@@ -275,7 +276,6 @@
            (setq insert_name_to_list (get_list_of_insert_name_string insert_name)
            );setq
 
-           (foreach insert_instance insert_instances
 
                    (setq attribute_values (list "breite"
                                                "hoehe"
@@ -283,7 +283,6 @@
                                                "umfang"
                                                "volumen"
                                          );list
-                         insert_instance_name (strcat insert_name "-" insert_instance)
                    );setq
 
                     (foreach layer_name next_entity_layer_names_list
@@ -309,16 +308,21 @@
                     (setq data_to_csv
                           (cons 
                               (list insert_name_to_list
-                                    insert_instance
+                                    insert_instances
                                     attribute_values)
                               data_to_csv
                           );cons
                     );setq
-           );foreach
   );foreach
   
   (reverse data_to_csv)
 );defun
 
-
-
+(defun write_data_to_csv (  csv_data
+                           /
+                         )
+  (foreach eintrag csv_data
+           (print eintrag)
+  );foreach
+  (princ)
+);defun
