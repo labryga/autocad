@@ -31,8 +31,8 @@
   ; sum up each next block entities and write to corresponding variable
   (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
-
   (write_data_to_csv csv_data)
+
   (princ)
   ; (close csv_file)  
 );defun
@@ -252,6 +252,7 @@
                                       insert_instances
                                       insert_instance_name
                                       attribute_values
+                                      attribute_values_list
                                       data_to_csv
                                     )
 
@@ -277,42 +278,46 @@
            );setq
 
 
-                   (setq attribute_values (list "breite"
-                                               "hoehe"
-                                               "flaeche"
-                                               "umfang"
-                                               "volumen"
-                                         );list
-                   );setq
+           (setq attribute_values (list
+                                     (list "breite")
+                                     (list "hoehe")
+                                     (list "flaeche")
+                                     (list "umfang")
+                                     (list "volumen")
+                                 );list
+           );setq
 
-                    (foreach layer_name next_entity_layer_names_list
+            (foreach layer_name next_entity_layer_names_list
 
-                             (if (wcmatch layer_name (strcat insert_name "*"))
-                                 (progn 
+                     (if (wcmatch layer_name (strcat insert_name "*"))
+                         (progn 
 
-                                   (foreach attribute attribute_values
-                                            (if (wcmatch layer_name (strcat "*" attribute))
-                                                (progn (setq attribute_values
-                                                         (subst (rtos (eval (read layer_name)))
-                                                                attribute
-                                                                attribute_values
-                                                         );subst
-                                                       );setq
-                                                );progn
-                                            );if
-                                   );foreach
-                                 );progn
-                             );if
-                    );foreach
+                           (foreach attribute attribute_values
+                                    (if (wcmatch layer_name (strcat "*" (nth 0 attribute)))
+                                        (progn (setq attribute_values
+                                                 (subst
+                                                        (list (nth 0 attribute)
+                                                              (rtos (eval (read layer_name)))
+                                                        );list
+                                                        attribute
+                                                        attribute_values
+                                                 );subst
+                                               );setq
+                                        );progn
+                                    );if
+                           );foreach
+                         );progn
+                     );if
+            );foreach
 
-                    (setq data_to_csv
-                          (cons 
-                              (list insert_name_to_list
-                                    insert_instances
-                                    attribute_values)
-                              data_to_csv
-                          );cons
-                    );setq
+            (setq data_to_csv
+                  (cons 
+                      (list insert_name_to_list
+                            insert_instances
+                            attribute_values)
+                      data_to_csv
+                  );cons
+            );setq
   );foreach
   
   (reverse data_to_csv)
