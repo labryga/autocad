@@ -293,6 +293,7 @@
                       collection_layers
                       layer_name
                       kategorie
+                      layer_name_tmp
                     )
 
   (setq 
@@ -303,9 +304,13 @@
             (setq layer_name  (vla-get-name layer)
             );setq
 
-            (if (wcmatch layer_name "*2143*")
-                (setq layer_name (vl-string-subst "$0&" "_0_" layer_name))
-                (print layer_name)
+            (if (wcmatch layer_name "*W_O*")
+              (progn 
+                (setq 
+                  layer_name (vl-string-subst "WO" "W_O" layer_name)
+                );setq
+                (vla-put-name layer layer_name)
+              );progn
             );if
   );vlax-for
 

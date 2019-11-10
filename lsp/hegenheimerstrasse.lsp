@@ -9,10 +9,8 @@
                           next_entity_layer_name
                           next_entity_layer_names_list
 
-                          model_space
-                          csv_file
                           insert_entities_data
-                          wall_data_entry_name
+                          csv_data
                         )
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
@@ -20,6 +18,10 @@
     insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
     next_entity_layer_names_list          (get_list_of_next_block_entities_layers
                                             insert_selection_block_entities_list)
+    csv_data                              (get_insert_entities_csv_data
+                                            insert_entities_data
+                                            next_entity_layer_names_list
+                                          )
     ; csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
@@ -29,9 +31,6 @@
   ; sum up each next block entities and write to corresponding variable
   (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
-  (write_data_to_csv_file insert_entities_data
-                          next_entity_layer_names_list
-                          )
 
   (princ)
   ; (close csv_file)  
@@ -244,62 +243,81 @@
 
 );defun
 
-(defun write_data_to_csv_file ( insert_entities_data
-                                next_entity_layer_names_list
-                                /
-                                insert_name
-                                insert_instances
-                                attribute_names
-                              )
+(defun get_insert_entities_csv_data ( insert_entities_data
+                                      next_entity_layer_names_list
+                                      /
+                                      insert_name
+                                      insert_name_to_list
+                                      insert_instances
+                                      insert_instance_name
+                                      attribute_values
+                                      data_to_csv
+                                    )
 
   (foreach insert_data insert_entities_data
-           (setq insert_name      (nth 0 insert_data)
-                 insert_instances (nth 1 insert_data)
+           (setq insert_name          (nth 0 insert_data)
+                 insert_instances     (nth 1 insert_data)
            );setq
            ; (print insert_name)
 
+           (defun get_list_of_insert_name_string ( insert_name_string
+                                                   /
+                                                   delimiter_position
+                                                 )
+             (if (setq delimiter_position (vl-string-search "_" insert_name_string))
+                 (cons (substr insert_name_string 1 delimiter_position )
+                       (get_list_of_insert_name_string (substr insert_name_string (+ 2 delimiter_position)))
+                 );cons
+                 (list insert_name_string)
+             );if
+           );defun
+
+           (setq insert_name_to_list (get_list_of_insert_name_string insert_name)
+           );setq
+
            (foreach insert_instance insert_instances
 
-                   (setq attribute_names (list "breite"
+                   (setq attribute_values (list "breite"
                                                "hoehe"
                                                "flaeche"
                                                "umfang"
                                                "volumen"
                                          );list
+                         insert_instance_name (strcat insert_name "-" insert_instance)
                    );setq
-
-                    ; (print (strcat insert_name "-"
-                    ;                insert_instance
-                    ;        );strcat
-                    ; )
 
                     (foreach layer_name next_entity_layer_names_list
 
                              (if (wcmatch layer_name (strcat insert_name "*"))
                                  (progn 
 
-                                   (foreach attribute attribute_names
+                                   (foreach attribute attribute_values
                                             (if (wcmatch layer_name (strcat "*" attribute))
-                                                (progn (setq attribute_names
+                                                (progn (setq attribute_values
                                                          (subst (rtos (eval (read layer_name)))
                                                                 attribute
-                                                                attribute_names
+                                                                attribute_values
                                                          );subst
                                                        );setq
                                                 );progn
                                             );if
                                    );foreach
-
                                  );progn
                              );if
                     );foreach
 
-             (print (list (strcat insert_name "-" insert_instance) attribute_names))
+                    (setq data_to_csv
+                          (cons 
+                              (list insert_name_to_list
+                                    insert_instance
+                                    attribute_values)
+                              data_to_csv
+                          );cons
+                    );setq
            );foreach
-
-           (princ) 
   );foreach
-
+  
+  (reverse data_to_csv)
 );defun
 
 
