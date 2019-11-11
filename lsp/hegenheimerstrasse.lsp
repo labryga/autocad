@@ -15,23 +15,23 @@
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
     insert_entities_data                  (get_insert_entities_data insert_selection_set) 
-    insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
-    next_entity_layer_names_list          (get_list_of_next_block_entities_layers
-                                            insert_selection_block_entities_list)
-    csv_data                              (get_insert_entities_csv_data
-                                            insert_entities_data
-                                            next_entity_layer_names_list
+    ; insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
+    ; next_entity_layer_names_list          (get_list_of_next_block_entities_layers
+    ;                                         insert_selection_block_entities_list)
+    ; csv_data                              (get_insert_entities_csv_data
+    ;                                         insert_entities_data
+    ;                                         next_entity_layer_names_list
                                           )
     ; csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
   ; set/reset each next entity layer name variable to zero
-  (set_next_entity_layer_names_to_variables next_entity_layer_names_list)
+  ; (set_next_entity_layer_names_to_variables next_entity_layer_names_list)
 
   ; sum up each next block entities and write to corresponding variable
-  (write_next_block_entities_to_variables insert_selection_block_entities_list) 
+  ; (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
-  (write_data_to_csv csv_data)
+  ; (write_data_to_csv csv_data)
 
   (princ)
   ; (close csv_file)  
