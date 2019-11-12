@@ -14,25 +14,25 @@
                         )
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
-    insert_entities_data                  (get_insert_entities_data insert_selection_set) 
-    ; insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
-    ; next_entity_layer_names_list          (get_list_of_next_block_entities_layers
-    ;                                         insert_selection_block_entities_list)
+    ; insert_entities_data                  (get_insert_entities_data insert_selection_set) 
+    insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
+    next_entity_layer_names_list          (get_list_of_next_block_entities_layers
+                                            insert_selection_block_entities_list)
     ; csv_data                              (get_insert_entities_csv_data
     ;                                         insert_entities_data
     ;                                         next_entity_layer_names_list
-                                          )
+                                          ; )
     ; csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
   ; set/reset each next entity layer name variable to zero
-  ; (set_next_entity_layer_names_to_variables next_entity_layer_names_list)
+  (set_next_entity_layer_names_to_variables next_entity_layer_names_list)
 
   ; sum up each next block entities and write to corresponding variable
-  ; (write_next_block_entities_to_variables insert_selection_block_entities_list) 
+  (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
   ; (write_data_to_csv csv_data)
-
+  (get_insert_entities_data insert_selection_set)
   (princ)
   ; (close csv_file)  
 );defun
@@ -40,83 +40,128 @@
 (defun get_insert_entities_data (insert_selection /
                                  insert_selection_iterator
 
-                                 selection_entity 
-                                 selection_entity_entget
-                                 selection_entity_layer_name
-                                 selection_entity_vla_object
-                                 selection_entity_attributes
-                                 selection_entity_variant
-                                 selection_entity_variant_iterator
-                                 selection_entity_tagstring
-                                 selection_entity_data
-                                 selection_entity_data_attributes
-                                 selection_entity_data_new
+                                 insert_entity
+                                 insert_selection_iterator
+                                 insert_entity_name
 
+                                 insert_block_values
+
+                                 insert_entity_attribute_variant
+                                 attribute_variant_iterator
+                                 attribute_value
+
+                                 selection_insert_data
                                  selection_inserts_data
                                )
 
-  (setq insert_selection_iterator 0);setq
+  (setq 
+    insert_selection_iterator 0
+  );setq
 
   (repeat (sslength insert_selection)
-
           (setq 
-            selection_entity                  (ssname insert_selection insert_selection_iterator)
-            selection_entity_entget           (entget selection_entity)
-            selection_entity_layer_name       (cdr (assoc 8 selection_entity_entget))
-            insert_selection_iterator         (1+ insert_selection_iterator)
-            selection_entity_vla_object       (vlax-ename->vla-object selection_entity)
-            selection_entity_attributes       (vla-getAttributes selection_entity_vla_object)
-            selection_entity_variant          (vlax-variant-value selection_entity_attributes)
-            selection_entity_variant_iterator 0
+            insert_entity                   (ssname insert_selection insert_selection_iterator)
+            insert_selection_iterator       (1+ insert_selection_iterator)
+            insert_entity_name              (cdr (assoc 2 (entget insert_entity)))
+            insert_entity_attribute_variant (vlax-variant-value
+                                              (vla-getAttributes
+                                                (vlax-ename->vla-object insert_entity))
+                                            )
+            attribute_variant_iterator      0
           );setq
 
-          (while (>=
-                   (vlax-safearray-get-u-bound selection_entity_variant 1)
-                   selection_entity_variant_iterator
+          (while (>=  (vlax-safearray-get-u-bound insert_entity_attribute_variant 1)
+                      attribute_variant_iterator
                  )
-
-                 (setq selection_entity_tagstring (vla-get-textstring
-                                                    (vlax-safearray-get-element
-                                                      selection_entity_variant
-                                                      selection_entity_variant_iterator
-                                                    );vlax-safearray-get-element
-                                                  );vla-get-tagstring
+                 (setq 
+                    attribute_value             (vla-get-textstring
+                                                  (vlax-safearray-get-element
+                                                    insert_entity_attribute_variant
+                                                    attribute_variant_iterator)
+                                                );vla-get-textstring
+                    attribute_variant_iterator  (1+ attribute_variant_iterator)
                  );setq
-
-                 (if (not (assoc selection_entity_layer_name selection_inserts_data))
-                     (progn 
-                       (setq selection_inserts_data (cons (list selection_entity_layer_name
-                                                                (list selection_entity_tagstring)
-                                                          );list
-                                                          selection_inserts_data
-                                                    );cons
-                       );setq
-                     );progn
-
-                     (progn 
-                       (setq selection_entity_data (assoc selection_entity_layer_name selection_inserts_data)
-                             selection_entity_data_attributes (vl-sort 
-                                                                (cons selection_entity_tagstring
-                                                                      (nth 1 selection_entity_data)
-                                                                );cons
-                                                                '<
-                                                              );vl-sort
-                             selection_entity_data_new  (list selection_entity_layer_name
-                                                              selection_entity_data_attributes
-                                                        );list
-
-                             selection_inserts_data     (subst selection_entity_data_new selection_entity_data
-                                                               selection_inserts_data
-                                                        );subst
-                       );setq
-                     );progn
-                 );if
-
-                 (setq selection_entity_variant_iterator (1+ selection_entity_variant_iterator))
           );while
+
+          (if (not (assoc insert_entity_name selection_inserts_data))
+              (progn 
+                (setq 
+                  insert_block_values (list (list "breite")
+                                            (list "hoehe")
+                                            (list "flaeche")
+                                            (list "umfang")
+                                            (list "volumen")
+                                      );list
+                );setq
+
+                (foreach block_value insert_block_values
+                         (foreach next_layer next_entity_layer_names_list
+                                  (if (and (wcmatch next_layer (strcat insert_entity_name "*"))
+                                           (wcmatch next_layer (strcat "*" (nth 0 block_value)))
+                                      );and
+                                      (progn 
+                                        (setq insert_block_values
+                                                (subst (list 
+                                                         (nth 0 block_value)
+                                                         (rtos (eval (read next_layer)))
+                                                       );list
+                                                       block_value
+                                                       insert_block_values
+                                                );subst
+                                        );setq
+                                      );progn
+                                  );if
+                         );foreach
+                );foreach
+                (setq 
+                  selection_inserts_data  (cons (list
+                                                  insert_entity_name
+                                                  (list attribute_value)
+                                                  insert_block_values
+                                                );list
+                                                selection_inserts_data
+                                          );cons
+                );setq
+              );progn
+
+              (setq 
+                selection_insert_data (assoc insert_entity_name selection_inserts_data)
+                selection_inserts_data (subst (list insert_entity_name
+                                                    (vl-sort
+                                                     (cons attribute_value
+                                                           (nth 1 selection_insert_data))
+                                                     '<)
+                                                    (nth 2 selection_insert_data)
+                                              );list
+                                              selection_insert_data
+                                              selection_inserts_data
+                                       );subst
+              );setq
+          );if
   );repeat
 
-  selection_inserts_data
+  (defun split_name_to_list (name_string / delimiter_position)
+    (if (setq delimiter_position (vl-string-search "_" name_string))
+        (setq name_string (cons (substr name_string 1 delimiter_position)
+                          (split_name_to_list (substr name_string (+ 2 delimiter_position)))
+                          );cons
+        );setq
+        (list name_string)
+    );if
+  );defun
+
+  (foreach eintrag selection_inserts_data
+           (setq selection_inserts_data
+                 (subst (list 
+                           (split_name_to_list (nth 0 eintrag))
+                           (nth 1 eintrag)
+                           (nth 2 eintrag)
+                        );list
+                        eintrag
+                        selection_inserts_data
+                 );subst
+           );setq
+  );foreach
 )
 
 (defun get_list_of_insert_block_entities ( insert_selection_set
