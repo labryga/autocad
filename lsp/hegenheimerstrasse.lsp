@@ -14,7 +14,7 @@
                         )
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
-    insert_entities_data                  (get_insert_entities_data insert_selection_set) 
+    ; insert_entities_data                  (get_insert_entities_data insert_selection_set) 
     insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
     next_entity_layer_names_list          (get_list_of_next_block_entities_layers
                                             insert_selection_block_entities_list)
@@ -31,6 +31,7 @@
   ; sum up each next block entities and write to corresponding variable
   (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
+  (get_insert_entities_data insert_selection_set)
   ; (write_data_to_csv csv_data)
   (print insert_entities_data)
   (princ)
@@ -53,6 +54,7 @@
                                  selection_insert_data
                                  selection_inserts_data
                                  list_of_layer_name_split
+                                 list_of_layer_name_split_neu
                                  bezeichnung_neu
                                )
 
@@ -102,6 +104,7 @@
                                            (wcmatch next_layer (strcat "*" (nth 0 block_value)))
                                       );and
                                       (progn 
+                                        ; (print (eval (read next_layer)))
                                         (setq insert_next_values
                                                 (subst (list 
                                                          (nth 0 block_value)
@@ -115,6 +118,7 @@
                                   );if
                          );foreach
                 );foreach
+                (print insert_next_values)
 
                 (setq 
                   selection_inserts_data  (cons (list
@@ -143,63 +147,70 @@
           );if
   );repeat
 
-  (defun split_name_to_list (name_string / delimiter_position)
-    (if (setq delimiter_position (vl-string-search "_" name_string))
-        (setq name_string (cons (substr name_string 1 delimiter_position)
-                          (split_name_to_list (substr name_string (+ 2 delimiter_position)))
-                          );cons
-        );setq
-        (list name_string)
-    );if
-  );defun
+  ; (defun split_name_to_list (name_string / delimiter_position)
+  ;   (if (setq delimiter_position (vl-string-search "_" name_string))
+  ;       (setq name_string (cons (substr name_string 1 delimiter_position)
+  ;                         (split_name_to_list (substr name_string (+ 2 delimiter_position)))
+  ;                         );cons
+  ;       );setq
+  ;       (list name_string)
+  ;   );if
+  ; );defun
 
-  (foreach eintrag selection_inserts_data
-           (setq selection_inserts_data
-                 (subst (list 
-                           (split_name_to_list (nth 0 eintrag))
-                           (nth 1 eintrag)
-                           (nth 2 eintrag)
-                        );list
-                        eintrag
-                        selection_inserts_data
-                 );subst
-           );setq
-  );foreach
+  ; (foreach eintrag selection_inserts_data
+  ;          (setq selection_inserts_data
+  ;                (subst (list 
+  ;                          (split_name_to_list (nth 0 eintrag))
+  ;                          (nth 1 eintrag)
+  ;                          (nth 2 eintrag)
+  ;                       );list
+  ;                       eintrag
+  ;                       selection_inserts_data
+  ;                );subst
+  ;          );setq
+  ; );foreach
 
-  (foreach eintrag selection_inserts_data
-           (setq list_of_layer_name_split (nth 0 eintrag)
-           );setq
-           (foreach bezeichnung list_of_layer_name_split
-                    (setq bezeichnung_neu bezeichnung
-                    );setq
-                    (foreach zeichen (list 
-                                       (list "$" ".")
-                                       (list "&" " ")
-                                     );list
-
-                              (if (wcmatch bezeichnung (strcat "*" (nth 0 zeichen) "*"))
-                                  (progn 
-                                    (setq bezeichnung_neu
-                                          (vl-string-subst
-                                             (nth 1 zeichen)
-                                             (nth 0 zeichen)
-                                             bezeichnung_neu
-                                           )
-                                    );setq
-                                  );progn
-                              );if
-                    );foreach
-                    
-                    (setq list_of_layer_name_split
-                          (subst bezeichnung_neu
-                                 bezeichnung
-                                 list_of_layer_name_split
-                          );subst
-                    );setq
-                    (print list_of_layer_name_split)
-                    (princ)
-           );foreach
-  );foreach
+  ; (foreach eintrag selection_inserts_data
+  ;          (setq list_of_layer_name_split (nth 0 eintrag)
+  ;                list_of_layer_name_split_neu list_of_layer_name_split
+  ;          );setq
+  ;          (foreach bezeichnung list_of_layer_name_split
+  ;                   (setq bezeichnung_neu bezeichnung
+  ;                   );setq
+  ;                   (foreach zeichen (list 
+  ;                                      (list "$" ".")
+  ;                                      (list "&" " ")
+  ;                                    );list
+  ;
+  ;                             (if (wcmatch bezeichnung (strcat "*" (nth 0 zeichen) "*"))
+  ;                                 (progn 
+  ;                                   (setq bezeichnung_neu
+  ;                                         (vl-string-subst
+  ;                                            (nth 1 zeichen)
+  ;                                            (nth 0 zeichen)
+  ;                                            bezeichnung_neu
+  ;                                          )
+  ;                                   );setq
+  ;                                 );progn
+  ;                             );if
+  ;                   );foreach
+  ;                   
+  ;                   (setq list_of_layer_name_split_neu
+  ;                         (subst bezeichnung_neu
+  ;                                bezeichnung
+  ;                                list_of_layer_name_split_neu
+  ;                         );subst
+  ;                   );setq
+  ;          );foreach
+  ;          (setq eintrag
+  ;                (subst list_of_layer_name_split_neu
+  ;                       list_of_layer_name_split
+  ;                       eintrag
+  ;                );subst
+  ;          );setq
+  ;          (print eintrag)
+  ;          (princ)
+  ; );foreach
 
   ; (foreach item selection_inserts_data
   ;          (print item)
