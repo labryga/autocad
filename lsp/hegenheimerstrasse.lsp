@@ -14,7 +14,7 @@
                         )
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
-    ; insert_entities_data                  (get_insert_entities_data insert_selection_set) 
+    insert_entities_data                  (get_insert_entities_data insert_selection_set) 
     insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
     next_entity_layer_names_list          (get_list_of_next_block_entities_layers
                                             insert_selection_block_entities_list)
@@ -32,7 +32,7 @@
   (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
   ; (write_data_to_csv csv_data)
-  (get_insert_entities_data insert_selection_set)
+  (print insert_entities_data)
   (princ)
   ; (close csv_file)  
 );defun
@@ -44,7 +44,7 @@
                                  insert_selection_iterator
                                  insert_entity_name
 
-                                 insert_block_values
+                                 insert_next_values
 
                                  insert_entity_attribute_variant
                                  attribute_variant_iterator
@@ -52,6 +52,8 @@
 
                                  selection_insert_data
                                  selection_inserts_data
+                                 list_of_layer_name_split
+                                 bezeichnung_neu
                                )
 
   (setq 
@@ -86,7 +88,7 @@
           (if (not (assoc insert_entity_name selection_inserts_data))
               (progn 
                 (setq 
-                  insert_block_values (list (list "breite")
+                  insert_next_values (list (list "breite")
                                             (list "hoehe")
                                             (list "flaeche")
                                             (list "umfang")
@@ -94,30 +96,31 @@
                                       );list
                 );setq
 
-                (foreach block_value insert_block_values
+                (foreach block_value insert_next_values
                          (foreach next_layer next_entity_layer_names_list
                                   (if (and (wcmatch next_layer (strcat insert_entity_name "*"))
                                            (wcmatch next_layer (strcat "*" (nth 0 block_value)))
                                       );and
                                       (progn 
-                                        (setq insert_block_values
+                                        (setq insert_next_values
                                                 (subst (list 
                                                          (nth 0 block_value)
                                                          (rtos (eval (read next_layer)))
                                                        );list
                                                        block_value
-                                                       insert_block_values
+                                                       insert_next_values
                                                 );subst
                                         );setq
                                       );progn
                                   );if
                          );foreach
                 );foreach
+
                 (setq 
                   selection_inserts_data  (cons (list
                                                   insert_entity_name
                                                   (list attribute_value)
-                                                  insert_block_values
+                                                  insert_next_values
                                                 );list
                                                 selection_inserts_data
                                           );cons
@@ -162,7 +165,47 @@
                  );subst
            );setq
   );foreach
-)
+
+  (foreach eintrag selection_inserts_data
+           (setq list_of_layer_name_split (nth 0 eintrag)
+           );setq
+           (foreach bezeichnung list_of_layer_name_split
+                    (setq bezeichnung_neu bezeichnung
+                    );setq
+                    (foreach zeichen (list 
+                                       (list "$" ".")
+                                       (list "&" " ")
+                                     );list
+
+                              (if (wcmatch bezeichnung (strcat "*" (nth 0 zeichen) "*"))
+                                  (progn 
+                                    (setq bezeichnung_neu
+                                          (vl-string-subst
+                                             (nth 1 zeichen)
+                                             (nth 0 zeichen)
+                                             bezeichnung_neu
+                                           )
+                                    );setq
+                                  );progn
+                              );if
+                    );foreach
+                    
+                    (setq list_of_layer_name_split
+                          (subst bezeichnung_neu
+                                 bezeichnung
+                                 list_of_layer_name_split
+                          );subst
+                    );setq
+                    (print list_of_layer_name_split)
+                    (princ)
+           );foreach
+  );foreach
+
+  ; (foreach item selection_inserts_data
+  ;          (print item)
+  ;          (princ)
+  ; );foreach
+);defun
 
 (defun get_list_of_insert_block_entities ( insert_selection_set
                                            /
