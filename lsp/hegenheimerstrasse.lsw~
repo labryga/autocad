@@ -14,15 +14,10 @@
                         )
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
-    insert_entities_data                  (get_insert_entities_data insert_selection_set) 
     insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
     next_entity_layer_names_list          (get_list_of_next_block_entities_layers
                                             insert_selection_block_entities_list)
-    ; csv_data                              (get_insert_entities_csv_data
-    ;                                         insert_entities_data
-    ;                                         next_entity_layer_names_list
-                                          ; )
-    ; csv_file                (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
+    insert_entities_data                  (get_insert_entities_data insert_selection_set) 
   );setq
 
   ; set/reset each next entity layer name variable to zero
@@ -31,8 +26,7 @@
   ; sum up each next block entities and write to corresponding variable
   (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
-  (write_data_to_csv insert_entities_data)
-  ; (print insert_entities_data)
+  (print insert_entities_data)
 );defun
 
 (defun get_insert_entities_data (insert_selection /
@@ -215,6 +209,7 @@
            );setq
 
   );foreach
+
   selection_inserts_data_csv
 );defun
 
@@ -424,43 +419,47 @@
 
 (defun write_data_to_csv (  csv_data
                            /
-                           name_list
-                           instences_list
-                           values_list
-
-                           name_title_items
+                           data_file
+                           name
+                           element
+                           name_data
+                           werte
+                           werte_data
                          )
 
   (setq data_file (open "c:\\Users\\m.labryga\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
+  (print csv_data)
 
-  (foreach eintrag csv_data
-           (setq 
-             name_list      (nth 0 eintrag)
-             instences_list (nth 1 eintrag)
-             values_list    (nth 2 eintrag)
-
-             name_title_items ""
-           );setq
-
-           (foreach name_index (list 0 1 2 3 4 5)
-                    (setq name_title_items
-                            (strcat name_title_items
-                                    (nth name_index name_list) ","
-                            );strcat
-                    );setq
-           );foreach
-           (write-line name_title_items data_file)
-
-           (foreach instance instences_list
-                    (write-line (strcat (nth 6 name_list) "-"
-                                        instance
-                                );strcat
-                                data_file
-                    )
-           );foreach
-  );foreach
-
+  ; (foreach eintrag csv_data
+  ;          (setq name     (nth 0 eintrag)
+  ;                name_data     ""
+  ;                element  (nth 1 eintrag)
+  ;                werte    (nth 2 eintrag)
+  ;                werte_data ""
+  ;          );setq
+  ;
+  ;          (foreach position (list 0 1 2 3 4 5)
+  ;                   (setq name_data (strcat name_data (nth position name) "\t")
+  ;                   );setq
+  ;          );foreach
+  ;          (write-line name_data data_file)
+  ;
+  ;          (foreach wert werte
+  ;                   (print (nth 1 wert))
+  ;                   ; (setq werte_data (strcat werte_data (rtos (nth 1 wert)) "\t"
+  ;                   ;                  );strcat
+  ;                   ; );setq
+  ;          );foreach
+  ;
+  ;          ; (foreach instanz element
+  ;          ;          (write-line (strcat (nth 6 name) "-" instanz "\t"
+  ;          ;                              werte_data
+  ;          ;                      );strcat
+  ;          ;          )
+  ;          ;          data_file
+  ;          ; );foreach
+  ;
+  ; );foreach
   (close data_file)
-  (princ)
 );defun
