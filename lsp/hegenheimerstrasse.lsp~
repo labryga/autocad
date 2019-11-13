@@ -27,7 +27,9 @@
 
   (setq insert_entities_data (get_insert_entities_data insert_selection_set))
 
+  (write_data_to_csv insert_entities_data)
 
+  (princ)
 );defun
 
 (defun get_list_of_insert_block_entities ( insert_selection_set
@@ -332,3 +334,56 @@
   );foreach
 );defun
 
+(defun write_data_to_csv (insert_entities_data /
+                          data_file
+
+                          name_list
+                          instances_list
+                          values_list
+
+                          name
+                         )
+
+  (setq data_file (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
+  );setq
+
+  (foreach eintrag insert_entities_data
+           (setq name_list      (reverse (nth 0 eintrag))
+                 instances_list (nth 1 eintrag)
+                 values_list    (reverse (nth 2 eintrag))
+
+                 name           ""
+                 values         ""
+           );setq
+
+           (foreach name_index (list 0 1 2 3 4 5)
+                    (setq name  (strcat (nth name_index name_list) ","
+                                        name
+                                );strcat
+                    );setq
+           );foreach
+           (write-line name data_file)
+
+           (foreach value values_list
+                    (setq values  (strcat
+                                    (nth 0 value) "-"
+                                    (nth 1 value) ","
+                                    values
+                                  );strcat
+                    );setq
+           );foreach
+
+           (foreach instance instances_list
+                    (write-line (strcat (nth 0 name_list) "-"
+                                        instance ","
+                                        values
+                                );strcat
+                                data_file
+                    )
+           );foreach
+
+  );foreach
+
+  (close data_file)
+  (princ)
+);defun
