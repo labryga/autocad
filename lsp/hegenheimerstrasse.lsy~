@@ -31,7 +31,10 @@
   ; sum up each next block entities and write to corresponding variable
   (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
-  (write_data_to_csv insert_entities_data)
+  ; (write_data_to_csv csv_data)
+  (print insert_entities_data)
+  (princ)
+  ; (close csv_file)  
 );defun
 
 (defun get_insert_entities_data (insert_selection /
