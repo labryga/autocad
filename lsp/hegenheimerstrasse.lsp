@@ -22,8 +22,10 @@
                                insert_selection_set
                                block_next_entity_layer_names_list))
 
-  (write_data_to_csv insert_entities_data)
+  ; (write_data_to_csv insert_entities_data)
 
+
+  (data_to_json insert_entities_data)
   (princ)
 );defun
 
@@ -325,6 +327,7 @@
            );setq
 
   );foreach
+  selection_inserts_data_csv
 );defun
 
 (defun write_data_to_csv (insert_entities_data /
@@ -382,3 +385,38 @@
   (princ)
 );defun
 
+(defun data_to_json (insert_entities_data
+                      /
+                      bezeichnung_keys
+                    )
+
+  (setq bezeichnung_keys (list 
+                           "ebkp-nr"
+                           "ebkp-bezeichnung"
+                           "phase"
+                           "bkp-nr"
+                           "bkp-bezeichnung"
+                           "wandstaerke"
+                           "wandtyp"
+                         );list
+  );setq
+
+  (foreach eintrag insert_entities_data
+           (setq insert_entities_data
+             (subst 
+                  (subst 
+                     (mapcar 'list bezeichnung_keys (nth 0 eintrag))
+                     (nth 0 eintrag)
+                     eintrag
+                  );subst
+                  eintrag
+                  insert_entities_data
+             );subst
+           )
+  );foreach
+
+  (foreach item insert_entities_data
+           (print item)
+  );foreach
+  (princ)
+);defun
