@@ -2,23 +2,25 @@
 (defun write_attributes (/
                           insert_selection_set
                           insert_selection_block_entities_list
-                          next_entity_layer_names_list
+                          block_next_entity_layer_names_list
                           insert_entities_data
                         )
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
     insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
-    next_entity_layer_names_list          (get_list_of_next_block_entities_layer_names
+    block_next_entity_layer_names_list          (get_list_of_next_block_entities_layer_names
                                             insert_selection_block_entities_list)
   );setq
 
   ; set/reset each next entity layer name variable to zero
-  (set_next_entity_layer_names_to_variables next_entity_layer_names_list)
+  (set_next_entity_layer_names_to_variables block_next_entity_layer_names_list)
 
   ; sum up each next block entities and write to corresponding variable
   (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
-  (setq insert_entities_data (get_insert_entities_data insert_selection_set))
+  (setq insert_entities_data (get_insert_entities_data
+                               insert_selection_set
+                               block_next_entity_layer_names_list))
 
   (write_data_to_csv insert_entities_data)
 
@@ -87,8 +89,8 @@
   block_entities_layer_names_list
 );defun
 
-(defun set_next_entity_layer_names_to_variables ( next_entity_layer_names_list /)
-  (foreach layer_name next_entity_layer_names_list
+(defun set_next_entity_layer_names_to_variables ( block_next_entity_layer_names_list /)
+  (foreach layer_name block_next_entity_layer_names_list
            (set (read layer_name)  0);set
   );foreach
 );defun
@@ -147,7 +149,9 @@
 
 );defun
 
-(defun get_insert_entities_data (insert_selection /
+(defun get_insert_entities_data ( insert_selection 
+                                  block_next_entity_layer_names_list
+                                  /
                                  insert_selection_iterator
 
                                  insert_entity
@@ -210,7 +214,7 @@
                 );setq
 
                 (foreach block_value insert_next_values
-                         (foreach next_layer next_entity_layer_names_list
+                         (foreach next_layer block_next_entity_layer_names_list
                                   (if (and (wcmatch next_layer (strcat insert_entity_name "*"))
                                            (wcmatch next_layer (strcat "*" (nth 0 block_value)))
                                       );and
@@ -222,7 +226,7 @@
                                                        );list
                                                        block_value
                                                        insert_next_values
-                                                );subst
+                                              );subst
                                         );setq
                                       );progn
                                   );if
