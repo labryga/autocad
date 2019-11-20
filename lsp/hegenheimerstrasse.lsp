@@ -206,10 +206,10 @@
               (progn 
                 (setq 
                   insert_next_values (list (list "breite")
-                                            (list "hoehe")
-                                            (list "flaeche")
-                                            (list "umfang")
-                                            (list "volumen")
+                                           (list "hoehe")
+                                           (list "flaeche")
+                                           (list "umfang")
+                                           (list "volumen")
                                       );list
                 );setq
 
@@ -244,7 +244,7 @@
 
               (setq 
                 selection_insert_data (assoc insert_entity_name selection_inserts_data)
-                selection_inserts_data (subst (list insert_entity_name
+                selection_inserts_data (subst (list (nth 0 selection_insert_data)
                                                     (vl-sort
                                                      (cons attribute_value
                                                            (nth 1 selection_insert_data))
