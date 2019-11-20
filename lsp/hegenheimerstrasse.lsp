@@ -27,6 +27,8 @@
                                             insert_entities_data)
   )
 
+  (write_insert_data_to_json insert_entities_data_key_extended)
+
   (princ)
 );defun
 
@@ -332,7 +334,7 @@
 );defun
 
 (defun write_data_to_csv (insert_entities_data /
-                          documents_directory
+                          user_home_directory
                           data_file
 
                           name_list
@@ -342,8 +344,8 @@
                           name
                          )
 
-  (setq documents_directory (getvar "userprofile")
-        data_file (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
+  (setq user_home_directory (getenv "userprofile")
+        data_file (open (strcat user_home_directory "\\Documents\\hegenheimerstrasse.csv") "w")
   );setq
 
   (foreach eintrag insert_entities_data
@@ -434,4 +436,17 @@
 
   ; return inster data extended by keys
   insert_entities_data
+);defun
+
+(defun write_insert_data_to_json  ( insert_data_set
+                                    /
+                                  )
+  (foreach item insert_data_set
+           (foreach eintrag item
+                    (foreach wert eintrag
+                             (print wert)
+                    );foreach
+           );foreach
+           (print "---------------------------")
+  );foreach
 );defun
