@@ -215,9 +215,7 @@
 
                 (foreach block_value insert_next_values
                          (foreach next_layer block_next_entity_layer_names_list
-                                  (if (and (wcmatch next_layer (strcat insert_entity_name "*"))
-                                           (wcmatch next_layer (strcat "*" (nth 0 block_value)))
-                                      );and
+                                  (if (wcmatch next_layer (strcat insert_entity_name "*" (nth 0 block_value)))
                                       (progn 
                                         (setq insert_next_values
                                                 (subst (list 
