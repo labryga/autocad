@@ -1,16 +1,9 @@
 
 (defun write_attributes (/
                           insert_selection_set
-                          insert_selectin_set_entity
-                          insert_selection_entity_block_name
-                          insert_selection_entity_block
                           insert_selection_block_entities_list
-
-                          next_entity_layer_name
                           next_entity_layer_names_list
-
                           insert_entities_data
-                          csv_data
                         )
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
@@ -335,6 +328,7 @@
 );defun
 
 (defun write_data_to_csv (insert_entities_data /
+                          documents_directory
                           data_file
 
                           name_list
@@ -344,7 +338,8 @@
                           name
                          )
 
-  (setq data_file (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
+  (setq documents_directory (getvar "userprofile")
+        data_file (open "c:\\Users\\m.labryga\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
   (foreach eintrag insert_entities_data
@@ -356,7 +351,7 @@
                  values         ""
            );setq
 
-           (foreach name_index (list 0 1 2 3 4 5)
+           (foreach name_index (list 0 1 2 3 4 5 6)
                     (setq name  (strcat (nth name_index name_list) ","
                                         name
                                 );strcat
@@ -386,3 +381,4 @@
   (close data_file)
   (princ)
 );defun
+
