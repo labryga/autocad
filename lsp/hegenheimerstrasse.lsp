@@ -4,6 +4,7 @@
                           insert_selection_block_entities_list
                           block_next_entity_layer_names_list
                           insert_entities_data
+                          insert_entities_data_key_extended
                         )
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
@@ -20,12 +21,12 @@
 
   (setq insert_entities_data (get_insert_entities_data
                                insert_selection_set
-                               block_next_entity_layer_names_list))
+                               block_next_entity_layer_names_list)
 
-  ; (write_data_to_csv insert_entities_data)
+        insert_entities_data_key_extended (extend_instert_data_by_key_values
+                                            insert_entities_data)
+  )
 
-
-  (data_to_json insert_entities_data)
   (princ)
 );defun
 
@@ -342,7 +343,7 @@
                          )
 
   (setq documents_directory (getvar "userprofile")
-        data_file (open "c:\\Users\\m.labryga\\Documents\\hegenheimerstrasse.csv" "w")
+        data_file (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
   (foreach eintrag insert_entities_data
@@ -385,22 +386,23 @@
   (princ)
 );defun
 
-(defun data_to_json (insert_entities_data
-                      /
-                      bezeichnung_keys
-                    )
+(defun extend_instert_data_by_key_values (insert_entities_data
+                                          /
+                                          bezeichnung_keys
+                                         )
 
   (setq bezeichnung_keys (list 
-                           "ebkp-nr"
-                           "ebkp-bezeichnung"
-                           "phase"
-                           "bkp-nr"
-                           "bkp-bezeichnung"
-                           "wandstaerke"
-                           "wandtyp"
+                             "ebkp-nr"
+                             "ebkp-bezeichnung"
+                             "phase"
+                             "bkp-nr"
+                             "bkp-bezeichnung"
+                             "wandstaerke"
+                             "wandtyp"
                          );list
   );setq
 
+  ; set key values for each name item in naming section
   (foreach eintrag insert_entities_data
            (setq insert_entities_data
              (subst 
@@ -415,8 +417,21 @@
            )
   );foreach
 
-  (foreach item insert_entities_data
-           (print item)
+  ; set exemplare key value for inserts number attributes
+  (foreach eintrag insert_entities_data
+           (setq insert_entities_data
+                 (subst 
+                     (subst 
+                       (list "exemplare" (nth 1 eintrag))
+                       (nth 1 eintrag)
+                       eintrag
+                     );subst
+                     eintrag
+                     insert_entities_data
+                 );subst
+           );setq
   );foreach
-  (princ)
+
+  ; return inster data extended by keys
+  insert_entities_data
 );defun

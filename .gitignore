@@ -8,6 +8,7 @@
 *.swp
 *.dfs
 *.lsp~
+*~
 dev*.lsp
 .DS_Store
 doc.lsp
