@@ -120,6 +120,7 @@
   (foreach next_entity insert_block_entities_list
 
    (while (setq next_entity (entnext next_entity))
+
           (setq next_entity_layer_name (cdr (assoc 8 (entget next_entity)))
                 next_entity_vla_object (vlax-ename->vla-object next_entity)
           );setq
