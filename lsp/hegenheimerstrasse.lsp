@@ -1,16 +1,9 @@
 
 (defun write_attributes (/
                           insert_selection_set
-                          insert_selectin_set_entity
-                          insert_selection_entity_block_name
-                          insert_selection_entity_block
                           insert_selection_block_entities_list
-
-                          next_entity_layer_name
                           next_entity_layer_names_list
-
                           insert_entities_data
-                          csv_data
                         )
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
@@ -37,7 +30,6 @@
                                            insert_selection_iterator
 
                                            insert_entity
-                                           insert_entity_entget
                                            insert_entity_block_name
                                            insert_entity_block_entity
                                            insert_entities_block_list
@@ -51,7 +43,6 @@
             insert_entity               (ssname insert_selection_set
                                                 insert_selection_iterator
                                         );ssname
-            insert_entity_entget        (entget insert_entity)
             insert_entity_block_name    (cdr (assoc 2 (entget insert_entity))) 
             insert_entity_block_entity  (tblobjname "block" insert_entity_block_name)
             insert_selection_iterator   (1+ insert_selection_iterator)
@@ -71,15 +62,16 @@
 
 (defun get_list_of_next_block_entities_layers ( block_entities_list
                                                 /
-                                                block_entity_entget
+                                                next_entity_entget
                                                 block_entities_layer_names_list
                                               )
 
-  (foreach block_entity block_entities_list
+  (foreach next_entity block_entities_list
 
-           (while (setq block_entity            (entnext block_entity))
-                  (setq block_entity_entget     (entget block_entity)
-                        block_entity_layer_name (cdr (assoc 8 block_entity_entget))
+           (while (setq next_entity            (entnext next_entity)) ; block entity converted to next item
+
+                  (setq next_entity_entget     (entget next_entity)
+                        block_entity_layer_name (cdr (assoc 8 next_entity_entget))
                   );setq
 
                   (if (not (member block_entity_layer_name block_entities_layer_names_list))
@@ -335,6 +327,7 @@
 );defun
 
 (defun write_data_to_csv (insert_entities_data /
+                          documents_directory
                           data_file
 
                           name_list
@@ -344,7 +337,8 @@
                           name
                          )
 
-  (setq data_file (open "c:\\Users\\affe\\Documents\\hegenheimerstrasse.csv" "w")
+  (setq documents_directory (getvar "userprofile")
+        data_file (open "c:\\Users\\m.labryga\\Documents\\hegenheimerstrasse.csv" "w")
   );setq
 
   (foreach eintrag insert_entities_data
@@ -356,7 +350,7 @@
                  values         ""
            );setq
 
-           (foreach name_index (list 0 1 2 3 4 5)
+           (foreach name_index (list 0 1 2 3 4 5 6)
                     (setq name  (strcat (nth name_index name_list) ","
                                         name
                                 );strcat
@@ -386,3 +380,4 @@
   (close data_file)
   (princ)
 );defun
+
