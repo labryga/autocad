@@ -440,13 +440,63 @@
 
 (defun write_insert_data_to_json  ( insert_data_set
                                     /
+                                    user_home_directory
+                                    json_file_path
+                                    json_file
+                                    dienummer
                                   )
+  (setq
+    json_file (open (strcat
+                      (getenv "userprofile")
+                      "\\Documents\\hegenheimerstrasse.json") "w")
+    dienummer "("
+  );setq
+
   (foreach item insert_data_set
-           (foreach eintrag item
-                    (foreach wert eintrag
-                             (print wert)
-                    );foreach
+           (write-line "{" json_file)
+
+           (foreach bezeichnung (nth 0 item)
+                    (write-line (strcat "\t\""
+                                  (nth 0 bezeichnung) "\": \" "
+                                  (nth 1 bezeichnung) "\""
+                                );strcat
+                                json_file
+                    )
            );foreach
-           (print "---------------------------")
+
+           (foreach werte (nth 2 item)
+                    (write-line (strcat "\t\""
+                                  (nth 0 werte) "\": \" "
+                                  (nth 1 werte) "\""
+                                );strcat
+                                json_file
+                    )
+           );foreach
+
+           (foreach wert (reverse (nth 1 (nth 1 item)))
+                    (setq dienummer (strcat dienummer
+                                            wert
+                                    );strcat
+                    );setq
+           );foreach
+           (setq dienummer (strcat dienummer "}"))
+           (print (strcat (nth 0 (nth 1 item)) ":" dienummer))
+
+           (setq dienummer "{")
+
+           (write-line "}" json_file)
   );foreach
+
+  ; (write-line "meine zeile" json_file_path)
+  (close json_file)
+  (princ)
+);defun
+
+(defun my_test ()
+  (print
+    (foreach wert (list "eins" "zwei" "drei")
+             (strcat wert)
+    );foreach
+  )
+  (princ)
 );defun
