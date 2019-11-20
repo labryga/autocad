@@ -8,7 +8,7 @@
   (setq 
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
     insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
-    next_entity_layer_names_list          (get_list_of_next_block_entities_layers
+    next_entity_layer_names_list          (get_list_of_next_block_entities_layer_names
                                             insert_selection_block_entities_list)
   );setq
 
@@ -60,11 +60,11 @@
   insert_entities_block_list
 );defun
 
-(defun get_list_of_next_block_entities_layers ( block_entities_list
-                                                /
-                                                next_entity_entget
-                                                block_entities_layer_names_list
-                                              )
+(defun get_list_of_next_block_entities_layer_names ( block_entities_list
+                                                     /
+                                                     next_entity_entget
+                                                     block_entities_layer_names_list
+                                                    )
 
   (foreach next_entity block_entities_list
 
