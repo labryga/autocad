@@ -30,7 +30,6 @@
                                            insert_selection_iterator
 
                                            insert_entity
-                                           insert_entity_entget
                                            insert_entity_block_name
                                            insert_entity_block_entity
                                            insert_entities_block_list
@@ -44,7 +43,6 @@
             insert_entity               (ssname insert_selection_set
                                                 insert_selection_iterator
                                         );ssname
-            insert_entity_entget        (entget insert_entity)
             insert_entity_block_name    (cdr (assoc 2 (entget insert_entity))) 
             insert_entity_block_entity  (tblobjname "block" insert_entity_block_name)
             insert_selection_iterator   (1+ insert_selection_iterator)
@@ -64,15 +62,16 @@
 
 (defun get_list_of_next_block_entities_layers ( block_entities_list
                                                 /
-                                                block_entity_entget
+                                                next_entity_entget
                                                 block_entities_layer_names_list
                                               )
 
-  (foreach block_entity block_entities_list
+  (foreach next_entity block_entities_list
 
-           (while (setq block_entity            (entnext block_entity))
-                  (setq block_entity_entget     (entget block_entity)
-                        block_entity_layer_name (cdr (assoc 8 block_entity_entget))
+           (while (setq next_entity            (entnext next_entity)) ; block entity converted to next item
+
+                  (setq next_entity_entget     (entget next_entity)
+                        block_entity_layer_name (cdr (assoc 8 next_entity_entget))
                   );setq
 
                   (if (not (member block_entity_layer_name block_entities_layer_names_list))
