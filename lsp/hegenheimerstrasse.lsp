@@ -23,13 +23,13 @@
                                insert_selection_set
                                block_next_entity_layer_names_list)
 
-        insert_entities_data_key_extended (extend_instert_data_by_key_values
-                                            insert_entities_data)
+        ; insert_entities_data_key_extended (extend_instert_data_by_key_values
+        ;                                     insert_entities_data)
   )
 
-  (write_insert_data_to_json insert_entities_data_key_extended)
+  ; (write_insert_data_to_json insert_entities_data_key_extended)
 
-  (princ)
+  ; (princ)
 );defun
 
 (defun get_list_of_insert_block_entities ( insert_selection_set
