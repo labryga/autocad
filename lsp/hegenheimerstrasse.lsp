@@ -172,9 +172,10 @@
                                  selection_insert_data
                                  selection_inserts_data
                                  selection_inserts_data_csv
+
                                  list_of_layer_name_split
-                                 eintrag_neu
                                  list_of_layer_name_split_neu
+                                 eintrag_neu
                                  bezeichnung_neu
                                )
 
@@ -263,6 +264,7 @@
           );if
   );repeat
 
+  ; function spliting string to list of strings by "-" delimiter
   (defun split_name_to_list (name_string / delimiter_position)
     (if (setq delimiter_position (vl-string-search "_" name_string))
         (setq name_string (cons (substr name_string 1 delimiter_position)
@@ -273,6 +275,7 @@
     );if
   );defun
 
+  ; replace blockname string with list of strings
   (foreach eintrag selection_inserts_data
            (setq selection_inserts_data
                  (subst (list 
@@ -287,30 +290,26 @@
   );foreach
 
   (foreach eintrag selection_inserts_data
-           (setq list_of_layer_name_split (nth 0 eintrag)
-                 list_of_layer_name_split_neu list_of_layer_name_split
+           (setq list_of_layer_name_split     (nth 0 eintrag)
+                 list_of_layer_name_split_neu (nth 0 eintrag)
+                 selection_inserts_data_formated  selection_inserts_data
            );setq
+
            (foreach bezeichnung list_of_layer_name_split
-                    (setq bezeichnung_neu bezeichnung
-                    );setq
-                    (foreach zeichen (list 
-                                       (list "$" ".")
-                                       (list "&" " ")
-                                     );list
+                    (setq bezeichnung_neu bezeichnung)
 
-                              (if (wcmatch bezeichnung (strcat "*" (nth 0 zeichen) "*"))
-                                  (progn 
-                                    (setq bezeichnung_neu
-                                          (vl-string-subst
-                                             (nth 1 zeichen)
-                                             (nth 0 zeichen)
-                                             bezeichnung_neu
-                                           )
-                                    );setq
-                                  );progn
-                              );if
-                    );foreach
-
+                    (if (wcmatch bezeichnung "*$*,*&*")
+                      (progn 
+                          (foreach replace_values (list (list "." "$") (list " " "&"))
+                                   (setq bezeichnung_neu (vl-string-subst 
+                                                           (nth 0 replace_values)
+                                                           (nth 1 replace_values)
+                                                           bezeichnung_neu
+                                                         )
+                                   );setq
+                          );foreach
+                      );progn
+                    );if
                     (setq list_of_layer_name_split_neu
                           (subst bezeichnung_neu
                                  bezeichnung
@@ -318,19 +317,18 @@
                           );subst
                     );setq
            );foreach
-           (setq eintrag_neu
+           (setq selection_inserts_data_formated
                  (subst list_of_layer_name_split_neu
                         list_of_layer_name_split
-                        eintrag
+                        selection_inserts_data_formated
                  );subst
            );setq
-           (setq selection_inserts_data_csv
-                 (cons eintrag_neu selection_inserts_data_csv
-                 );cons
-           );setq
-
   );foreach
-  selection_inserts_data_csv
+
+  (foreach item selection_inserts_data_formated
+           (print item)
+  );foreach
+  (princ)
 );defun
 
 (defun write_data_to_csv (insert_entities_data /
