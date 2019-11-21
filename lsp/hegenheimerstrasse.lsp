@@ -443,14 +443,17 @@
                                     user_home_directory
                                     json_file_path
                                     json_file
-                                    dienummer
+                                    exemplar_nr
                                   )
   (setq
     json_file (open (strcat
                       (getenv "userprofile")
-                      "\\Documents\\hegenheimerstrasse.json") "w")
-    dienummer "("
+                      "\\Documents\\hegenheimerstrasse.json")
+                    "w")
+    exemplar_nr ""
   );setq
+
+  (write-line "{\"waende\": [" json_file)
 
   (foreach item insert_data_set
            (write-line "{" json_file)
@@ -458,7 +461,7 @@
            (foreach bezeichnung (nth 0 item)
                     (write-line (strcat "\t\""
                                   (nth 0 bezeichnung) "\": \" "
-                                  (nth 1 bezeichnung) "\""
+                                  (nth 1 bezeichnung) "\","
                                 );strcat
                                 json_file
                     )
@@ -467,36 +470,32 @@
            (foreach werte (nth 2 item)
                     (write-line (strcat "\t\""
                                   (nth 0 werte) "\": \" "
-                                  (nth 1 werte) "\""
+                                  (nth 1 werte) "\","
                                 );strcat
                                 json_file
                     )
            );foreach
 
            (foreach wert (reverse (nth 1 (nth 1 item)))
-                    (setq dienummer (strcat dienummer
-                                            wert
-                                    );strcat
+                    (setq exemplar_nr (strcat "\"" wert "\"" exemplar_nr
+                                      );strcat
                     );setq
            );foreach
-           (setq dienummer (strcat dienummer "}"))
-           (print (strcat (nth 0 (nth 1 item)) ":" dienummer))
 
-           (setq dienummer "{")
+           (setq exemplar_nr (vl-string-subst "\" , \""  "\"\""  exemplar_nr))
+           (write-line (strcat "\t\"exemplar_nummern\": " "[" exemplar_nr "]") json_file)
+           (setq exemplar_nr "")
 
-           (write-line "}" json_file)
+           (if (=
+                 (- (length insert_data_set) 1)
+                 (vl-position item insert_data_set))
+               (write-line "}" json_file)
+               (write-line "}," json_file)
+           );if
+
   );foreach
 
-  ; (write-line "meine zeile" json_file_path)
+  (write-line "]}" json_file)
   (close json_file)
-  (princ)
-);defun
-
-(defun my_test ()
-  (print
-    (foreach wert (list "eins" "zwei" "drei")
-             (strcat wert)
-    );foreach
-  )
   (princ)
 );defun
