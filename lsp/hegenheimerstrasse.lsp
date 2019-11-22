@@ -438,8 +438,6 @@
 
 (defun write_insert_data_to_json  ( insert_data_set
                                     /
-                                    user_home_directory
-                                    json_file_path
                                     json_file
                                     exemplar_nr
                                   )
