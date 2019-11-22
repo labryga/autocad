@@ -135,6 +135,7 @@
 );defun
 
 
+; gather all extracted inserts data to a list
 
 (defun get_insert_entities_data ( insert_selection 
                                   block_next_entity_layer_names_list
