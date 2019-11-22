@@ -290,25 +290,27 @@
   );foreach
 
   (foreach eintrag selection_inserts_data
-           (setq selection_inserts_data
-                 (subst 
-                   (subst
-                     (foreach bezeichnung (setq name_neu (nth 0 eintrag))
-                             (setq name_neu
-                                   (subst 
-                                     (vl-string-subst "." "$" bezeichnung)
-                                     bezeichnung
-                                     name_neu
-                                   );subst
-                             );setq
-                      );foreach
-                      (nth 0 eintrag)
-                      eintrag
-                   );subst
-                   eintrag
-                   selection_inserts_data
-                 );subst
-           );setq
+     (setq selection_inserts_data
+           (subst 
+             (subst
+               (foreach bezeichnung (setq name_neu (nth 0 eintrag))
+                        (setq name_neu
+                              (subst 
+                                 (vl-string-subst
+                                   "." "$" (vl-string-subst
+                                             "-" "&" bezeichnung))
+                                 bezeichnung
+                                 name_neu
+                              );subst
+                        );setq
+                );foreach
+                (nth 0 eintrag)
+                eintrag
+             );subst
+             eintrag
+             selection_inserts_data
+           );subst
+     );setq
   );foreach
 
   (foreach item selection_inserts_data
