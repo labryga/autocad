@@ -1,3 +1,0 @@
-; retrieving model data module
-
-
