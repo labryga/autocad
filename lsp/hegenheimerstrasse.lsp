@@ -290,42 +290,28 @@
   );foreach
 
   (foreach eintrag selection_inserts_data
-           (setq list_of_layer_name_split     (nth 0 eintrag)
-                 list_of_layer_name_split_neu (nth 0 eintrag)
-                 selection_inserts_data_formated  selection_inserts_data
-           );setq
-
-           (foreach bezeichnung list_of_layer_name_split
-                    (setq bezeichnung_neu bezeichnung)
-
-                    (if (wcmatch bezeichnung "*$*,*&*")
-                      (progn 
-                          (foreach replace_values (list (list "." "$") (list " " "&"))
-                                   (setq bezeichnung_neu (vl-string-subst 
-                                                           (nth 0 replace_values)
-                                                           (nth 1 replace_values)
-                                                           bezeichnung_neu
-                                                         )
-                                   );setq
-                          );foreach
-                      );progn
-                    );if
-                    (setq list_of_layer_name_split_neu
-                          (subst bezeichnung_neu
-                                 bezeichnung
-                                 list_of_layer_name_split_neu
-                          );subst
-                    );setq
-           );foreach
-           (setq selection_inserts_data_formated
-                 (subst list_of_layer_name_split_neu
-                        list_of_layer_name_split
-                        selection_inserts_data_formated
+           (setq selection_inserts_data
+                 (subst 
+                   (subst
+                     (foreach bezeichnung (setq name_neu (nth 0 eintrag))
+                             (setq name_neu
+                                   (subst 
+                                     (vl-string-subst "." "$" bezeichnung)
+                                     bezeichnung
+                                     name_neu
+                                   );subst
+                             );setq
+                      );foreach
+                      (nth 0 eintrag)
+                      eintrag
+                   );subst
+                   eintrag
+                   selection_inserts_data
                  );subst
            );setq
   );foreach
 
-  (foreach item selection_inserts_data_formated
+  (foreach item selection_inserts_data
            (print item)
   );foreach
   (princ)
