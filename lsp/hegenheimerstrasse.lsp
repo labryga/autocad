@@ -23,13 +23,14 @@
                                insert_selection_set
                                block_next_entity_layer_names_list)
 
-        ; insert_entities_data_key_extended (extend_instert_data_by_key_values
-        ;                                     insert_entities_data)
+        insert_entities_data_key_extended (extend_instert_data_by_key_values
+                                            insert_entities_data)
   )
 
-  ; (write_insert_data_to_json insert_entities_data_key_extended)
+  (write_insert_data_to_json insert_entities_data_key_extended)
 
-  ; (princ)
+  (princ)
+
 );defun
 
 (defun get_list_of_insert_block_entities ( insert_selection_set
@@ -183,6 +184,7 @@
     insert_selection_iterator 0
   );setq
 
+  ; write insert name, insert instances and insert block attributes to list
   (repeat (sslength insert_selection)
           (setq 
             insert_entity                   (ssname insert_selection insert_selection_iterator)
@@ -275,7 +277,7 @@
     );if
   );defun
 
-  ; replace blockname string with list of strings
+  ; replace blockname string with list of strings by applying split_name_to_list function
   (foreach eintrag selection_inserts_data
            (setq selection_inserts_data
                  (subst (list 
@@ -289,6 +291,7 @@
            );setq
   );foreach
 
+  ; replace $ and & charcters to corresponding . and \s
   (foreach eintrag selection_inserts_data
      (setq selection_inserts_data
            (subst 
@@ -313,10 +316,8 @@
      );setq
   );foreach
 
-  (foreach item selection_inserts_data
-           (print item)
-  );foreach
   (princ)
+  selection_inserts_data
 );defun
 
 (defun write_data_to_csv (insert_entities_data /
