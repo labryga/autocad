@@ -1,3 +1,6 @@
+(load "examples/88_test")
+
+(print_me)
 
 (defun get_attribute_values (/ attributes_array
                                iterator
@@ -37,6 +40,6 @@
 
   );while
 
-  (print (reverse attributes_list))
+  ; (print (reverse attributes_list))
   (princ)
 );defun

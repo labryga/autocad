@@ -1,9 +1,0 @@
-wandbreite
-wandhoehe
-wandstaerke
-wandflaeche
-wandumfang
-wandvolumen
-oeffnungshoehe
-oeffnungsbreite
-wandnummer
