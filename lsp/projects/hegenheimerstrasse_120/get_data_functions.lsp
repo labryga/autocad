@@ -1,1 +1,0 @@
-; retrieving model data
