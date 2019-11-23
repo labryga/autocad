@@ -41,10 +41,11 @@
     ; split insert names to list in each insert entry
     insert_entities_data  (split_insert_name_to_list insert_entities_data)
 
+    ; replace "$" and "&" by corresponding "." and "\s" symbols in insert names
     insert_entities_data  (format_characters_in_inserts_data insert_entities_data)
 
-        ; insert_entities_data_key_extended (extend_instert_data_by_key_values
-        ;                                     insert_entities_data)
+    ; add key values to layer entity names
+    insert_entities_data  (extend_instert_data_by_key_values insert_entities_data)
   )
 
   ; (write_insert_data_to_json insert_entities_data_key_extended)
