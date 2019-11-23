@@ -31,15 +31,22 @@
   ; sum up each next block entities and write to corresponding variable
   (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
-  (setq insert_entities_data (get_insert_entities_data
-                               insert_selection_set
-                               block_next_entity_layer_names_list)
+  (setq
+    insert_entities_data (write_insert_data_to_list
+                           insert_selection_set
+                           block_next_entity_layer_names_list)
 
-        insert_entities_data_key_extended (extend_instert_data_by_key_values
-                                            insert_entities_data)
+    insert_entities_data  (split_insert_name_to_list insert_entities_data)
+        ; insert_entities_data_key_extended (extend_instert_data_by_key_values
+        ;                                     insert_entities_data)
   )
 
-  (write_insert_data_to_json insert_entities_data_key_extended)
+  ; (write_insert_data_to_json insert_entities_data_key_extended)
+
+  (foreach item insert_entities_data
+           (print item)
+  );foreach
+  
 
   (princ)
 

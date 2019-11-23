@@ -6,20 +6,23 @@
                                   / 
                                   iterator
                                   insert_next_dimensions
+                                  insert_data
                                   inserts_data)
   (setq iterator  0
   );setq
 
   (repeat (sslength insert_selection)
           (setq 
-            insert_entity                   (ssname insert_selection iterator)
-            iterator                        (1+ iterator)
-            insert_entity_name              (cdr (assoc 2 (entget insert_entity)))
-                                            ; sub-function to read insert number attribute
-            insert_nummer                   (get_insert_entity_nummer_attribute insert_entity)
+            insert_entity       (ssname insert_selection iterator)
+            iterator            (1+ iterator)
+            insert_entity_name  (cdr (assoc 2 (entget insert_entity)))
+
+                                ; sub-function to read the insert number attribute
+            insert_nummer       (get_insert_entity_nummer_attribute insert_entity)
           );setq
 
 
+          ; write insert type data to inserts_data if not yet done
           (if (not (assoc insert_entity_name inserts_data))
               (progn 
                 (setq 
@@ -31,6 +34,8 @@
                                          );list
                 );setq
 
+                ; iterate over insert entities and filter corresponding layer/values variables
+                ; extend dimensions attributes list by corresponding values
                 (foreach block_value insert_next_dimensions
                          (foreach next_layer block_next_entity_layer_names_list
                                   (if (wcmatch next_layer (strcat insert_entity_name "*" (nth 0 block_value)))
@@ -49,6 +54,7 @@
                          );foreach
                 );foreach
 
+                ; append insert type as name, instance numbers and dimensions to inserts_data list
                 (setq 
                   inserts_data  (cons (list
                                                   insert_entity_name
@@ -60,26 +66,29 @@
                 );setq
               );progn
 
+              ; if insert tye in inserts_data list already, extend instance number by corresponding "nummer" value
               (setq 
-                selection_insert_data (assoc insert_entity_name inserts_data)
-                inserts_data (subst (list (nth 0 selection_insert_data)
-                                                    (vl-sort
-                                                     (cons insert_nummer
-                                                           (nth 1 selection_insert_data))
-                                                     '<)
-                                                    (nth 2 selection_insert_data)
-                                              );list
-                                              selection_insert_data
-                                              inserts_data
-                                       );subst
+                insert_data   (assoc insert_entity_name inserts_data)
+                inserts_data  (subst
+                                  (list (nth 0 insert_data)
+                                        (vl-sort
+                                         (cons insert_nummer
+                                               (nth 1 insert_data))
+                                         '<)
+                                        (nth 2 insert_data)
+                                  );list
+                                  insert_data
+                                  inserts_data
+                               );subst
               );setq
           );if
   );repeat
+  inserts_data
 );defun
 
 
 
-; sub-function to read insert number attribute
+; function to read insert number attribute
 
 (defun get_insert_entity_nummer_attribute (insert_entity /
                                            attributes_array
@@ -118,6 +127,3 @@
 
   instance_nummer
 );defun
-
-
-
