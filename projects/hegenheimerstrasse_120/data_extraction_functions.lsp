@@ -2,7 +2,6 @@
 
 
 ; iterate over inserts selection and return a list of all corresponding block entities
-
 (defun get_list_of_insert_block_entities ( insert_selection_set
                                            /
                                            insert_selection_iterator
@@ -40,7 +39,6 @@
 
 
 ; return a list of all corresponding layers of each block entity
-
 (defun get_list_of_next_block_entities_layer_names ( block_entities_list
                                                      /
                                                      next_entity_entget
@@ -70,7 +68,6 @@
 
 
 ; create variables for all block entity layers and set/reset to zero
-
 (defun set_next_entity_layer_names_to_variables ( block_next_entity_layer_names_list /)
   (foreach layer_name block_next_entity_layer_names_list
            (set (read layer_name)  0);set
@@ -80,7 +77,6 @@
 
 ; iterate over each block entity item and sum corresponding properties to corresponding variables
 ; set by layer names
-
 (defun write_next_block_entities_to_variables ( insert_block_entities_list 
                                                /
                                                next_type_methods_list
@@ -136,7 +132,6 @@
 
 
 ; write insert name, insert instances numbers and insert block attributes per insert to list
-
 (defun write_insert_data_to_list (insert_selection
                                   block_next_entity_layer_names_list
                                   / 
@@ -224,7 +219,6 @@
 
 
 ; function to read insert number attribute
-
 (defun get_insert_entity_nummer_attribute (insert_entity /
                                            attributes_array
                                            iterator
@@ -263,6 +257,7 @@
   instance_nummer
 );defun
 
+
 ; split insert names to list in each insert entry
 (defun split_insert_name_to_list (inserts_data /)
 
@@ -284,9 +279,10 @@
   inserts_data
 );defun
 
+
 ; subfunction to split name string to list by "-" delimiter
 (defun split_string_to_list ( string_value / delimiter_position)
-  (if (setq delimiter_position (vl-string-search "-" string_value))
+  (if (setq delimiter_position (vl-string-search "_" string_value))
       (setq string_value
         (cons
           (substr string_value 1 delimiter_position)
@@ -297,8 +293,38 @@
   );if
 );defun
 
-; gather all extracted inserts data to a list
 
+; replace "$" and "&" by corresponding "." and "\s" symbols in insert names
+(defun format_characters_in_inserts_data (inserts_data /
+                                          insert_name)
+  (foreach eintrag inserts_data
+           (setq inserts_data
+                 (subst 
+                   (subst 
+                     (foreach bezeichnung (setq insert_name (nth 0 eintrag))
+                              (setq insert_name
+                                (subst 
+                                  (vl-string-subst "." "$"
+                                                   (vl-string-subst " " "&" bezeichnung))
+                                  bezeichnung
+                                  insert_name
+                                );subst
+                              );setq
+                     );foreach
+                     (nth 0 eintrag)
+                     eintrag
+                   );subst
+                   eintrag
+                   inserts_data
+                 );subst
+           );setq
+  );foreach
+
+  inserts_data
+);defun
+
+
+; gather all extracted inserts data to a list
 (defun get_insert_entities_data ( insert_selection 
                                   block_next_entity_layer_names_list
                                   /

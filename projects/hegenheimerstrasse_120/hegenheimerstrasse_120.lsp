@@ -32,11 +32,17 @@
   (write_next_block_entities_to_variables insert_selection_block_entities_list) 
 
   (setq
+
+    ; write insert name, insert instances numbers and insert block attributes per insert to list
     insert_entities_data (write_insert_data_to_list
                            insert_selection_set
                            block_next_entity_layer_names_list)
 
+    ; split insert names to list in each insert entry
     insert_entities_data  (split_insert_name_to_list insert_entities_data)
+
+    insert_entities_data  (format_characters_in_inserts_data insert_entities_data)
+
         ; insert_entities_data_key_extended (extend_instert_data_by_key_values
         ;                                     insert_entities_data)
   )
