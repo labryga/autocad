@@ -218,7 +218,7 @@
 );defun
 
 
-; function to read insert number attribute
+; read insert number attribute
 (defun get_insert_entity_nummer_attribute (insert_entity /
                                            attributes_array
                                            iterator
@@ -323,73 +323,3 @@
   inserts_data
 );defun
 
-
-; gather all extracted inserts data to a list
-(defun get_insert_entities_data ( insert_selection 
-                                  block_next_entity_layer_names_list
-                                  /
-                                 insert_selection_iterator
-
-                                 insert_entity
-                                 insert_selection_iterator
-                                 insert_entity_name
-
-                                 insert_next_values
-
-                                 insert_entity_attribute_variant
-                                 insert_nummer
-
-                                 selection_insert_data
-                                 selection_inserts_data
-                                 selection_inserts_data_csv
-
-                                 list_of_layer_name_split
-                                 list_of_layer_name_split_neu
-                                 eintrag_neu
-                                 bezeichnung_neu
-                               )
-
-
-  ; replace blockname string with list of strings by applying split_name_to_list function
-  ; (foreach eintrag selection_inserts_data
-  ;          (setq selection_inserts_data
-  ;                (subst (list 
-  ;                          (split_name_to_list (nth 0 eintrag))
-  ;                          (nth 1 eintrag)
-  ;                          (nth 2 eintrag)
-  ;                       );list
-  ;                       eintrag
-  ;                       selection_inserts_data
-  ;                );subst
-  ;          );setq
-  ; );foreach
-
-  ; replace $ and & charcters to corresponding . and \s
-  ; (foreach eintrag selection_inserts_data
-  ;    (setq selection_inserts_data
-  ;          (subst 
-  ;            (subst
-  ;              (foreach bezeichnung (setq name_neu (nth 0 eintrag))
-  ;                       (setq name_neu
-  ;                             (subst 
-  ;                                (vl-string-subst
-  ;                                  "." "$" (vl-string-subst
-  ;                                            "-" "&" bezeichnung))
-  ;                                bezeichnung
-  ;                                name_neu
-  ;                             );subst
-  ;                       );setq
-  ;               );foreach
-  ;               (nth 0 eintrag)
-  ;               eintrag
-  ;            );subst
-  ;            eintrag
-  ;            selection_inserts_data
-  ;          );subst
-  ;    );setq
-  ; );foreach
-
-  (princ)
-  ; return inserts data
-  selection_inserts_data
-);defun
