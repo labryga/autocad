@@ -1,6 +1,7 @@
 ; formatting data functions
 
 ; add key values to split layer entity names
+
 (defun extend_instert_data_by_key_values (insert_entities_data
                                           /
                                           bezeichnung_keys
