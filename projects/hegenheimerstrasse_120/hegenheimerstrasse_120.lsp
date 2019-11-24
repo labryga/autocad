@@ -1,7 +1,6 @@
-; corresponding modules
-(load "hegenheimerstrasse_120/data_extraction_functions.lsp")
-(load "hegenheimerstrasse_120/data_format_functions.lsp")
-(load "hegenheimerstrasse_120/data_export_functions.lsp")
+(load "hegenheimerstrasse_120/hegenheimerstrasse_120")(load "hegenheimerstrasse_120/modules_lsp/data_extraction_functions.lsp")
+(load "hegenheimerstrasse_120/modules_lsp/data_format_functions.lsp")
+(load "hegenheimerstrasse_120/modules_lsp/data_export_functions.lsp")
 
 (defun write_attributes ( /
                           insert_selection_set

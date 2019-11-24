@@ -2,7 +2,6 @@
 
 
 ; format inserts data to csv and write to file
-
 (defun write_data_to_csv (insert_entities_data /
                           user_home_directory
                           data_file
@@ -60,7 +59,6 @@
 
 
 ; format data to json and write to file
-
 (defun write_insert_data_to_json  ( insert_data_set
                                     /
                                     json_file
