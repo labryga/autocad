@@ -1,4 +1,4 @@
-; load modules
+; corresponding modules
 (load "hegenheimerstrasse_120/data_extraction_functions.lsp")
 (load "hegenheimerstrasse_120/data_format_functions.lsp")
 (load "hegenheimerstrasse_120/data_export_functions.lsp")
@@ -48,15 +48,8 @@
     insert_entities_data  (extend_instert_data_by_key_values insert_entities_data)
   )
 
-  ; (write_insert_data_to_json insert_entities_data_key_extended)
-
-  (foreach item insert_entities_data
-           (print item)
-  );foreach
-  
+  (write_insert_data_to_json insert_entities_data)
 
   (princ)
 
 );defun
-
-
