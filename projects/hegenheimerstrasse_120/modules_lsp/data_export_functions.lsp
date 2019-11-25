@@ -95,13 +95,18 @@
                     )
            );foreach
 
+           ; put every value to quotes
            (foreach wert (reverse (nth 1 (nth 1 item)))
                     (setq exemplar_nr (strcat "\"" wert "\"" exemplar_nr
                                       );strcat
                     );setq
            );foreach
 
-           (setq exemplar_nr (vl-string-subst "\" , \""  "\"\""  exemplar_nr))
+
+           (while (vl-string-search "\"\"" exemplar_nr)
+                  (setq exemplar_nr (vl-string-subst "\" , \""  "\"\""  exemplar_nr))
+           );while
+
            (write-line (strcat "\t\"exemplar_nummern\": " "[" exemplar_nr "]") json_file)
            (setq exemplar_nr "")
 
