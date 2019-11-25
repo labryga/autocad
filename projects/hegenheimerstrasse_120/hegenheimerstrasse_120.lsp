@@ -12,7 +12,7 @@
   (setq 
                                           
     insert_selection_set                  (ssget "x" '((0 . "INSERT")))
-
+l
     ; iterate over inserts selection and return a list of all corresponding block entities
     ; by a function of data extraction module
     insert_selection_block_entities_list  (get_list_of_insert_block_entities insert_selection_set)
