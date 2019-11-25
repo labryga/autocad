@@ -34,16 +34,28 @@ for eintrag in data["waende"]:
 
     for exemplar in eintrag["exemplar_nummern"]:
         for bezeichnung in meineliste:
-            try:
-                wert = float(eintrag[bezeichnung])
-            except:
+
+            if not bezeichnung == "bkp-nr":
+                try:
+                    wert = float(eintrag[bezeichnung])
+                except:
+                    wert = eintrag[bezeichnung]
+            else:
                 wert = eintrag[bezeichnung]
 
             meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + \
                 str(meine_zeilen_nr)] = (wert,
                                          eintrag["wandtyp"] + "-" + exemplar) \
                                         [bezeichnung == "exemplar_nummern"]
+
+            _cell = meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + str(meine_zeilen_nr)]
+            try:
+                _cell.number_format = "0.00 \"m²\""
+            except:
+                pass
+
         meine_zeilen_nr += 1
+
     meineseite.insert_rows(idx=meine_zeilen_nr)
     meine_zeilen_nr += 1
 
