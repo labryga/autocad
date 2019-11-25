@@ -1,4 +1,4 @@
-(load "hegenheimerstrasse_120/hegenheimerstrasse_120")(load "hegenheimerstrasse_120/modules_lsp/data_extraction_functions.lsp")
+(load "hegenheimerstrasse_120/modules_lsp/data_extraction_functions.lsp")
 (load "hegenheimerstrasse_120/modules_lsp/data_format_functions.lsp")
 (load "hegenheimerstrasse_120/modules_lsp/data_export_functions.lsp")
 
