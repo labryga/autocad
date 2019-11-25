@@ -34,9 +34,14 @@ for eintrag in data["waende"]:
 
     for exemplar in eintrag["exemplar_nummern"]:
         for bezeichnung in meineliste:
+            try:
+                wert = float(eintrag[bezeichnung])
+            except:
+                wert = eintrag[bezeichnung]
+
             meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + \
-                str(meine_zeilen_nr)] = (str(eintrag[bezeichnung]),
-                                         eintrag["wandtyp"] + "-" + str(exemplar)) \
+                str(meine_zeilen_nr)] = (wert,
+                                         eintrag["wandtyp"] + "-" + exemplar) \
                                         [bezeichnung == "exemplar_nummern"]
         meine_zeilen_nr += 1
     meineseite.insert_rows(idx=meine_zeilen_nr)
