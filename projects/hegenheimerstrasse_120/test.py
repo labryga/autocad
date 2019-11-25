@@ -25,15 +25,22 @@ for buchstabe in meineliste_buchstaben:
 meine_zeilen_nr = 3
 
 for eintrag in data["waende"]:
-  for exemplar in eintrag["exemplar_nummern"]:
-    for bezeichnung in meineliste:
-      meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + \
+
+    for bezeichnung in meineliste[:6]:
+        meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + \
+            str(meine_zeilen_nr)] = eintrag[bezeichnung]
+
+    meine_zeilen_nr += 1
+
+    for exemplar in eintrag["exemplar_nummern"]:
+        for bezeichnung in meineliste:
+            meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + \
                 str(meine_zeilen_nr)] = (str(eintrag[bezeichnung]),
                                          eintrag["wandtyp"] + "-" + str(exemplar)) \
                                         [bezeichnung == "exemplar_nummern"]
+        meine_zeilen_nr += 1
+    meineseite.insert_rows(idx=meine_zeilen_nr)
     meine_zeilen_nr += 1
-  meineseite.insert_rows(idx=meine_zeilen_nr)
-  meine_zeilen_nr += 1
 
 
 meinblatt.save(str(pathlib.Path.home()) + "\Documents\meinblatt.xlsx")
