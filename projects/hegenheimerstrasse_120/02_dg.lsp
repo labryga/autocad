@@ -46,20 +46,60 @@
 );defun:
 
 
-(defun change_name (/)
-  (setq my_layers (vla-get-layers
-                    (vla-get-activedocument
-                      (vlax-get-acad-object)))
+(defun get_blocks (/
+                   insert_vla_object
+                   my_insert_coordinates)
 
+  (setq collection_blocks (vla-get-blocks
+                            (vla-get-activedocument
+                              (vlax-get-acad-object)))
+
+        my_inserts        (ssget "x" '((0 . "INSERT")))
+        iterator          0
   );setq
 
-  (vlax-for layer my_layers
-            (setq my_layer_name (vla-get-name layer))
-            (if (wcmatch my_layer_name "C1*")
-                (vla-put-name layer
-                  (vl-string-subst "C21" "C1" my_layer_name)
-                )
-            );if
-  );vlax-for
+  (repeat (sslength my_inserts)
+          (setq my_insert_coordinates (cons 
+                                        (cdr (assoc 10 (entget (ssname my_inserts iterator))))
+                                        my_insert_coordinates
+                                      );cons
+          );setq
+          (setq iterator (1+ iterator))
+  );repeat
+
+  (foreach item my_insert_coordinates
+           (setq my_insert_coordinates
+                 (subst (cdr (reverse item))
+                        item
+                        my_insert_coordinates
+                 );subst
+           );setq
+  );foreach
+
+  (foreach item my_insert_coordinates
+           (setq my_insert_coordinates
+                 (subst (list (atoi (rtos (nth 1 item) 2))
+                              (atoi (rtos (nth 0 item) 2))
+                        );list
+                        item
+                        my_insert_coordinates
+                 );subst
+           );setq
+  );foreach
+
+  (print my_insert_coordinates)
+
+  (setq my_insert_coordinates
+        (vl-sort my_insert_coordinates
+                 '(lambda (ieins izwei)
+                    (if (= (car ieins) (car izwei))
+                        (< (cadr ieins) (cadr izwei))
+                        (< (car ieins) (car izwei))
+                    );if
+                  )
+        );vl-sort
+  );setq
+
+  (print my_insert_coordinates)
   (princ)
 );defun
