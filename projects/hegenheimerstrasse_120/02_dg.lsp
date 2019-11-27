@@ -60,7 +60,6 @@
   (princ)
 );defun
 
-
 (defun my_test (/)
   (setq my_blocks (vla-get-blocks
                     (vla-get-activedocument
@@ -82,7 +81,6 @@
 
   (princ)
 );defun:
-
 
 (defun get_blocks (/
                    insert_vla_object
@@ -139,5 +137,57 @@
   );setq
 
   (print my_insert_coordinates)
+  (princ)
+);defun
+
+(defun set_attributes ( /
+                        activedocument
+                        collection_blocks
+                        collection_layers
+                        insert_selection
+                        block_names
+                        black_name
+                        new_layer)
+
+  (setq activedocument      (vla-get-activedocument (vlax-get-acad-object))
+        collection_layers   (vla-get-layers activedocument)
+        collection_blocks   (vla-get-blocks activedocument)
+        insert_selection    (ssget "x" '((0 . "INSERT")))
+        selection_iterator  0
+  );setq
+
+  (repeat (sslength insert_selection)
+          (setq block_name  (cdr (assoc 2
+                                 (entget (ssname insert_selection selection_iterator))))
+          );setq
+          (if (not (member block_name block_names))
+              (setq block_names (cons block_name
+                                      block_names
+                                );cons
+              );setq
+          );if
+
+          (setq selection_iterator (1+ selection_iterator))
+  );repeat
+
+  ; create corresponding number attribute layers of each block by extending the block name
+  (foreach block_name block_names
+           (setq new_layer (vla-add
+                             collection_layers
+                             (strcat block_name "_nummer")
+                           );vla-add
+           );setq
+           (vla-put-color new_layer 5)
+           (vla-put-activelayer activedocument new_layer)
+
+           (vla-addattribute (vla-item collection_blocks block_name)
+                             (getvar "textsize")
+                             acAttributeModeLockPosition
+                             ""
+                             (vlax-3d-point 0 0 0)
+                             "NUMMER"
+                             "00"
+           );vla-addattribute
+  );foreach
   (princ)
 );defun
