@@ -191,3 +191,65 @@
   );foreach
   (princ)
 );defun
+
+(defun my_attributes (/
+                       insert_selection
+                       insert_entitiy
+                       block_name
+                       block_list
+
+                      collection_blocks
+                     )
+
+  (setq insert_selection    (ssget "x" '((0 . "INSERT")))
+        selection_iterator  0
+        activedocument      (vla-get-activedocument (vlax-get-acad-object))
+        collection_blocks   (vla-get-blocks activedocument)
+  );setq
+
+  (repeat (sslength insert_selection)
+          (setq insert_entitiy      (ssname insert_selection selection_iterator)
+                block_name          (cdr (assoc 2 (entget insert_entitiy)))
+                selection_iterator  (1+ selection_iterator)
+          );setq
+          
+          (if (not (member block_name block_list))
+              (setq block_list (cons block_name
+                                     block_list
+                               );cons
+              );setq
+          );if
+  );repeat
+
+  (foreach block_name block_list
+           (get_insert_list block_name)
+  );foreach
+
+  (princ)
+);defun
+
+
+(defun get_insert_list (block_name /
+                        insert_selection
+                        insert_entitiy
+                        selection_iterator
+                        insert_list)
+
+           (setq insert_selection   (ssget "x" (list (cons 2 block_name) (cons 0 "INSERT")))
+                 selection_iterator 0
+                 insert_list        (list)
+           );setq
+
+           (repeat (sslength insert_selection)
+                   (setq insert_entitiy     (ssname insert_selection selection_iterator)
+                         selection_iterator (1+ selection_iterator)
+                         insert_list        (cons (list (cdr (assoc 2  (entget insert_entitiy)))
+                                                        (cdr (assoc 10 (entget insert_entitiy)))
+                                                  );list
+                                                  insert_list
+                                            );cons
+                   );setq
+                   (princ)
+           );repeat
+           (print insert_list)
+);defun
