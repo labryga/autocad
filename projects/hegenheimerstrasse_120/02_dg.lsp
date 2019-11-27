@@ -4,7 +4,26 @@
                       (vla-get-activedocument
                         (vlax-get-acad-object)))
     daten (list 
-            (list "C1_Aussenwandkonstruktion_neu_214$3_Holzelementbau_35$0&cm_" (list "WO" "N" "S"))
+            (list "C22_Innenwandkonstruktion_neu_214$3_Holzelementbau"
+            );list (nth 0)
+
+            (list 
+
+                (list "_17$5&cm"
+                      (list 
+                          (list "_NZ" (list "-01"))
+                          (list "_TH" (list "-01" "-02" "-03"))
+                      );list
+                );list (nth 0 (nth 1))
+
+                (list "_10$0&cm"
+                      (list 
+                          (list "_WT" (list "-01"))
+                          (list "_NZ" (list "-02"))
+                      );list
+                );list (nth 1 (nth 1))
+            );list (nth 1)
+
             (list
                   (list ""           7)
                   (list "_breite"   30)
@@ -13,11 +32,30 @@
                   (list "_nummer"    5)
                   (list "_umfang"  220)
                   (list "_volumen" 140)
-             );list
+             );list (nth 2)
            );list
-
   );setq
 
+  (foreach eintrag (nth 1 daten)
+           (setq staerke (nth 0 eintrag))
+           (foreach typen (nth 1 eintrag)
+                    (setq typ (nth 0 typen))
+                    (foreach nummer (nth 1 typen)
+                             (foreach attribute (nth 2 daten)
+                                       (setq my_layername
+                                         (strcat (nth 0 (nth 0 daten))
+                                                 staerke
+                                                 typ
+                                                 nummer
+                                                 (nth 0 attribute)
+                                         );strcat
+                                       )
+                                       (print my_layername)
+                                       (print (nth 1 attribute))
+                             );foreach
+                    );foreach
+           );foreach
+  );foreach
 
   (princ)
 );defun
