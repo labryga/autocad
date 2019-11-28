@@ -63,6 +63,7 @@
                                     /
                                     json_file
                                     exemplar_nr
+                                    file_name_string_list
                                   )
   (setq
     json_file (open (strcat
@@ -70,57 +71,76 @@
                       "\\Documents\\hegenheimerstrasse.json")
                     "w")
     exemplar_nr ""
+    file_name_string_list (get_dwg_file_name_string_list)
   );setq
 
-  (write-line "{\"waende\": [" json_file)
+  
+    (write-line "{\n" json_file)
 
-  (foreach item insert_data_set
-           (write-line "{" json_file)
+      ; write geschosseebene
+      (write-line (strcat "\"geschossebene \":" 
+                         "\""
+                         (nth 0 file_name_string_list)
+                         "-"
+                        (strcase (nth 1 file_name_string_list))
+                         "\"" ",")
+                  json_file)
 
-           (foreach bezeichnung (nth 0 item)
-                    (write-line (strcat "\t\""
-                                  (nth 0 bezeichnung) "\": \" "
-                                  (nth 1 bezeichnung) "\","
-                                );strcat
-                                json_file
-                    )
-           );foreach
+      ; write element type
+      (write-line (strcat "\""
+                          (nth 2 file_name_string_list)
+                          "\":"
+                          "[") json_file)
 
-           (foreach werte (nth 2 item)
-                    (write-line (strcat "\t\""
-                                  (nth 0 werte) "\": \" "
-                                  (nth 1 werte) "\","
-                                );strcat
-                                json_file
-                    )
-           );foreach
+      (foreach item insert_data_set
+               (write-line "{" json_file)
 
-           ; put every value to quotes
-           (foreach wert (reverse (nth 1 (nth 1 item)))
-                    (setq exemplar_nr (strcat "\"" wert "\"" exemplar_nr
-                                      );strcat
-                    );setq
-           );foreach
+               (foreach bezeichnung (nth 0 item)
+                        (write-line (strcat "\t\""
+                                      (nth 0 bezeichnung) "\": \" "
+                                      (nth 1 bezeichnung) "\","
+                                    );strcat
+                                    json_file
+                        )
+               );foreach
+
+               (foreach werte (nth 2 item)
+                        (write-line (strcat "\t\""
+                                      (nth 0 werte) "\": \" "
+                                      (nth 1 werte) "\","
+                                    );strcat
+                                    json_file
+                        )
+               );foreach
+
+               ; put every value to quotes
+               (foreach wert (reverse (nth 1 (nth 1 item)))
+                        (setq exemplar_nr (strcat "\"" wert "\"" exemplar_nr
+                                          );strcat
+                        );setq
+               );foreach
 
 
-           (while (vl-string-search "\"\"" exemplar_nr)
-                  (setq exemplar_nr (vl-string-subst "\" , \""  "\"\""  exemplar_nr))
-           );while
+               (while (vl-string-search "\"\"" exemplar_nr)
+                      (setq exemplar_nr (vl-string-subst "\" , \""  "\"\""  exemplar_nr))
+               );while
 
-           (write-line (strcat "\t\"exemplar_nummern\": " "[" exemplar_nr "]") json_file)
-           (setq exemplar_nr "")
+               (write-line (strcat "\t\"exemplar_nummern\": " "[" exemplar_nr "]") json_file)
+               (setq exemplar_nr "")
 
-           (if (=
-                 (- (length insert_data_set) 1)
-                 (vl-position item insert_data_set))
-               (write-line "}" json_file)
-               (write-line "}," json_file)
-           );if
+               (if (=
+                     (- (length insert_data_set) 1)
+                     (vl-position item insert_data_set))
+                   (write-line "}" json_file)
+                   (write-line "}," json_file)
+               );if
 
-  );foreach
+      );foreach
 
-  (write-line "]}" json_file)
+    (write-line "]}" json_file)
+
   (close json_file)
+  (print file_name_string_list)
   (princ)
 );defun
 
@@ -128,13 +148,13 @@
 ; return a list of current dwg file name
 (defun get_dwg_file_name_string_list ( / name_string_list)
 
-  (setq name                (getvar "dwgname")
-        name_length         (strlen name)
-        name_prefix         (substr name 1 (- name_length 4))
+  (setq name              (getvar "dwgname")
+        name_length       (strlen name)
+        name_prefix       (substr name 1 (- name_length 4))
+        name_string_list  (string_to_list name_prefix "_")
   );setq
 
-  (print (string_to_list name_prefix "_"))
-  (princ)
+  name_string_list
 );defun
 
 
