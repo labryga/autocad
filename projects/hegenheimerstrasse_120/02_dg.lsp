@@ -1,4 +1,6 @@
-(defun set_walls (/)
+
+(defun create_project_layers (/)
+
   (setq
     collection_lyer (vla-get-layers 
                       (vla-get-activedocument
@@ -60,28 +62,6 @@
   (princ)
 );defun
 
-(defun my_test (/)
-  (setq my_blocks (vla-get-blocks
-                    (vla-get-activedocument
-                      (vlax-get-acad-object)))
-
-        my_inserts  (ssget "x" '((0 . "INSERT")))
-        iterator    0
-  );setq
-
-  (repeat (sslength my_inserts) 
-          (setq my_insert (vlax-ename->vla-object
-                            (ssname my_inserts iterator))
-                iterator  (1+ iterator)
-          );setq
-
-          (print (strcat (vla-get-layer my_insert) "_nummer"))
-  );repeat
-
-
-  (princ)
-);defun:
-
 (defun get_blocks (/
                    insert_vla_object
                    my_insert_coordinates)
@@ -140,14 +120,14 @@
   (princ)
 );defun
 
-(defun set_attributes ( /
-                        activedocument
-                        collection_blocks
-                        collection_layers
-                        insert_selection
-                        block_names
-                        black_name
-                        new_layer)
+(defun add_number_attribute ( /
+                              activedocument
+                              collection_blocks
+                              collection_layers
+                              insert_selection
+                              block_names
+                              black_name
+                              new_layer)
 
   (setq activedocument      (vla-get-activedocument (vlax-get-acad-object))
         collection_layers   (vla-get-layers activedocument)
@@ -157,9 +137,11 @@
   );setq
 
   (repeat (sslength insert_selection)
+
           (setq block_name  (cdr (assoc 2
                                  (entget (ssname insert_selection selection_iterator))))
           );setq
+
           (if (not (member block_name block_names))
               (setq block_names (cons block_name
                                       block_names
@@ -198,10 +180,10 @@
                                block_name
                                block_list
 
-                              collection_blocks
-                              insert_list
-                              insert_attributes
-                              number_attribute
+                               collection_blocks
+                               insert_list
+                               insert_attributes
+                               number_attribute
                              )
 
   (setq insert_selection    (ssget "x" '((0 . "INSERT")))
@@ -242,7 +224,6 @@
 
   (princ)
 );defun
-
 
 (defun get_insert_list (block_name /
                         insert_selection
@@ -289,4 +270,3 @@
            insert_list
            ; (princ)
 );defun
-

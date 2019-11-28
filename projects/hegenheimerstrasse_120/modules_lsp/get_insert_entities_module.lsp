@@ -1,5 +1,4 @@
 
-  ; write insert name, insert instances and insert block attributes to list
 
 (defun write_insert_data_to_list (insert_selection
                                   block_next_entity_layer_names_list
@@ -85,7 +84,6 @@
   );repeat
   inserts_data
 );defun
-
 
 
 ; function to read insert number attribute
