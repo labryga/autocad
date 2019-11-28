@@ -130,21 +130,9 @@
   (setq name                (getvar "dwgname")
         name_length         (strlen name)
         name_prefix         (substr name 1 (- name_length 4))
-        seperator_position  0
-        name_string_list    (list)
   );setq
 
-  (while (setq seperator_position (vl-string-search "_" name_prefix))
-         (setq name_prefix_string_list  (cons (substr name_prefix 1 seperator_position)
-                                     name_prefix_string_list
-                                );cons
-              name_prefix              (substr name_prefix (+ 2 seperator_position))
-         );setq
-  );if
-
-  (setq name_prefix_string_list (cons name_prefix name_prefix_string_list))
-
-  (print (reverse name_prefix_string_list))
+  (print (string_to_list name_prefix "_"))
   (princ)
 );defun
 
