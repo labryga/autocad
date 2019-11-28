@@ -1,7 +1,7 @@
 ; data export functions
 
 
-; format inserts data to csv and write to file
+; export data to csv file
 (defun write_data_to_csv (insert_entities_data /
                           user_home_directory
                           data_file
@@ -58,7 +58,7 @@
 );defun
 
 
-; format data to json and write to file
+; export data to json file
 (defun write_insert_data_to_json  ( insert_data_set
                                     /
                                     json_file
@@ -124,8 +124,9 @@
   (princ)
 );defun
 
-(defun get_dwg_file_name_string_list ( /
-                                       name_string_list)
+
+; return a list of current dwg file name
+(defun get_dwg_file_name_string_list ( / name_string_list)
 
   (setq name                (getvar "dwgname")
         name_length         (strlen name)
@@ -136,6 +137,8 @@
   (princ)
 );defun
 
+
+; split string to list by specified single character seperator
 (defun string_to_list ( string_value 
                         seperator /
                         seperator_position)
