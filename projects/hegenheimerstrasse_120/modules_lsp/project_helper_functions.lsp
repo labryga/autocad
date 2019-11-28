@@ -1,4 +1,5 @@
 
+; create project specific layers
 (defun create_project_layers (/)
 
   (setq
@@ -62,7 +63,7 @@
   (princ)
 );defun
 
-
+; add "NUMMER" attribute to each corresponding element
 (defun add_number_attribute ( /
                               activedocument
                               collection_blocks
@@ -117,6 +118,7 @@
   (princ)
 );defun
 
+; set "NUMMER" attributes by iteration over corresponding element type
 (defun set_number_attributes ( /
                                insert_selection
                                insert_entitiy
@@ -168,6 +170,7 @@
   (princ)
 );defun
 
+; get insert list of each block instance
 (defun get_insert_list (block_name /
                         insert_selection
                         insert_entitiy
