@@ -192,14 +192,17 @@
   (princ)
 );defun
 
-(defun my_attributes (/
-                       insert_selection
-                       insert_entitiy
-                       block_name
-                       block_list
+(defun set_number_attributes ( /
+                               insert_selection
+                               insert_entitiy
+                               block_name
+                               block_list
 
-                      collection_blocks
-                     )
+                              collection_blocks
+                              insert_list
+                              insert_attributes
+                              number_attribute
+                             )
 
   (setq insert_selection    (ssget "x" '((0 . "INSERT")))
         selection_iterator  0
@@ -222,7 +225,19 @@
   );repeat
 
   (foreach block_name block_list
-           (get_insert_list block_name)
+           (setq insert_list        (get_insert_list block_name)
+                 attribute_iterator 0
+           )
+           (foreach instance insert_list
+                    (setq insert_attributes   (vlax-variant-value
+                                                (vla-getattributes (car instance)))
+                          number_attribute    (vlax-safearray-get-element insert_attributes 0)
+                          attribute_iterator  (1+ attribute_iterator)
+                    );setq
+                    (vla-put-textstring number_attribute (itoa attribute_iterator))
+                    (print (vla-get-tagstring number_attribute))
+                    (print (vla-get-textstring number_attribute))
+           );foreach
   );foreach
 
   (princ)
@@ -243,13 +258,35 @@
            (repeat (sslength insert_selection)
                    (setq insert_entitiy     (ssname insert_selection selection_iterator)
                          selection_iterator (1+ selection_iterator)
-                         insert_list        (cons (list (cdr (assoc 2  (entget insert_entitiy)))
+                         insert_list        (cons (list (vlax-ename->vla-object insert_entitiy)
                                                         (cdr (assoc 10 (entget insert_entitiy)))
                                                   );list
                                                   insert_list
                                             );cons
                    );setq
-                   (princ)
+
+                   (setq insert_list
+                     (vl-sort insert_list
+                              '(lambda (i1 i2)
+
+                                 (if (= (car (last i1)) (car (last i2)))
+
+                                     (< (cadr (last i1))
+                                        (cadr (last i2))
+                                     )
+
+                                     (< (car (last i1))
+                                        (car (last i2))
+                                     )
+                                 );if
+
+                               )
+                     )
+                   )
+
            );repeat
-           (print insert_list)
+
+           insert_list
+           ; (princ)
 );defun
+
