@@ -1,5 +1,4 @@
 
-
 (defun write_insert_data_to_list (insert_selection
                                   block_next_entity_layer_names_list
                                   / 
@@ -85,9 +84,7 @@
   inserts_data
 );defun
 
-
 ; function to read insert number attribute
-
 (defun get_insert_entity_nummer_attribute (insert_entity /
                                            attributes_array
                                            iterator

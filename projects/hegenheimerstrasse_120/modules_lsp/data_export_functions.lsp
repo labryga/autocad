@@ -1,4 +1,4 @@
-; functions for data export
+; data export functions
 
 
 ; format inserts data to csv and write to file
@@ -122,4 +122,43 @@
   (write-line "]}" json_file)
   (close json_file)
   (princ)
+);defun
+
+(defun get_dwg_file_name_string_list ( /
+                                       name_string_list)
+
+  (setq name                (getvar "dwgname")
+        name_length         (strlen name)
+        name_prefix         (substr name 1 (- name_length 4))
+        seperator_position  0
+        name_string_list    (list)
+  );setq
+
+  (while (setq seperator_position (vl-string-search "_" name_prefix))
+         (setq name_prefix_string_list  (cons (substr name_prefix 1 seperator_position)
+                                     name_prefix_string_list
+                                );cons
+              name_prefix              (substr name_prefix (+ 2 seperator_position))
+         );setq
+  );if
+
+  (setq name_prefix_string_list (cons name_prefix name_prefix_string_list))
+
+  (print (reverse name_prefix_string_list))
+  (princ)
+);defun
+
+(defun string_to_list ( string_value 
+                        seperator /
+                        seperator_position)
+
+  (if (setq seperator_position (vl-string-search seperator string_value))
+
+      (cons (substr string_value 1 seperator_position)
+            (string_to_list (substr string_value (+ 2 seperator_position))
+                            seperator)
+      );cons
+
+      (list string_value)
+  );if
 );defun
