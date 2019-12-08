@@ -3,9 +3,9 @@
 (defun create_project_layers (/)
 
   (setq
-    collection_lyer (vla-get-layers 
-                      (vla-get-activedocument
-                        (vlax-get-acad-object)))
+    collection_layers (vla-get-layers 
+                        (vla-get-activedocument
+                          (vlax-get-acad-object)))
     daten (list 
             (list "C22_Innenwandkonstruktion_neu_214$3_Holzelementbau"
             );list (nth 0)
@@ -63,6 +63,7 @@
   (princ)
 );defun
 
+
 ; add "NUMMER" attribute to each corresponding element
 (defun add_number_attribute ( /
                               activedocument
@@ -118,7 +119,8 @@
   (princ)
 );defun
 
-; set "NUMMER" attributes by iteration over corresponding element type
+
+; set "NUMMER" attributes by iteration over corresponding insert instance
 (defun set_number_attributes ( /
                                insert_selection
                                insert_entitiy
@@ -152,6 +154,7 @@
   );repeat
 
   (foreach block_name block_list
+                                    ; subfunction 
            (setq insert_list        (get_insert_list block_name)
                  attribute_iterator 0
            )
@@ -169,6 +172,7 @@
 
   (princ)
 );defun
+
 
 ; get insert list of each block instance
 (defun get_insert_list (block_name /

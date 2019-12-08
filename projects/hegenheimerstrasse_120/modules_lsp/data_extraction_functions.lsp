@@ -16,6 +16,7 @@
   );setq
 
   (repeat (sslength insert_selection_set)
+
           (setq 
             insert_entity               (ssname insert_selection_set
                                                 insert_selection_iterator
@@ -144,6 +145,7 @@
   );setq
 
   (repeat (sslength insert_selection)
+
           (setq 
             insert_entity       (ssname insert_selection iterator)
             iterator            (1+ iterator)
@@ -156,6 +158,7 @@
 
           ; write insert type data to inserts_data if not yet done
           (if (not (assoc insert_entity_name inserts_data))
+
               (progn 
                 (setq 
                   insert_next_dimensions (list (list "breite")
@@ -192,9 +195,9 @@
                                                   insert_entity_name
                                                   (list insert_nummer)
                                                   insert_next_dimensions
-                                                );list
-                                                inserts_data
-                                          );cons
+                                      );list
+                                      inserts_data
+                                );cons
                 );setq
               );progn
 
