@@ -20,6 +20,7 @@
             insert_entity               (ssname insert_selection_set
                                                 insert_selection_iterator
                                         );ssname
+
             insert_entity_block_name    (cdr (assoc 2 (entget insert_entity))) 
             insert_entity_block_entity  (tblobjname "block" insert_entity_block_name)
             insert_selection_iterator   (1+ insert_selection_iterator)
