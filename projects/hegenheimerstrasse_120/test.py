@@ -24,6 +24,7 @@ for buchstabe in meineliste_buchstaben:
 
 meine_zeilen_nr = 3
 
+
 for eintrag in data["waende"]:
 
     for bezeichnung in meineliste[:6]:
