@@ -39,7 +39,7 @@
 
   ; data formatting section
 
-    ; split insert names to list in each insert entry
+    ; split insert names to list of strings in each insert entry
     insert_entities_data  (split_insert_name_to_list insert_entities_data)
 
     ; replace "$" and "&" by corresponding "." and "\s" symbols in insert names
