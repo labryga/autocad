@@ -95,10 +95,12 @@
                                                   *error*)
 
   (defun *error* (msg)
-    (princ "\n
-           error in function: set_next_entity_layer_names_to_variables
-           module:            data_extraction_functions \n")
-    (princ msg)
+    (princ (strcat
+             "\n
+             error in function: set_next_entity_layer_names_to_variables
+             module:            data_extraction_functions \n"
+             msg)
+    ) 
     (princ)
   );defun
 
@@ -291,3 +293,4 @@
 
   instance_nummer
 );defun
+
