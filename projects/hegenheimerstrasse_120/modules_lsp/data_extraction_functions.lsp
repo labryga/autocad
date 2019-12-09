@@ -2,7 +2,7 @@
 
 
 ; iterate over inserts selection and return a list of all corresponding block entities
-(defun get_list_of_insert_block_entities ( insert_selection_set
+(defun wget_list_of_insert_block_entities ( insert_selection_set
                                            /
                                            insert_selection_iterator
 
@@ -14,7 +14,9 @@
                                          )
 
   (defun *error* (msg)
-    (princ "\n error in get_list_of_insert_block_entities")
+    (princ "\n
+           error in function: get_list_of_insert_block_entities
+           module:            data_extraction_functions \n")
     (princ msg)
     (princ)
   );defun
