@@ -224,3 +224,15 @@
            insert_list
            ; (princ)
 );defun
+
+
+(defun c:mytest ( / *error*)
+  (defun *error* (msg)
+    (princ "mein Fehler...!")
+    ; (princ msg)
+    (princ)
+  );defun
+
+  (getstring "\n bitte escape druecken...")
+  (princ)
+);defun

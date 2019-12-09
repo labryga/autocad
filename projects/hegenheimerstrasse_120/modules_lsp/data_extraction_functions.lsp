@@ -10,7 +10,17 @@
                                            insert_entity_block_name
                                            insert_entity_block_entity
                                            insert_entities_block_list
+                                           *error*
                                          )
+
+  (defun *error* (msg)
+    (princ "\n
+           error in function: get_list_of_insert_block_entities
+           module:            data_extraction_functions \n")
+    (princ msg)
+    (princ)
+  );defun
+
   (setq 
     insert_selection_iterator 0
   );setq
@@ -37,6 +47,8 @@
   );repeat
 
   insert_entities_block_list
+
+
 );defun
 
 
@@ -45,7 +57,16 @@
                                                      /
                                                      next_entity_entget
                                                      block_entities_layer_names_list
+                                                     *error*
                                                     )
+
+  (defun *error* (msg)
+    (princ "\n
+           error in function: get_list_of_next_block_entities_layer_names
+           module:            data_extraction_functions \n")
+    (princ msg)
+    (princ)
+  );defun
 
   (foreach next_entity block_entities_list
 
@@ -70,7 +91,17 @@
 
 
 ; create variables for all block entity layers and set/reset to zero
-(defun set_next_entity_layer_names_to_variables ( block_next_entity_layer_names_list /)
+(defun set_next_entity_layer_names_to_variables ( block_next_entity_layer_names_list /
+                                                  *error*)
+
+  (defun *error* (msg)
+    (princ "\n
+           error in function: set_next_entity_layer_names_to_variables
+           module:            data_extraction_functions \n")
+    (princ msg)
+    (princ)
+  );defun
+
   (foreach layer_name block_next_entity_layer_names_list
            (set (read layer_name)  0);set
   );foreach
