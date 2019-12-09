@@ -10,7 +10,15 @@
                                            insert_entity_block_name
                                            insert_entity_block_entity
                                            insert_entities_block_list
+                                           *error*
                                          )
+
+  (defun *error* (msg)
+    (princ "\n error in get_list_of_insert_block_entities")
+    (princ msg)
+    (princ)
+  );defun
+
   (setq 
     insert_selection_iterator 0
   );setq
@@ -37,6 +45,8 @@
   );repeat
 
   insert_entities_block_list
+
+
 );defun
 
 
@@ -46,6 +56,13 @@
                                                      next_entity_entget
                                                      block_entities_layer_names_list
                                                     )
+
+  (defun *error* (msg)
+    (princ "\n error in: 
+           get_list_of_next_block_entities_layer_names \n")
+    (princ msg)
+    (princ)
+  );defun
 
   (foreach next_entity block_entities_list
 
