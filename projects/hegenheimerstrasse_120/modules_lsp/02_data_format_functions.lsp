@@ -1,8 +1,17 @@
-; formatting data functions
+; data format functions
 
 
 ; split insert names to list in each insert entry
-(defun split_insert_name_to_list (inserts_data /)
+(defun split_insert_name_to_list (inserts_data /
+                                  *error*)
+
+  (defun *error* (message)
+    (princ "\n
+           error in function: split_insert_name_to_list
+           module:            02_data_format_functions \n")
+    (princ message)
+    (princ)
+  );defun
 
   (foreach insert_entry inserts_data
            (setq inserts_data

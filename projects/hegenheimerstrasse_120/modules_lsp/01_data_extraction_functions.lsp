@@ -123,6 +123,7 @@
                                                method_attribute
                                                method_function
                                                method_factor
+                                               *error*
                                              )
   (defun *error* (message) 
     (princ "\n
