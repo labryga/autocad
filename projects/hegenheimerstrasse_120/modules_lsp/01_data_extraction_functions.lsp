@@ -1,4 +1,4 @@
-; module to retrieve all data from corresponding insert items
+; retrieve all data from corresponding insert items module
 
 
 ; iterate over inserts selection and return a list of all corresponding block entities
@@ -13,11 +13,11 @@
                                            *error*
                                          )
 
-  (defun *error* (msg)
+  (defun *error* (message)
     (princ "\n
            error in function: get_list_of_insert_block_entities
            module:            01_data_extraction_functions \n")
-    (princ msg)
+    (princ message)
     (princ)
   );defun
 
@@ -60,11 +60,11 @@
                                                      *error*
                                                     )
 
-  (defun *error* (msg)
+  (defun *error* (message)
     (princ "\n
            error in function: get_list_of_next_block_entities_layer_names
            module:            data_extraction_functions \n")
-    (princ msg)
+    (princ message)
     (princ)
   );defun
 
@@ -94,12 +94,12 @@
 (defun set_next_entity_layer_names_to_variables ( block_next_entity_layer_names_list /
                                                   *error*)
 
-  (defun *error* (msg)
+  (defun *error* (message)
     (princ (strcat
              "\n
              error in function: set_next_entity_layer_names_to_variables
              module:            data_extraction_functions \n"
-             msg)
+             message)
     ) 
     (princ)
   );defun
