@@ -33,7 +33,18 @@
 
 
 ; subfunction split name string to list by "-" delimiter
-(defun split_string_to_list ( string_value / delimiter_position)
+(defun split_string_to_list ( string_value /
+                              delimiter_position
+                              *error*)
+
+  (defun *error* (message)
+    (princ "\n
+           error in subfunctionfunction: split_string_to_list
+           module:                       02_data_format_functions \n")
+    (princ message)
+    (princ)
+  );defun
+
   (if (setq delimiter_position (vl-string-search "_" string_value))
       (setq string_value
         (cons
