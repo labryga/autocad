@@ -264,12 +264,22 @@
   inserts_data
 );defun
 
-
+; subfunction of write_insert_data_to_list
 ; read insert number attribute
 (defun get_insert_entity_nummer_attribute (insert_entity /
                                            attributes_array
                                            iterator
-                                           instance_nummer)
+                                           instance_nummer
+                                           *error*)
+
+  (defun *error* (message) 
+    (princ "\n
+           error in subfunction: get_insert_entity_nummer_attribute
+           module:               01_data_extraction_functions"
+    )
+    (princ message)
+    (princ)
+  );defun
 
   (setq attributes_array  (vlax-variant-value 
                             (vla-getattributes 
