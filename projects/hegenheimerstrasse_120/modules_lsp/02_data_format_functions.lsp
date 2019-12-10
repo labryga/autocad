@@ -40,7 +40,7 @@
   (defun *error* (message)
     (princ "\n
            error in subfunctionfunction: split_string_to_list
-           module:                       02_data_format_functions \n")
+           module:                      02_data_format_functions \n")
     (princ message)
     (princ)
   );defun
@@ -59,7 +59,16 @@
 
 ; replace "$" and "&" by corresponding "." and "\s" symbols in insert names
 (defun format_characters_in_inserts_data (inserts_data /
-                                          insert_name)
+                                          insert_name
+                                          *error*)
+  (defun *error* (message)
+    (princ "\n
+           error in function: format_characters_in_inserts_data
+           module:            02_data_format_functions \n")
+    (princ message)
+    (princ)
+  );defun
+
   (foreach eintrag inserts_data
            (setq inserts_data
                  (subst 
