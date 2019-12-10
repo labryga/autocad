@@ -99,20 +99,20 @@
       ; write geschosseebene
       (write-line (strcat "\"geschossebene \":" 
                          "\""
-                         (nth 0 file_name_string_list)
+                         (nth 1 file_name_string_list)
                          "-"
-                        (strcase (nth 1 file_name_string_list))
+                        (strcase (nth 2 file_name_string_list))
                          "\"" ",")
                   json_file)
 
       ; write element type
       (write-line (strcat "\""
-                          (nth 2 file_name_string_list)
+                          (nth 0 file_name_string_list)
                           "\":"
                           "[") json_file)
 
       (foreach item insert_data_set
-               (write-line "{" json_file)
+               (write-line "\t{" json_file)
 
                (foreach bezeichnung (nth 0 item)
                         (write-line (strcat "\t\""
@@ -150,8 +150,8 @@
                (if (=
                      (- (length insert_data_set) 1)
                      (vl-position item insert_data_set))
-                   (write-line "}" json_file)
-                   (write-line "}," json_file)
+                   (write-line "\t}" json_file)
+                   (write-line "\t}," json_file)
                );if
 
       );foreach
@@ -159,7 +159,6 @@
     (write-line "]}" json_file)
 
   (close json_file)
-  (print file_name_string_list)
   (princ)
 );defun
 

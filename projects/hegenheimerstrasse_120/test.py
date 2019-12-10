@@ -22,15 +22,14 @@ for buchstabe in meineliste_buchstaben:
   meineseite[buchstabe + '1'] = meineliste[meineliste_index]
   meineliste_index += 1
 
-meine_zeilen_nr = 3
 
+meine_zeilen_nr = 3
 
 for eintrag in data["waende"]:
 
     for bezeichnung in meineliste[:6]:
         meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + \
             str(meine_zeilen_nr)] = eintrag[bezeichnung]
-
     meine_zeilen_nr += 1
 
     for exemplar in eintrag["exemplar_nummern"]:
@@ -49,7 +48,8 @@ for eintrag in data["waende"]:
                                          eintrag["wandtyp"] + "-" + exemplar) \
                                         [bezeichnung == "exemplar_nummern"]
 
-            _cell = meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + str(meine_zeilen_nr)]
+            _cell = meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + \
+                               str(meine_zeilen_nr)]
             try:
                 _cell.number_format = "0.00 \"m²\""
             except:
