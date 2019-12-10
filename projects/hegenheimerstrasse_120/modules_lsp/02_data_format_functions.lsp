@@ -100,7 +100,16 @@
 (defun extend_instert_data_by_key_values (inserts_data
                                           /
                                           bezeichnung_keys
+                                          *error*
                                          )
+
+  (defun *error* (message)
+    (princ "\n
+           error in function: extend_instert_data_by_key_values
+           module:            02_data_format_functions \n")
+    (princ message)
+    (princ)
+  );defun
 
   (setq bezeichnung_keys (list 
                              "ebkp-nr"
