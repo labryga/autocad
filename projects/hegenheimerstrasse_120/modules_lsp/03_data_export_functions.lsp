@@ -11,7 +11,16 @@
                           values_list
 
                           name
+                          *error*
                          )
+
+  (defun *error* (message)
+    (princ "\n
+           error in function: write_data_to_csv
+           module:            03_data_export_functions \n")
+    (princ message)
+    (princ)
+  );defun
 
   (setq user_home_directory (getenv "userprofile")
         data_file (open (strcat user_home_directory "\\Documents\\hegenheimerstrasse.csv") "w")
