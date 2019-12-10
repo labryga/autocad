@@ -124,6 +124,14 @@
                                                method_function
                                                method_factor
                                              )
+  (defun *error* (message) 
+    (princ "\n
+           error in function: write_next_block_entities_to_variables
+           module:            01_data_extraction_functions"
+    )
+    (princ message)
+    (princ)
+  );defun
 
   (setq 
     next_type_methods_list  (list  
