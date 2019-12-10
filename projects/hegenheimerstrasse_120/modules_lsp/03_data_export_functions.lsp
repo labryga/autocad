@@ -73,7 +73,17 @@
                                     json_file
                                     exemplar_nr
                                     file_name_string_list
+                                    *error*
                                   )
+
+  (defun *error* (message)
+    (princ "\n
+           error in function: write_insert_data_to_json
+           module:            03_data_export_functions \n")
+    (princ message)
+    (princ)
+  );defun
+
   (setq
     json_file (open (strcat
                       (getenv "userprofile")
@@ -155,7 +165,16 @@
 
 
 ; return a list of current dwg file name
-(defun get_dwg_file_name_string_list ( / name_string_list)
+(defun get_dwg_file_name_string_list ( / name_string_list
+                                         *error*)
+
+  (defun *error* (message)
+    (princ "\n
+           error in function: get_dwg_file_name_string_list
+           module:            03_data_export_functions \n")
+    (princ message)
+    (princ)
+  );defun
 
   (setq name              (getvar "dwgname")
         name_length       (strlen name)
@@ -170,7 +189,16 @@
 ; split string to list by specified single character seperator
 (defun string_to_list ( string_value 
                         seperator /
-                        seperator_position)
+                        seperator_position
+                        *error*)
+
+  (defun *error* (message)
+    (princ "\n
+           error in function: string_to_list
+           module:            03_data_export_functions \n")
+    (princ message)
+    (princ)
+  );defun
 
   (if (setq seperator_position (vl-string-search seperator string_value))
 
