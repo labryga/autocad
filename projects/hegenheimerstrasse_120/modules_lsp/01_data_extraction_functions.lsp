@@ -16,7 +16,7 @@
   (defun *error* (msg)
     (princ "\n
            error in function: get_list_of_insert_block_entities
-           module:            data_extraction_functions \n")
+           module:            01_data_extraction_functions \n")
     (princ msg)
     (princ)
   );defun
@@ -173,9 +173,19 @@
                                   iterator
                                   insert_next_dimensions
                                   insert_data
-                                  inserts_data)
+                                  inserts_data
+                                  *error*)
   (setq iterator  0
   );setq
+
+  (defun *error* (message) 
+    (princ "\n
+           error in function: write_insert_data_to_list
+           module:            01_data_extraction_functions"
+    )
+    (princ message)
+    (princ)
+  );defun
 
   (repeat (sslength insert_selection)
 
