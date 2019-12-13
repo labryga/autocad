@@ -3,11 +3,11 @@ import pathlib, json, openpyxl, string
 pfad = str(pathlib.Path.home()) + "\Documents\hegenheimerstrasse.json"
 
 with open(pfad) as json_file:
-    data = json.load(json_file)
+    json_data = json.load(json_file)
 
 meineliste = []
 
-for eintrag in data["waende"]:
+for eintrag in json_data["waende"]:
   for bezeichnung in eintrag.keys():
     if bezeichnung not in  meineliste:
       meineliste.append(bezeichnung)
@@ -25,7 +25,7 @@ for buchstabe in meineliste_buchstaben:
 meine_zeilen_nr = 3
 
 
-for eintrag in data["waende"]:
+for eintrag in json_data["waende"]:
 
     for bezeichnung in meineliste[:6]:
         meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + \
