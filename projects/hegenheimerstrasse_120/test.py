@@ -5,21 +5,21 @@ pfad = str(pathlib.Path.home()) + "\Documents\hegenheimerstrasse.json"
 with open(pfad) as json_file:
     json_data = json.load(json_file)
 
-meineliste = []
+entries_data = []
 
 for eintrag in json_data["waende"]:
   for bezeichnung in eintrag.keys():
-    if bezeichnung not in  meineliste:
-      meineliste.append(bezeichnung)
+    if bezeichnung not in  entries_data:
+      entries_data.append(bezeichnung)
 
 meinblatt = openpyxl.Workbook()
 meineseite = meinblatt.active
 
 meineliste_index      = 0
-meineliste_buchstaben = string.ascii_uppercase[:len(meineliste)]
+meineliste_buchstaben = string.ascii_uppercase[:len(entries_data)]
 
 for buchstabe in meineliste_buchstaben:
-  meineseite[buchstabe + '1'] = meineliste[meineliste_index]
+  meineseite[buchstabe + '1'] = entries_data[meineliste_index]
   meineliste_index += 1
 
 meine_zeilen_nr = 3
@@ -27,14 +27,14 @@ meine_zeilen_nr = 3
 
 for eintrag in json_data["waende"]:
 
-    for bezeichnung in meineliste[:6]:
-        meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + \
+    for bezeichnung in entries_data[:6]:
+        meineseite[meineliste_buchstaben[entries_data.index(bezeichnung)] + \
             str(meine_zeilen_nr)] = eintrag[bezeichnung]
 
     meine_zeilen_nr += 1
 
     for exemplar in eintrag["exemplar_nummern"]:
-        for bezeichnung in meineliste:
+        for bezeichnung in entries_data:
 
             if not bezeichnung == "bkp-nr":
                 try:
@@ -44,12 +44,12 @@ for eintrag in json_data["waende"]:
             else:
                 wert = eintrag[bezeichnung]
 
-            meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + \
+            meineseite[meineliste_buchstaben[entries_data.index(bezeichnung)] + \
                 str(meine_zeilen_nr)] = (wert,
                                          eintrag["wandtyp"] + "-" + exemplar) \
                                         [bezeichnung == "exemplar_nummern"]
 
-            _cell = meineseite[meineliste_buchstaben[meineliste.index(bezeichnung)] + str(meine_zeilen_nr)]
+            _cell = meineseite[meineliste_buchstaben[entries_data.index(bezeichnung)] + str(meine_zeilen_nr)]
             try:
                 _cell.number_format = "0.00 \"m²\""
             except:
