@@ -12,8 +12,8 @@ for eintrag in json_data["waende"]:
     if bezeichnung not in  entries_list:
       entries_list.append(bezeichnung)
 
-meinblatt = openpyxl.Workbook()
-meineseite = meinblatt.active
+excel_file = openpyxl.Workbook()
+meineseite = excel_file.active
 
 entries_list_index      = 0
 column_index = string.ascii_uppercase[:len(entries_list)]
@@ -61,4 +61,4 @@ for eintrag in json_data["waende"]:
     zeilen_nummer += 1
 
 
-meinblatt.save(str(pathlib.Path.home()) + "\Documents\meinblatt.xlsx")
+excel_file.save(str(pathlib.Path.home()) + "\Documents\excel_file.xlsx")
