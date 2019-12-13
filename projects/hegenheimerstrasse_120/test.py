@@ -22,16 +22,16 @@ for buchstabe in meineliste_buchstaben:
   meineseite[buchstabe + '1'] = entries_list[entries_list_index]
   entries_list_index += 1
 
-meine_zeilen_nr = 3
+zeilen_nummer = 3
 
 
 for eintrag in json_data["waende"]:
 
     for bezeichnung in entries_list[:6]:
         meineseite[meineliste_buchstaben[entries_list.index(bezeichnung)] + \
-            str(meine_zeilen_nr)] = eintrag[bezeichnung]
+            str(zeilen_nummer)] = eintrag[bezeichnung]
 
-    meine_zeilen_nr += 1
+    zeilen_nummer += 1
 
     for exemplar in eintrag["exemplar_nummern"]:
         for bezeichnung in entries_list:
@@ -45,20 +45,20 @@ for eintrag in json_data["waende"]:
                 wert = eintrag[bezeichnung]
 
             meineseite[meineliste_buchstaben[entries_list.index(bezeichnung)] + \
-                str(meine_zeilen_nr)] = (wert,
+                str(zeilen_nummer)] = (wert,
                                          eintrag["wandtyp"] + "-" + exemplar) \
                                         [bezeichnung == "exemplar_nummern"]
 
-            _cell = meineseite[meineliste_buchstaben[entries_list.index(bezeichnung)] + str(meine_zeilen_nr)]
+            _cell = meineseite[meineliste_buchstaben[entries_list.index(bezeichnung)] + str(zeilen_nummer)]
             try:
                 _cell.number_format = "0.00 \"m²\""
             except:
                 pass
 
-        meine_zeilen_nr += 1
+        zeilen_nummer += 1
 
-    meineseite.insert_rows(idx=meine_zeilen_nr)
-    meine_zeilen_nr += 1
+    meineseite.insert_rows(idx=zeilen_nummer)
+    zeilen_nummer += 1
 
 
 meinblatt.save(str(pathlib.Path.home()) + "\Documents\meinblatt.xlsx")
