@@ -15,12 +15,12 @@ for eintrag in json_data["waende"]:
 meinblatt = openpyxl.Workbook()
 meineseite = meinblatt.active
 
-meineliste_index      = 0
+entries_list_index      = 0
 meineliste_buchstaben = string.ascii_uppercase[:len(entries_list)]
 
 for buchstabe in meineliste_buchstaben:
-  meineseite[buchstabe + '1'] = entries_list[meineliste_index]
-  meineliste_index += 1
+  meineseite[buchstabe + '1'] = entries_list[entries_list_index]
+  entries_list_index += 1
 
 meine_zeilen_nr = 3
 
