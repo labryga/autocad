@@ -16,9 +16,9 @@ meinblatt = openpyxl.Workbook()
 meineseite = meinblatt.active
 
 entries_list_index      = 0
-meineliste_buchstaben = string.ascii_uppercase[:len(entries_list)]
+column_index = string.ascii_uppercase[:len(entries_list)]
 
-for buchstabe in meineliste_buchstaben:
+for buchstabe in column_index:
   meineseite[buchstabe + '1'] = entries_list[entries_list_index]
   entries_list_index += 1
 
@@ -28,7 +28,7 @@ zeilen_nummer = 3
 for eintrag in json_data["waende"]:
 
     for bezeichnung in entries_list[:6]:
-        meineseite[meineliste_buchstaben[entries_list.index(bezeichnung)] + \
+        meineseite[column_index[entries_list.index(bezeichnung)] + \
             str(zeilen_nummer)] = eintrag[bezeichnung]
 
     zeilen_nummer += 1
@@ -44,12 +44,12 @@ for eintrag in json_data["waende"]:
             else:
                 wert = eintrag[bezeichnung]
 
-            meineseite[meineliste_buchstaben[entries_list.index(bezeichnung)] + \
+            meineseite[column_index[entries_list.index(bezeichnung)] + \
                 str(zeilen_nummer)] = (wert,
                                          eintrag["wandtyp"] + "-" + exemplar) \
                                         [bezeichnung == "exemplar_nummern"]
 
-            _cell = meineseite[meineliste_buchstaben[entries_list.index(bezeichnung)] + str(zeilen_nummer)]
+            _cell = meineseite[column_index[entries_list.index(bezeichnung)] + str(zeilen_nummer)]
             try:
                 _cell.number_format = "0.00 \"m²\""
             except:
