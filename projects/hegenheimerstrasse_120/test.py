@@ -9,7 +9,7 @@ entries_list = []
 
 for eintrag in json_data["waende"]:
   for element in eintrag.keys():
-    if element not in  entries_list:
+    if element not in entries_list:
       entries_list.append(element)
 
 excel_file = openpyxl.Workbook()
@@ -18,8 +18,8 @@ meineseite = excel_file.active
 entries_list_index      = 0
 column_index = string.ascii_uppercase[:len(entries_list)]
 
-for buchstabe in column_index:
-  meineseite[buchstabe + '1'] = entries_list[entries_list_index]
+for aphanummeric in column_index:
+  meineseite[aphanummeric + '1'] = entries_list[entries_list_index]
   entries_list_index += 1
 
 zeilen_nummer = 3
