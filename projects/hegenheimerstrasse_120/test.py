@@ -13,13 +13,13 @@ for eintrag in json_data["waende"]:
       entries_list.append(element)
 
 excel_file = openpyxl.Workbook()
-meineseite = excel_file.active
+sheet = excel_file.active
 
 entries_list_index      = 0
 column_index = string.ascii_uppercase[:len(entries_list)]
 
 for aphanummeric in column_index:
-  meineseite[aphanummeric + '1'] = entries_list[entries_list_index]
+  sheet[aphanummeric + '1'] = entries_list[entries_list_index]
   entries_list_index += 1
 
 zeilen_nummer = 3
@@ -28,7 +28,7 @@ zeilen_nummer = 3
 for eintrag in json_data["waende"]:
 
     for element in entries_list[:6]:
-        meineseite[column_index[entries_list.index(element)] + \
+        sheet[column_index[entries_list.index(element)] + \
             str(zeilen_nummer)] = eintrag[element]
 
     zeilen_nummer += 1
@@ -44,12 +44,12 @@ for eintrag in json_data["waende"]:
             else:
                 wert = eintrag[element]
 
-            meineseite[column_index[entries_list.index(element)] + \
+            sheet[column_index[entries_list.index(element)] + \
                 str(zeilen_nummer)] = (wert,
                                          eintrag["wandtyp"] + "-" + exemplar) \
                                         [element == "exemplar_nummern"]
 
-            _cell = meineseite[column_index[entries_list.index(element)] + str(zeilen_nummer)]
+            _cell = sheet[column_index[entries_list.index(element)] + str(zeilen_nummer)]
             try:
                 _cell.number_format = "0.00 \"m²\""
             except:
@@ -57,7 +57,7 @@ for eintrag in json_data["waende"]:
 
         zeilen_nummer += 1
 
-    meineseite.insert_rows(idx=zeilen_nummer)
+    sheet.insert_rows(idx=zeilen_nummer)
     zeilen_nummer += 1
 
 
