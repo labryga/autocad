@@ -8,9 +8,9 @@ with open(pfad) as json_file:
 entries_list = []
 
 for eintrag in json_data["waende"]:
-  for bezeichnung in eintrag.keys():
-    if bezeichnung not in  entries_list:
-      entries_list.append(bezeichnung)
+  for element in eintrag.keys():
+    if element not in  entries_list:
+      entries_list.append(element)
 
 excel_file = openpyxl.Workbook()
 meineseite = excel_file.active
@@ -27,29 +27,29 @@ zeilen_nummer = 3
 
 for eintrag in json_data["waende"]:
 
-    for bezeichnung in entries_list[:6]:
-        meineseite[column_index[entries_list.index(bezeichnung)] + \
-            str(zeilen_nummer)] = eintrag[bezeichnung]
+    for element in entries_list[:6]:
+        meineseite[column_index[entries_list.index(element)] + \
+            str(zeilen_nummer)] = eintrag[element]
 
     zeilen_nummer += 1
 
     for exemplar in eintrag["exemplar_nummern"]:
-        for bezeichnung in entries_list:
+        for element in entries_list:
 
-            if not bezeichnung == "bkp-nr":
+            if not element == "bkp-nr":
                 try:
-                    wert = float(eintrag[bezeichnung])
+                    wert = float(eintrag[element])
                 except:
-                    wert = eintrag[bezeichnung]
+                    wert = eintrag[element]
             else:
-                wert = eintrag[bezeichnung]
+                wert = eintrag[element]
 
-            meineseite[column_index[entries_list.index(bezeichnung)] + \
+            meineseite[column_index[entries_list.index(element)] + \
                 str(zeilen_nummer)] = (wert,
                                          eintrag["wandtyp"] + "-" + exemplar) \
-                                        [bezeichnung == "exemplar_nummern"]
+                                        [element == "exemplar_nummern"]
 
-            _cell = meineseite[column_index[entries_list.index(bezeichnung)] + str(zeilen_nummer)]
+            _cell = meineseite[column_index[entries_list.index(element)] + str(zeilen_nummer)]
             try:
                 _cell.number_format = "0.00 \"m²\""
             except:
