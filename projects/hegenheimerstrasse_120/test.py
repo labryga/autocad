@@ -19,8 +19,8 @@ entries_list_index      = 0
 column_index = string.ascii_uppercase[:len(entries_list)]
 
 for alphabeticals in column_index:
-  sheet[alphabeticals + '1'] = entries_list[entries_list_index]
-  entries_list_index += 1
+    sheet[alphabeticals + '1'] = entries_list[entries_list_index]
+    entries_list_index += 1
 
 zeilen_nummer = 3
 
