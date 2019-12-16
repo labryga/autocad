@@ -49,9 +49,9 @@ for eintrag in json_data["waende"]:
                                          eintrag["wandtyp"] + "-" + exemplar) \
                                         [element == "exemplar_nummern"]
 
-            _cell = excel_sheet[column_index[entries_list.index(element)] + str(zeilen_nummer)]
+            _cell_value = excel_sheet[column_index[entries_list.index(element)] + str(zeilen_nummer)]
             try:
-                _cell.number_format = "0.00 \"m²\""
+                _cell_value.number_format = "0.00 \"m²\""
             except:
                 pass
 
