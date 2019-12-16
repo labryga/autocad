@@ -38,14 +38,14 @@ for eintrag in json_data["waende"]:
 
             if not element == "bkp-nr":
                 try:
-                    wert = float(eintrag[element])
+                    cell_value = float(eintrag[element])
                 except:
-                    wert = eintrag[element]
+                    cell_value = eintrag[element]
             else:
-                wert = eintrag[element]
+                cell_value = eintrag[element]
 
             excel_sheet[column_index[entries_list.index(element)] + \
-                str(zeilen_nummer)] = (wert,
+                str(zeilen_nummer)] = (cell_value,
                                          eintrag["wandtyp"] + "-" + exemplar) \
                                         [element == "exemplar_nummern"]
 
