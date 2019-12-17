@@ -2,7 +2,7 @@ import pathlib, json, openpyxl, string
 
 dateipfad = str(pathlib.Path.home()) + "\Documents\hegenheimerstrasse.json"
 
-with open(pfad) as json_file:
+with open(dateipfad) as json_file:
     json_data = json.load(json_file)
 
 entries_list = []
