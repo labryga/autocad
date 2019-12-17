@@ -10,12 +10,12 @@ entries_list = []
 for eintrag in json_data["waende"]:
   for element in eintrag.keys():
     if element not in entries_list:
-      entries_list.append(element)
+        entries_list.append(element)
 
 excel_file = openpyxl.Workbook()
 excel_sheet = excel_file.active
 
-entries_list_index      = 0
+entries_list_index = 0
 column_index = string.ascii_uppercase[:len(entries_list)]
 
 for alphabeticals in column_index:
