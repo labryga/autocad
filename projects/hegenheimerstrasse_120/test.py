@@ -8,9 +8,9 @@ with open(dateipfad) as json_file:
 wand_typen = []
 
 for eintrag in json_data["waende"]:
-  for wand_element in eintrag.keys():
-    if wand_element not in wand_typen:
-        wand_typen.append(wand_element)
+  for wand_typ in eintrag.keys():
+    if wand_typ not in wand_typen:
+        wand_typen.append(wand_typ)
 
 excel_file = openpyxl.Workbook()
 excel_sheet = excel_file.active
@@ -26,29 +26,29 @@ zeilen_nummer = 3
 
 for eintrag in json_data["waende"]:
 
-    for wand_element in wand_typen[:6]:
-        excel_sheet[column_index[wand_typen.index(wand_element)] + \
-            str(zeilen_nummer)] = eintrag[wand_element]
+    for wand_typ in wand_typen[:6]:
+        excel_sheet[column_index[wand_typen.index(wand_typ)] + \
+            str(zeilen_nummer)] = eintrag[wand_typ]
 
     zeilen_nummer += 1
 
     for exemplar in eintrag["exemplar_nummern"]:
-        for wand_element in wand_typen:
+        for wand_typ in wand_typen:
 
-            if not wand_element == "bkp-nr":
+            if not wand_typ == "bkp-nr":
                 try:
-                    cell_value = float(eintrag[wand_element])
+                    cell_value = float(eintrag[wand_typ])
                 except:
-                    cell_value = eintrag[wand_element]
+                    cell_value = eintrag[wand_typ]
             else:
-                cell_value = eintrag[wand_element]
+                cell_value = eintrag[wand_typ]
 
-            excel_sheet[column_index[wand_typen.index(wand_element)] + \
+            excel_sheet[column_index[wand_typen.index(wand_typ)] + \
                 str(zeilen_nummer)] = (cell_value,
                                          eintrag["wandtyp"] + "-" + exemplar) \
-                                        [wand_element == "exemplar_nummern"]
+                                        [wand_typ == "exemplar_nummern"]
 
-            _cell_value = excel_sheet[column_index[wand_typen.index(wand_element)] + str(zeilen_nummer)]
+            _cell_value = excel_sheet[column_index[wand_typen.index(wand_typ)] + str(zeilen_nummer)]
             try:
                 _cell_value.number_format = "0.00 \"m²\""
             except:
