@@ -19,6 +19,8 @@ excel_file = openpyxl.Workbook()
 excel_sheet = excel_file.active
 
 entries_list_index = 0
+
+# create alphabetical characters for column index regarding wall type length
 column_index = string.ascii_uppercase[:len(wand_typen)]
 
 for alphabeticals in column_index:
