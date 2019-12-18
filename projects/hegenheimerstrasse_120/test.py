@@ -9,6 +9,7 @@ with open(dateipfad) as json_file:
 # collect wall types
 wand_typen = []
 
+# read data from jason and append to wall collection
 for eintrag in json_data["waende"]:
   for wand_typ in eintrag.keys():
     if wand_typ not in wand_typen:
