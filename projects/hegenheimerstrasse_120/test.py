@@ -1,11 +1,12 @@
 import pathlib, json, openpyxl, string
 
-# set file path relative to os home directory
+# file path relative to os home directory
 dateipfad = str(pathlib.Path.home()) + "\Documents\hegenheimerstrasse.json"
 
 with open(dateipfad) as json_file:
     json_data = json.load(json_file)
 
+# collect wall types
 wand_typen = []
 
 for eintrag in json_data["waende"]:
