@@ -1,5 +1,6 @@
 import pathlib, json, openpyxl, string
 
+# set file path relative to os home directory
 dateipfad = str(pathlib.Path.home()) + "\Documents\hegenheimerstrasse.json"
 
 with open(dateipfad) as json_file:
