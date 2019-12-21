@@ -66,5 +66,4 @@ for element in json_data["waende"]:
     excel_sheet.insert_rows(idx=zeilen_nummer)
     zeilen_nummer += 1
 
-
 excel_file.save(str(pathlib.Path.home()) + "\Documents\excel_file.xlsx")
