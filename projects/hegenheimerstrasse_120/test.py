@@ -10,8 +10,8 @@ with open(dateipfad) as json_file:
 wand_typen = []
 
 # read data from jason and append to wall collection
-for eintrag in json_data["waende"]:
-  for wand_typ in eintrag.keys():
+for element in json_data["waende"]:
+  for wand_typ in element.keys():
     if wand_typ not in wand_typen:
         wand_typen.append(wand_typ)
 
@@ -31,28 +31,28 @@ for alphabeticals in column_index:
 
 zeilen_nummer = 3
 
-for eintrag in json_data["waende"]:
+for element in json_data["waende"]:
 
     for wand_typ in wand_typen[:6]:
         excel_sheet[column_index[wand_typen.index(wand_typ)] + \
-            str(zeilen_nummer)] = eintrag[wand_typ]
+            str(zeilen_nummer)] = element[wand_typ]
 
     zeilen_nummer += 1
 
-    for exemplar in eintrag["exemplar_nummern"]:
+    for exemplar in element["exemplar_nummern"]:
         for wand_typ in wand_typen:
 
             if not wand_typ == "bkp-nr":
                 try:
-                    cell_value = float(eintrag[wand_typ])
+                    cell_value = float(element[wand_typ])
                 except:
-                    cell_value = eintrag[wand_typ]
+                    cell_value = element[wand_typ]
             else:
-                cell_value = eintrag[wand_typ]
+                cell_value = element[wand_typ]
 
             excel_sheet[column_index[wand_typen.index(wand_typ)] + \
                 str(zeilen_nummer)] = (cell_value,
-                                         eintrag["wandtyp"] + "-" + exemplar) \
+                                         element["wandtyp"] + "-" + exemplar) \
                                         [wand_typ == "exemplar_nummern"]
 
             _cell_value = excel_sheet[column_index[wand_typen.index(wand_typ)] + str(zeilen_nummer)]
