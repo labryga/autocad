@@ -25,8 +25,8 @@ column_index = string.ascii_uppercase[:len(wand_typen)]
 entries_list_index = 0
 
 # write wall type attributes as headings
-for alphabeticals in column_index:
-    excel_sheet[alphabeticals + '1'] = wand_typen[entries_list_index]
+for charcter_range in column_index:
+    excel_sheet[charcter_range + '1'] = wand_typen[entries_list_index]
     entries_list_index += 1
 
 zeilen_nummer = 3
