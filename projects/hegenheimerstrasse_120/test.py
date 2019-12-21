@@ -15,7 +15,7 @@ for element in json_data["waende"]:
     if wand_typ not in wand_typen:
         wand_typen.append(wand_typ)
 
-excel_file = openpyxl.Workbook()
+excel_file  = openpyxl.Workbook()
 excel_sheet = excel_file.active
 
 
