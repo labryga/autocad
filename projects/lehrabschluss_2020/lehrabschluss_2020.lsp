@@ -1,9 +1,9 @@
-(defun c:mytest ( / selection_set
+(defun c:wytest ( / selection_set
                     iterator
                     selection_entity
                     entity_content)
 
-  (setq selection_set (ssget "_X" '((0 . "MTEXT")))
+  (setq selection_set (ssget "x" '((0 . "MTEXT")))
         iterator      0
   );setq
 
@@ -17,4 +17,3 @@
 
   (princ)
 );defun
-
