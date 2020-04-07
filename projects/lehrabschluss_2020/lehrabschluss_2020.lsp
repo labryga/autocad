@@ -9,9 +9,12 @@
 
   (repeat (sslength selection_set)
           (setq selection_entity (ssname selection_set iterator) 
-                iterator (1+ iterator)
+                entity_content   (cdr (assoc 1 (entget selection_entity))) 
+                iterator         (1+ iterator)
           );setq
+          (print entity_content)
   );repeat
 
+  (princ)
 );defun
 
