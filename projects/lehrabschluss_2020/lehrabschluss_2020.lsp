@@ -38,3 +38,7 @@
 
   (princ)
 );defun
+
+
+(defun c:lehrscale 
+);defun
