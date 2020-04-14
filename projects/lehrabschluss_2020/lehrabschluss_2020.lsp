@@ -40,5 +40,8 @@
 );defun
 
 
-(defun c:lehrscale 
+(defun c:lehrscale ( / selection_set)
+
+  (setq selection_set (ssget "_A"));setq
+  (command "scale" selection_set "" 0.0 100 "")
 );defun
