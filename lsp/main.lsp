@@ -42,6 +42,6 @@
   )
 )
 
-(defun c:solidedit_move()
-
+(defun c:rw()
+  (command "solidedit" "f" "m")
 );defun
