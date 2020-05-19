@@ -42,3 +42,17 @@
 (defun c:vsg()
   (set_view "g")
 );defun
+
+
+(defun set_perspective (mode)
+  (command "perspective" mode)
+  (princ)
+);defun
+
+(defun c:svq()
+  (set_perspective "0")
+);defun
+
+(defun c:svw()
+  (set_perspective "1")
+);defun
