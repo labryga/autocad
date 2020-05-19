@@ -12,7 +12,7 @@
 )
 
 (defun c:svd()
-  (set_visual_style "c")
+  (set_visual_style "s")
 )
 
 (defun c:svf()
