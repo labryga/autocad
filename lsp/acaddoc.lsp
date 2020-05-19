@@ -16,8 +16,9 @@
 
 (load "lehrabschluss_2020/lehrabschluss_2020")
 
+(load "01_main")
+
 ; (load "00_dev")
 ; (load "01_dev")
-; (load "01_main")
 ; (load "05_modify")
 ; (load "02_dimensions")
