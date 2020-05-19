@@ -29,3 +29,12 @@
   (command "regen")
   (command "zoom" "e")
 )
+
+
+(defun set_view (view_name)
+  (command "-view" "r" view_name)
+);defun
+
+(defun c:vsf()
+  (set_view "f")
+);defun
