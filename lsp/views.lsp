@@ -50,9 +50,9 @@
 );defun
 
 (defun c:svq()
-  (set_perspective "0")
+  (set_perspective "1")
 );defun
 
 (defun c:svw()
-  (set_perspective "1")
+  (set_perspective "0")
 );defun
