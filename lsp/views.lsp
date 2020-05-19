@@ -38,3 +38,7 @@
 (defun c:vsf()
   (set_view "f")
 );defun
+
+(defun c:vsg()
+  (set_view "g")
+);defun
