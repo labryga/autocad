@@ -41,3 +41,7 @@
       (setvar "selectioncycling" -2)
   )
 )
+
+(defun c:solidedit_move()
+
+);defun
