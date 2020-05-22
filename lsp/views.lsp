@@ -49,10 +49,10 @@
   (princ)
 );defun
 
-(defun c:svq()
+(defun c:vsq()
   (set_perspective "1")
 );defun
 
-(defun c:svw()
+(defun c:vsw()
   (set_perspective "0")
 );defun
