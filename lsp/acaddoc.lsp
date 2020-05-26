@@ -1,6 +1,7 @@
 (vl-load-com)
 
 (setq script_list (list 
+                    "main"
                     "00_dev"
                     "01_dev"
                     "01_main"
