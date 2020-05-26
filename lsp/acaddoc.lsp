@@ -2,6 +2,7 @@
 
 (setq script_list (list 
                     "main"
+                    "views"
                     "00_dev"
                     "01_dev"
                     "01_main"
