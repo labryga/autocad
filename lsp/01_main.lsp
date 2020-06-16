@@ -168,7 +168,7 @@
 )
 
 
-; sum multiple polylines lengths
+; sum multiple polylines length and area
 (defun c:gr( / entities
                entity
                entity_index
@@ -202,7 +202,7 @@
   (setq total_area (rtos total_area))
   (setq total_values (list 
                        (strcat total_length " m") 
-                       (strcat total_area " m")
+                       (strcat total_area " m²")
                        ))
   (print total_values)
   (princ)
