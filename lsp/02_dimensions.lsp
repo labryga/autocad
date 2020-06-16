@@ -33,29 +33,29 @@
   (command "dimlinear")
 )
 
-; set aligned dimensions
+; set linear dimensions
 
-(defun c:cda()
+(defun c:cds()
   (dimension_linear 0)
 )
 
-(defun c:cds()
+(defun c:cda()
   (dimension_linear 1)
 )
 
-(defun c:cdq()
+(defun c:cdw()
   (dimension_linear 2)
 )
 
-(defun c:cdw()
+(defun c:cdq()
   (dimension_linear 3)
 )
 
-(defun c:cdy()
+(defun c:cdx()
   (dimension_linear 4)
 )
 
-(defun c:cdx()
+(defun c:cdy()
   (dimension_linear 5)
 )
 
