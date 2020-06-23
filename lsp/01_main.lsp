@@ -1,3 +1,8 @@
+; save and close
+(defun c:qx() 
+  (command "qsave")
+  (command "close")
+);defun
 
 ; set snap on 
 (defun set_snap()
