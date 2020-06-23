@@ -1,3 +1,5 @@
+
+
 ; save and close
 (defun c:qx() 
   (command "qsave")
