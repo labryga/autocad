@@ -209,29 +209,29 @@
 )
 
 ; sum multiple object area
-(defun c:ga( / entities
-               entity
-               entity_index
-               object_area
-               total_area)
-
-  (setq total_area 0)
-
-  (setq entity_index 0)
-
-  (setq entities (ssget))
-
-  (repeat (sslength entities)
-
-    (setq entity (ssname entities entity_index))
-    (setq entity (vlax-ename->vla-object entity))
-
-    (setq object_area (vlax-get-property entity "area"))
-    (setq entity_index (1+ entity_index))
-    (setq total_area (+ total_area object_area))
-    (princ)
-  )
-
-  (print (* 0.0001 total_area))
-  (princ)
- )
+; (defun c:ga( / entities
+;                entity
+;                entity_index
+;                object_area
+;                total_area)
+;
+;   (setq total_area 0)
+;
+;   (setq entity_index 0)
+;
+;   (setq entities (ssget))
+;
+;   (repeat (sslength entities)
+;
+;     (setq entity (ssname entities entity_index))
+;     (setq entity (vlax-ename->vla-object entity))
+;
+;     (setq object_area (vlax-get-property entity "area"))
+;     (setq entity_index (1+ entity_index))
+;     (setq total_area (+ total_area object_area))
+;     (princ)
+;   )
+;
+;   (print (* 0.0001 total_area))
+;   (princ)
+;  )
