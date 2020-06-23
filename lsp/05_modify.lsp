@@ -31,8 +31,6 @@
   (command "copybase" '(0 0 0) (ssget "_A") "")
 )
 
-
-
 ; function to toggle autosnap and osmode by "df" command
 (defun c:df() 
   (if 
@@ -51,3 +49,12 @@
       )
   )
 )
+
+;toggle dynmode
+(defun c:cg()
+  (if 
+    (= ())
+  );if
+  (setvar "dynmode" 3)
+  (command "repositionfrom")
+);defun
