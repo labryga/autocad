@@ -1,4 +1,6 @@
-
+(defun c:er()
+  (setvar "clayer" "0")
+);defun
 
 ; save and close
 (defun c:qx() 
