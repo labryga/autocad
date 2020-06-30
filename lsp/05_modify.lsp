@@ -50,7 +50,12 @@
   )
 )
 
-(defun c:ef(/ block_object_name)
-  (setq block_object_name (cdr (assoc 2 (entget (car (entsel))))))
+
+(defun c:ef(/  block_object_entity
+               block_object_name)
+
+  (setq block_object_entity (entget (car (entsel)))
+        block_object_name   (cdr (assoc 2 block_object_entity))
+  );setq
   (command "-bedit" block_object_name)
 );defun
