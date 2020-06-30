@@ -51,12 +51,3 @@
 )
 
 
-
-;toggle dynmode on/off
-(defun c:cv()
-  (if  
-    (= (getvar "dynmode") 0)
-    (setvar "dynmode" 3)
-    (setvar "dynmode" 0)
-  );if
-);defun
