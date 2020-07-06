@@ -2,13 +2,13 @@
 ; move object without snapping
 (defun c:sf()
   (set_snap_off)
-  (command "move")
+  (command-s "move")
 )
 
 ; move object with snapping on
 (defun c:s()
   (set_snap)
-  (command "move")
+  (command-s "move")
 )
 
 ; move object with snapping on 
@@ -16,22 +16,22 @@
 (defun c:sa()
   (set_snap)
   (setq item (ssget))
-  (command "move" item "" "_m2p")
+  (command-s "move" item "" "_m2p")
 )
 
 ; select all elements and scale with factor 100
 (defun c:sah()
   (setq selectionall (ssget "_A"))
-  (command "scale" selectionall "" '(0 0 0) 100)
-  (command "ge" "")
+  (command-s "scale" selectionall "" '(0 0 0) 100)
+  (command-s "ge" "")
 )
 
 ; select all elements in model space and copy with basepoint set to 0,0,0
 (defun c:sac()
-  (command "copybase" '(0 0 0) (ssget "_A") "")
+  (command-s "copybase" '(0 0 0) (ssget "_A") "")
 )
 
-; function to toggle autosnap and osmode by "df" command
+; function to toggle autosnap and osmode by "df" command-s
 (defun c:df() 
   (if 
     (and 
@@ -57,17 +57,22 @@
   (setq block_object_entity (entget (car (entsel)))
         block_object_name   (cdr (assoc 2 block_object_entity))
   );setq
-  (command "-bedit" block_object_name)
+  (command-s "-bedit" block_object_name)
 );defun
 
 
 ; lock vieport 
 (defun c:rf()
-  (command "mview" "lock" "on")
+  (command-s "selectioncycling" 2)
+  (command-s "mview" "lock" "on")
+  (command-s "selectioncycling" -2)
+  (princ)
 );defun
 
 
 ; unlock vieport 
 (defun c:rg()
-  (command "mview" "lock" "off")
+  (command-s "selectioncycling" 2)
+  (command-s "mview" "lock" "off")
+  (command-s "selectioncycling" -2)
 );defun

@@ -1,3 +1,4 @@
+; set layer to 0
 (defun c:er()
   (setvar "clayer" "0")
 );defun
@@ -7,6 +8,7 @@
   (command "qsave")
   (command "close")
 );defun
+
 
 ; set snap on 
 (defun set_snap()
