@@ -59,3 +59,9 @@
   );setq
   (command "-bedit" block_object_name)
 );defun
+
+
+; lock vieport 
+(defun c:rf()
+  (command "mview" "lock" "on")
+);defun
