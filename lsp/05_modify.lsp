@@ -76,3 +76,30 @@
   (command-s "mview" "lock" "off")
   (command-s "selectioncycling" -2)
 );defun
+
+
+(defun c:XrefBind (/ tmpObj)
+  (vl-load-com)
+  (vlax-for objs (vla-get-ModelSpace
+		   (vla-get-activedocument (vlax-get-acad-object))
+		 )
+    (if
+      (and
+	(= (vla-get-ObjectName objs) "AcDbBlockReference")
+	(vlax-property-available-p objs 'Path)
+	(setq
+	  tmpObj (vla-Item
+		   (vla-get-Blocks
+		     (vla-get-ActiveDocument (vlax-get-Acad-Object))
+		   )
+		   (vla-get-Name objs)
+		 )
+	)
+	(not (assoc 71 (entget (tblobjname "block" (vla-get-Name objs)))))
+      )
+       (vla-Bind tmpObj :vlax-true)
+    )
+  )
+
+  (princ)
+)
