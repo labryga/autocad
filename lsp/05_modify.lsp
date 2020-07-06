@@ -65,3 +65,9 @@
 (defun c:rf()
   (command "mview" "lock" "on")
 );defun
+
+
+; unlock vieport 
+(defun c:rg()
+  (command "mview" "lock" "off")
+);defun
