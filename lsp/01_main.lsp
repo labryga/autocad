@@ -1,3 +1,11 @@
+;load file specific lsp file
+(defun c:da(/ file_directory_path)
+  (setq file_directory_path (getvar "dwgprefix")
+  );setq
+  (print file_directory_path)
+  (princ)
+);defun
+
 ; set layer to 0
 (defun c:er()
   (setvar "clayer" "0")
