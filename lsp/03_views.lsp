@@ -26,6 +26,6 @@
 )
 
 ; zoom window
-(defun c:asd()
+(defun c:gs()
   (command "zoom" "w")
 );defun
