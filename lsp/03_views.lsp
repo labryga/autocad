@@ -24,3 +24,8 @@
   (command "regen")
   (command "zoom" "e")
 )
+
+; zoom window
+(defun c:asd()
+  (command "zoom" "w")
+);defun
