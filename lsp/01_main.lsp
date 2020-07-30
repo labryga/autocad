@@ -1,12 +1,20 @@
-;load file specific lsp file
+; load file specific lsp file
 (defun c:da(/ file_directory_path
-              file_name)
+              file_name_full
+              file_name_full_length
+              file_name_lisp_length
+              file_name_lisp)
+
   (setq file_directory_path (getvar "dwgprefix")
-        file_name           (vl-string-right-trim ".dwg" (getvar "dwgname"))
+        file_name_full      (getvar "dwgname")
+        file_name_full_length (strlen file_name_full)
+        file_name_lisp_length (- file_name_full_length 4)
   );setq
-  (load (strcat file_directory_path file_name))
+  (alert (substr file_name_full 1 file_name_lisp_length))
+  ; (load (strcat file_directory_path file_name))
   (princ)
 );defun
+
 
 ; set layer to 0
 (defun c:er()
