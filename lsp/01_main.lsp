@@ -1,8 +1,10 @@
 ;load file specific lsp file
-(defun c:da(/ file_directory_path)
+(defun c:da(/ file_directory_path
+              file_name)
   (setq file_directory_path (getvar "dwgprefix")
+        file_name           (vl-string-right-trim ".dwg" (getvar "dwgname"))
   );setq
-  (print file_directory_path)
+  (load (strcat file_directory_path file_name))
   (princ)
 );defun
 
