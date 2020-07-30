@@ -5,13 +5,13 @@
               file_name_lisp_length
               file_name_lisp)
 
-  (setq file_directory_path (getvar "dwgprefix")
-        file_name_full      (getvar "dwgname")
+  (setq file_directory_path   (getvar "dwgprefix")
+        file_name_full        (getvar "dwgname")
         file_name_full_length (strlen file_name_full)
         file_name_lisp_length (- file_name_full_length 4)
+        file_name_lisp        (substr file_name_full 1 file_name_lisp_length)
   );setq
-  (alert (substr file_name_full 1 file_name_lisp_length))
-  ; (load (strcat file_directory_path file_name))
+  (load (strcat file_directory_path file_name_lisp))
   (princ)
 );defun
 
