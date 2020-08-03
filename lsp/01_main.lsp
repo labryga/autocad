@@ -1,4 +1,4 @@
-; load file specific lsp file
+; load project pecific lsp file
 (defun c:da(/ file_directory_path
               file_name_full
               file_name_full_length
