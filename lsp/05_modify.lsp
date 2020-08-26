@@ -1,4 +1,8 @@
 
+(defun c:ropsition()
+  (command-s "dynmode" "3")
+);defun
+
 ; move object without snapping
 (defun c:sf()
   (set_snap_off)
