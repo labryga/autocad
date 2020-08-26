@@ -1,5 +1,11 @@
-(defun c:dsf()
+;create a linear parameter
+(defun c:daf()
   (command-s "bparameter" "l")
+);defun
+
+;set stretch action
+(defun c:day()
+  (command-s "bactiontool" "t")
 );defun
 
 (defun c:r()
