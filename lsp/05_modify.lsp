@@ -1,6 +1,8 @@
 
-(defun c:ropsition()
+(defun c:reposition()
   (command-s "dynmode" "3")
+  (command-s "repositionfrom")
+  (command-s "dynmode" "0")
 );defun
 
 ; move object without snapping
