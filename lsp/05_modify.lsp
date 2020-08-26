@@ -13,6 +13,11 @@
   (command-s "bactiontool" "t")
 );defun
 
+;set a block move action
+(defun c:das()
+  (command-s "bactiontool" "m")
+);defun
+
 (defun c:r()
   (command-s "dynmode" "3")
   (command-s "repositionfrom")
