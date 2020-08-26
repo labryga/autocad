@@ -3,6 +3,11 @@
   (command-s "bparameter" "l")
 );defun
 
+;create a base point parameter
+(defun c:dab()
+  (command-s "bparameter" "b")
+);defun
+
 ;set stretch action
 (defun c:day()
   (command-s "bactiontool" "t")
