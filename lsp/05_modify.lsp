@@ -1,3 +1,6 @@
+(defun c:dsf()
+  (command-s "bparameter" "l")
+);defun
 
 (defun c:r()
   (command-s "dynmode" "3")
