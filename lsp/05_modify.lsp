@@ -1,5 +1,5 @@
 
-(defun c:reposition()
+(defun c:r()
   (command-s "dynmode" "3")
   (command-s "repositionfrom")
   (command-s "dynmode" "0")
