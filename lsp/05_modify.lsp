@@ -1,3 +1,8 @@
+; move face of solid
+(defun c:eyf()
+  (command-s "solidedit" "f" "m")
+);defun
+
 ;create a linear parameter
 (defun c:daf()
   (command-s "bparameter" "l")
