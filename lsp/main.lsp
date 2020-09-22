@@ -1,3 +1,4 @@
+; set SECURELOAD and TRUSTEDPATH variables accordingly
 
 ; function to toggle autosnap and osmode by "df" command
 (defun c:df() 
