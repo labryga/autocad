@@ -18,6 +18,15 @@
   (set_visual_style "r")
 )
 
+; toggle perspective status
+(defun c:sve()
+  (if
+    (= (getvar "perspective") 0)
+    (setvar "perspective" 1)
+    (setvar "perspective" 0)
+  )
+);defun
+
 
 ; regen and set view to extents
 (defun c:ge()
@@ -29,3 +38,5 @@
 (defun c:gs()
   (command "zoom" "w")
 );defun
+
+
