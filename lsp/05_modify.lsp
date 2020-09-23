@@ -29,7 +29,7 @@
   (command-s "dynmode" "0")
 );defun
 
-; move object without snapping
+; move object without snapping off
 (defun c:sf()
   (set_snap_off)
   (command-s "move")
