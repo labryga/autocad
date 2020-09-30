@@ -49,6 +49,14 @@
   (command-s "move" item "" "_m2p")
 )
 
+; rotate object with snapping on 
+; base point middle between two points
+(defun c:ga()
+  ; (set_snap)
+  (setq item (ssget))
+  (command-s "rotate" item "" "_m2p")
+)
+
 ; select all elements and scale with factor 100
 (defun c:sah()
   (setq selectionall (ssget "_A"))
