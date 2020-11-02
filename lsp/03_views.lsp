@@ -39,4 +39,9 @@
   (command "zoom" "w")
 );defun
 
-
+; set ucs and plan view
+(defun c:at()
+  (set_snap)
+  (command-s "ucs")
+  (command-s "plan" "")
+);defun
