@@ -15,7 +15,6 @@
   (princ)
 );defun
 
-
 ; set layer to 0
 (defun c:er()
   (setvar "clayer" "0")
@@ -27,20 +26,17 @@
   (command "close")
 );defun
 
-
 ; set snap on 
 (defun set_snap()
   (setvar "autosnap" 63)
   (setvar "osmode" 35)
 )
 
-
 ; set snap off 
 (defun set_snap_off()
   (setvar "autosnap" 0)
   (setvar "osmode" 0)
 )
-
 
 ; toggle selection cycling
 (defun c:dq()
@@ -146,20 +142,17 @@
   )
 )
 
-
 ; set snap on 
 (defun set_snap()
   (setvar "autosnap" 63)
   (setvar "osmode" 35)
 )
 
-
 ; set snap off 
 (defun set_snap_off()
   (setvar "autosnap" 0)
   (setvar "osmode" 0)
 )
-
 
 ; toggle selection cycling
 (defun c:dq()
