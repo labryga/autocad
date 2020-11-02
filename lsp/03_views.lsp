@@ -45,3 +45,8 @@
   (command-s "ucs")
   (command-s "plan" "")
 );defun
+
+(defun c:ab()
+  (command-s "ucs" "")
+  (command-s "plan" "")
+);defun
