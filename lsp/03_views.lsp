@@ -40,7 +40,7 @@
 );defun
 
 ; set ucs and plan view
-(defun c:at()
+(defun c:we()
   (set_snap)
   (command-s "ucs")
   (command-s "plan" "")
