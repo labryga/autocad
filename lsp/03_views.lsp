@@ -47,7 +47,7 @@
   (command-s "zoom" "c" "0,0" "500")
 );defun
 
-(defun c:ab()
+(defun c:wr()
   (command-s "ucs" "")
   (command-s "plan" "")
 );defun
