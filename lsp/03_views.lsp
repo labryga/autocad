@@ -44,6 +44,7 @@
   (set_snap)
   (command-s "ucs")
   (command-s "plan" "")
+  (command-s "zoom" "c" "0,0" "500")
 );defun
 
 (defun c:ab()
