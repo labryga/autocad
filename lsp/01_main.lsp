@@ -22,6 +22,7 @@
 
 ; save and close
 (defun c:qx() 
+  (command "ge")
   (command "qsave")
   (command "close")
 );defun
