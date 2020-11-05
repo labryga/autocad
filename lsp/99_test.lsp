@@ -67,7 +67,7 @@
                                         (vla-get-insertionpoint objekt_vla))
                 iterator      (1+ iterator)
           );setq
-          (print (objekt_insertposition))
+          (print (vlax-safearray-get-element objekt_insertposition 0))
           (princ)
   );repeat
 
