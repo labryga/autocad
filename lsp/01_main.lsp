@@ -96,8 +96,9 @@
 ;   (princ)
 ; )
 
+
 ; sum multiple object area
-(defun c:ga( / entities
+(defun c:gaa( / entities
                entity
                entity_index
                object_area
@@ -124,6 +125,7 @@
   (princ)
  )
 
+
 ; function to toggle autosnap and osmode by "df" command
 (defun c:df() 
   (if 
@@ -142,6 +144,7 @@
       )
   )
 )
+
 
 ; set snap on 
 (defun set_snap()

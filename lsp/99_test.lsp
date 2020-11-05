@@ -40,3 +40,35 @@
   (print (reverse attributes_list))
   (princ)
 );defun
+
+(defun c:dtt(/ objekt_entity objekt_vla)
+  (setq entity_object (car (entsel))
+        objekt_vla     (vlax-ename->vla-object entity_object)
+  );setq
+  (print (vla-get-length objekt_vla))
+  (princ)
+);defun
+
+
+(defun c:gtt(/ objekt_entities
+               objekt_entity
+               objekt_vla
+               objekt_safearray
+               iterator)
+
+  (setq objekt_entities (ssget)
+        iterator        0
+  );setq
+
+  (repeat (sslength objekt_entities)
+          (setq objekt_entity (ssname objekt_entities iterator)
+                objekt_vla    (vlax-ename->vla-object objekt_entity)
+                objekt_insertposition (vlax-variant-value
+                                        (vla-get-insertionpoint objekt_vla))
+                iterator      (1+ iterator)
+          );setq
+          (print (objekt_insertposition))
+          (princ)
+  );repeat
+
+);defun
