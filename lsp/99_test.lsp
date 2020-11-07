@@ -72,3 +72,10 @@
   );repeat
 
 );defun
+
+(defun c:gtt( / entity)
+  (setq entity (entget (car (entsel)))
+  );setq
+  (print (assoc 10 entity))
+  (princ)
+);defun
