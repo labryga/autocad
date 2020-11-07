@@ -76,5 +76,8 @@
 (defun c:gtt( / entity)
   (setq entity (entget (car (entsel)))
   );setq
-  (type (cdr (assoc 2 entity)))
+  (while (setq entity (entnext entity))
+         (print (assoc 0 (entget entity)))
+         (princ)
+  );while
 );defun
