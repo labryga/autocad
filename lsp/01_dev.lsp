@@ -1,3 +1,4 @@
+; get attribute names in a block entity
 (defun c:xfa( / block_entitiy
                 block_entity_name
                 block_entity_hex)
