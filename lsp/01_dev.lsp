@@ -32,7 +32,6 @@
                 item
                 item_vla
                 entity)
-
   
   (setq myitem       (entget (car (entsel)))
         myitem_layer (cdr (assoc 8 myitem))
@@ -44,7 +43,7 @@
 
     (setq entity (ssname myitems counter))
 
-    (defun get_attribute (cur_entity)
+    (defun get_attribute (current_entity)
       (if
         (and
            (setq entity (entnext entity))
@@ -59,7 +58,7 @@
         (progn
           (print (assoc 1 entity_entget))
           (princ)
-          (get_attribute cur_entity)
+          (get_attribute current_entity)
         );progn
       );if
     );defun
