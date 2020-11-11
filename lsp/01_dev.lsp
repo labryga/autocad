@@ -24,7 +24,8 @@
   (princ)
 )
 
-
+; get items an a layer of selected entity and 
+; print the attribute name of each entity
 (defun c:xda( / myitem
                 myitem_layer
                 myitems
