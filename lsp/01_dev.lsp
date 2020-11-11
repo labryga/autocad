@@ -11,7 +11,9 @@
     (if block_item
         (progn
           (setq block_item (entnext block_item))
-          (print (assoc 2 (entget block_item)))
+          (if (assoc 2 (entget block_item))
+              (print (assoc 2 (entget block_item)))
+          );if
           (get_next_item block_item)
         )
     )
@@ -32,9 +34,9 @@
                 entity)
 
   
-  (setq myitem (entget (car (entsel)))
+  (setq myitem       (entget (car (entsel)))
         myitem_layer (cdr (assoc 8 myitem))
-        myitems (ssget "x" (list (cons 8 myitem_layer)))
+        myitems      (ssget "x" (list (cons 8 myitem_layer)))
         counter 0 
   );setq
 
