@@ -39,30 +39,29 @@
         counter 0 
   );setq
 
+  (defun get_attribute (current_entity)
+    (if
+      (and
+         (setq entity (entnext entity))
+         (= 
+           "ATTRIB"
+           (cdr (assoc 0 (setq entity_entget (entget entity))))
+         ; )
+         ; (= "BAUTEIL_NUMMER" (cdr (assoc 2 entity_entget)))
+         )
+      );and
+
+      (progn
+        (print (assoc 1 entity_entget))
+        (princ)
+        (get_attribute current_entity)
+      );progn
+    );if
+  );defun
+
   (repeat (sslength myitems)
 
     (setq entity (ssname myitems counter))
-
-    (defun get_attribute (current_entity)
-      (if
-        (and
-           (setq entity (entnext entity))
-           (= 
-             "ATTRIB"
-             (cdr (assoc 0 (setq entity_entget (entget entity))))
-           ; )
-           ; (= "BAUTEIL_NUMMER" (cdr (assoc 2 entity_entget)))
-           )
-        );and
-
-        (progn
-          (print (assoc 1 entity_entget))
-          (princ)
-          (get_attribute current_entity)
-        );progn
-      );if
-    );defun
-
     (get_attribute entity)
     (setq counter (1+ counter))
     (princ)
