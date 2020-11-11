@@ -2,9 +2,9 @@
                 block_entity_name
                 block_entity_hex)
 
-  (setq block_entitiy (car (entsel))
+  (setq block_entitiy     (car (entsel))
         block_entity_name (cdr (assoc 2 (entget block_entitiy)))
-        block_entity_hex (tblobjname "block" block_entity_name)
+        block_entity_hex  (tblobjname "block" block_entity_name)
   )
 
   (defun get_next_item(block_item)
@@ -21,6 +21,7 @@
   ; (print (entget block_entity_hex))
   (princ)
 )
+
 
 (defun c:xda( / myitem
                 myitem_layer
@@ -68,6 +69,7 @@
   );repeat
 );defun
 
+
 (defun set_attribute(entity /
                      entity_entget)
   (if
@@ -95,6 +97,7 @@
 (defun c:get_att()
   (set_attribute (car (entsel)))
  )
+
 
 (defun c:get_attributes_of_insert( / insert_entitiy
                                      insert_name
@@ -147,6 +150,7 @@
   (princ)
   
 );defun
+
 
 (defun my_length( / item
                     item_vla)
@@ -361,6 +365,4 @@
 
   ((< (cadr x)(cadr y)))
   )
-)
-)
 )
