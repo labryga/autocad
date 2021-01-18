@@ -1,3 +1,9 @@
+; 
+(defun c:ae()
+  (command "saveall")
+  (command "publish")
+);defun
+
 ; load project pecific lsp file
 (defun c:da(/ file_directory_path
               file_name_full

@@ -6,9 +6,9 @@
                           documentProperties
                           documentPropertyTitle)
 
-  (setq application (vlax-get-acad-object)
-        activeDocument (vla-get-activeDocument application)
-        documentProperties (vla-get-SummaryInfo activeDocument)
+  (setq application           (vlax-get-acad-object)
+        activeDocument        (vla-get-activeDocument application)
+        documentProperties    (vla-get-SummaryInfo activeDocument)
         documentPropertyTitle (vla-get-Title documentProperties))
   (load (strcat "projects\\" documentPropertyTitle ".lsp"))
 )
