@@ -1,4 +1,11 @@
-; 
+
+
+; create linear parameter
+(defun c:vs()
+  (command-s "bparameter" "linear")
+);defun
+
+; savall and publish
 (defun c:ae()
   (command "saveall")
   (command "publish")
