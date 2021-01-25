@@ -1,3 +1,13 @@
+; scale action parameter
+(defun c:vg()
+  (command-s "bactiontool" "scale")
+);defun
+
+; stretch action parameter
+(defun c:vf()
+  (command-s "bactiontool" "stretch")
+);defun
+
 ; move action parameter
 (defun c:vd()
   (command-s "bactiontool" "move")
