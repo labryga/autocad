@@ -1,4 +1,7 @@
-
+; move action parameter
+(defun c:vd()
+  (command-s "bactiontool" "move")
+);defun
 
 ; create linear parameter
 (defun c:vs()
