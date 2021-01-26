@@ -1,3 +1,8 @@
+; get current document
+(defun get_my_document()
+    (vla-get-ActiveDocument (vlax-get-acad-object))
+);defun
+
 ; toggle full screen
 (defun c:s()
   (if

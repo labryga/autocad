@@ -1,3 +1,41 @@
+
+;get current layouts
+(defun get_my_layouts(my_document)
+    (vla-get-Layouts my_document)
+);defun
+
+; set first layout
+(defun set_my_layout(my_layout /
+                     my_document
+                     my_document)
+  (setq my_document (get_my_document)
+        my_layouts  (get_my_layouts my_document)
+  );setq
+
+  (vla-put-activelayout my_document (vla-item my_layouts my_layout))
+);defun
+
+(defun c:af()
+  (command-s "tilemode" 1)
+);defun
+
+(defun c:ac()
+  (set_my_layout 0)
+);defun
+
+(defun c:av()
+  (set_my_layout 1)
+);defun
+
+(defun c:fc()
+  (set_my_layout 2)
+);defun
+
+(defun c:fv()
+  (set_my_layout 3)
+);defun
+
+; views
 (defun c:sva()
   (set_visual_style "w")
 )
