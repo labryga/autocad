@@ -1,3 +1,11 @@
+; toggle full screen
+(defun c:s()
+  (if
+    (= (getvar "cleanscreenstate") 0)
+      (command-s "cleanscreenon")
+      (command-s "cleanscreenoff")
+  )
+);defun
 
 ; scale action parameter
 (defun c:vg()
