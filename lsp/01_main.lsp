@@ -1,3 +1,4 @@
+
 ; scale action parameter
 (defun c:vg()
   (command-s "bactiontool" "scale")
