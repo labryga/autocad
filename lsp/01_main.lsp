@@ -89,7 +89,7 @@
 )
 
 ; get and dump object
-(defun c:dt( / objekt objektvl)
+(defun c:get_and_dump_object( / objekt objektvl)
   (setq objekt (car(entsel)) )
   (setq objektvl (vlax-ename->vla-object objekt))
   (vlax-dump-object objektvl t)
