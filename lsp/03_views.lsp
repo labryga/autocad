@@ -1,6 +1,6 @@
-
+; set current layouts
 ;get current layouts
-(defun get_my_layouts(my_document)
+(defun get_current_layouts(my_document)
     (vla-get-Layouts my_document)
 );defun
 
@@ -8,8 +8,8 @@
 (defun set_my_layout(my_layout /
                      my_document
                      my_document)
-  (setq my_document (get_my_document)
-        my_layouts  (get_my_layouts my_document)
+  (setq my_document (get_active_document_object)
+        my_layouts  (get_current_layouts my_document)
   );setq
 
   (vla-put-activelayout my_document (vla-item my_layouts my_layout))
@@ -35,6 +35,7 @@
   (set_my_layout 3)
 );defun
 
+
 ; views
 (defun c:sva()
   (set_visual_style "w")
@@ -56,6 +57,7 @@
   (set_visual_style "r")
 )
 
+
 ; toggle perspective status
 (defun c:sve()
   (if
@@ -72,10 +74,12 @@
   (command "zoom" "e")
 )
 
+
 ; zoom window
 (defun c:gs()
   (command "zoom" "w")
 );defun
+
 
 ; set ucs and plan view
 (defun c:we()
@@ -84,6 +88,7 @@
   (command-s "plan" "")
   (command-s "zoom" "c" "0,0" "500")
 );defun
+
 
 (defun c:wr()
   (command-s "ucs" "")

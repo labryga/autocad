@@ -1,7 +1,8 @@
-; get current document
-(defun get_my_document()
+; get current document object
+(defun get_active_document_object()
     (vla-get-ActiveDocument (vlax-get-acad-object))
 );defun
+
 
 ; toggle full screen
 (defun c:s()
@@ -12,31 +13,37 @@
   )
 );defun
 
+
 ; scale action parameter
 (defun c:vg()
   (command-s "bactiontool" "scale")
 );defun
+
 
 ; stretch action parameter
 (defun c:vf()
   (command-s "bactiontool" "stretch")
 );defun
 
+
 ; move action parameter
 (defun c:vd()
   (command-s "bactiontool" "move")
 );defun
+
 
 ; create linear parameter
 (defun c:vs()
   (command-s "bparameter" "linear")
 );defun
 
+
 ; savall and publish
 (defun c:ae()
   (command "saveall")
   (command "publish")
 );defun
+
 
 ; load project pecific lsp file
 (defun c:da(/ file_directory_path
@@ -55,10 +62,12 @@
   (princ)
 );defun
 
+
 ; set layer to 0
 (defun c:er()
   (setvar "clayer" "0")
 );defun
+
 
 ; save and close
 (defun c:qx() 
@@ -79,6 +88,7 @@
   (setvar "osmode" 0)
 )
 
+
 ; toggle selection cycling
 (defun c:dq()
   (if
@@ -87,6 +97,7 @@
       (setvar "selectioncycling" -2)
   )
 )
+
 
 ; get and dump object
 (defun c:get_and_dump_object( / objekt objektvl)
@@ -165,6 +176,7 @@
   (princ)
  )
 
+
 ; function to toggle autosnap and osmode by "df" command
 (defun c:df() 
   (if 
@@ -184,17 +196,20 @@
   )
 )
 
+
 ; set snap on 
 (defun set_snap()
   (setvar "autosnap" 63)
   (setvar "osmode" 35)
 )
 
+
 ; set snap off 
 (defun set_snap_off()
   (setvar "autosnap" 0)
   (setvar "osmode" 0)
 )
+
 
 ; toggle selection cycling
 (defun c:dq()
@@ -205,12 +220,14 @@
   )
 )
 
+
 ; get and dump object
 (defun c:dt( / objekt objektvl)
   (setq objekt (car(entsel)) )
   (setq objektvl (vlax-ename->vla-object objekt))
   (vlax-dump-object objektvl t)
 )
+
 
 ; sum multiple polylines length and area
 (defun c:sum_multiple_polylines( / entities
@@ -251,6 +268,7 @@
   (print total_values)
   (princ)
 )
+
 
 ; sum multiple objects area
 (defun c:sum_multiple_objecs_area( / entities

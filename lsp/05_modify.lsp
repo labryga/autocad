@@ -41,34 +41,17 @@
   )
 )
 
+
 (defun c:rw()
   (command "solidedit" "f" "m")
 );defun
+
 
 ; move face of solid
 (defun c:eyf()
   (command-s "solidedit" "f" "m")
 );defun
 
-;create a linear parameter
-(defun c:daf()
-  (command-s "bparameter" "l")
-);defun
-
-;create a base point parameter
-(defun c:dab()
-  (command-s "bparameter" "b")
-);defun
-
-;set stretch action
-(defun c:day()
-  (command-s "bactiontool" "t")
-);defun
-
-;set a block move action
-(defun c:das()
-  (command-s "bactiontool" "m")
-);defun
 
 (defun c:r()
   (command-s "dynmode" "3")
@@ -76,25 +59,28 @@
   (command-s "dynmode" "0")
 );defun
 
+
 ; move object without snapping off
 (defun c:sf()
   (set_snap_off)
   (command-s "move")
 )
 
+
 ; move object with snapping on
-(defun c:s()
+(defun c:ss()
   (set_snap)
   (command-s "move")
 )
 
-; move object with snapping on 
-; base point middle between two points
+
+; move object with snapping on; base point middle between two points
 (defun c:sa()
   (set_snap)
   (setq item (ssget))
   (command-s "move" item "" "_m2p")
 )
+
 
 ; rotate object with snapping on 
 ; base point middle between two points
@@ -104,6 +90,7 @@
   (command-s "rotate" item "" "_m2p")
 )
 
+
 ; select all elements and scale with factor 100
 (defun c:sah()
   (setq selectionall (ssget "_A"))
@@ -111,10 +98,12 @@
   (command-s "ge" "")
 )
 
+
 ; select all elements in model space and copy with basepoint set to 0,0,0
 (defun c:sac()
   (command-s "copybase" '(0 0 0) (ssget "_A") "")
 )
+
 
 ; function to toggle autosnap and osmode by "df" command-s
 (defun c:df() 
@@ -145,7 +134,6 @@
   (command-s "-bedit" block_object_name)
 );defun
 
-
 ; lock vieport 
 (defun c:rf()
   (command-s "selectioncycling" 2)
@@ -161,7 +149,6 @@
   (command-s "mview" "lock" "off")
   (command-s "selectioncycling" -2)
 );defun
-
 
 (defun c:XrefBind (/ tmpObj)
   (vl-load-com)

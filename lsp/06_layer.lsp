@@ -95,6 +95,7 @@
 
 )
 
+
 ; create layer set using layer name generating function
 (defun createLayerSet( ekg-nummern
                        bauphasen
@@ -136,12 +137,12 @@
   (princ)
 )
 
-; renaming layers
 
+; renaming layers 01
 (defun my_test_eins ( / object_acad
-                   object_document
-                   object_layers
-                   entity_layer)
+                        object_document
+                        object_layers
+                        entity_layer)
 
   (setq object_acad     (vlax-get-acad-object)
         object_document (vla-get-activedocument object_acad)
@@ -150,21 +151,49 @@
 
   (vlax-for objekt object_layers
 
-            (setq entity_layer (vla-get-name objekt))
+      (setq entity_layer (vla-get-name objekt))
 
-            (if (vl-string-search "_" entity_layer)
+      (if (vl-string-search "_" entity_layer)
 
-               (progn
-                  (while (vl-string-search "_" entity_layer)
-                         (setq entity_layer (vl-string-subst "" "_" entity_layer))
-                  )
-
-                  (vla-put-name objekt entity_layer)
-               )
-
+         (progn
+            (while (vl-string-search "_" entity_layer)
+                   (setq entity_layer (vl-string-subst "" "_" entity_layer))
             )
+
+            (vla-put-name objekt entity_layer)
+         )
+
+      )
   )
 
+  (princ)
+)
+
+
+; renaming layers by search pattern to set pattern
+(defun rename_layers ( string_search
+                       string_replace / 
+                       active_document_object
+                       layers_collection
+                       entity_layer_name)
+
+  (setq active_document_object (get_active_document_object); function defined in 01_main.lsp
+        layers_collection      (vla-get-layers active_document_object)
+  )
+
+  (vlax-for collection_object layers_collection
+
+      (setq entity_layer_name (vla-get-name collection_object))
+
+      (if (vl-string-search string_search entity_layer_name)
+          (progn 
+            (setq entity_layer_name (vl-string-subst
+                                      string_replace 
+                                      string_search entity_layer_name))
+            (vla-put-name collection_object entity_layer_name)
+          );progn
+       );if
+  );vlax-for
   (princ)
 )
 
