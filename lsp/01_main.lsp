@@ -165,7 +165,6 @@
   (princ)
  )
 
-
 ; function to toggle autosnap and osmode by "df" command
 (defun c:df() 
   (if 
@@ -184,7 +183,6 @@
       )
   )
 )
-
 
 ; set snap on 
 (defun set_snap()
@@ -214,49 +212,48 @@
   (vlax-dump-object objektvl t)
 )
 
-
 ; sum multiple polylines length and area
-; (defun c:gr( / entities
-;                entity
-;                entity_index
-;                object_length
-;                total_length
-;                area
-;                total_area
-;                total_values)
-;
-;   (setq total_length 0)
-;   (setq total_area 0)
-;
-;   (setq entity_index 0)
-;
-;   (setq entities (ssget))
-;
-;   (repeat (sslength entities)
-;
-;     (setq entity (ssname entities entity_index))
-;     (setq entity (vlax-ename->vla-object entity))
-;
-;     (setq object_length (vlax-get-property entity "length"))
-;     (setq entity_index (1+ entity_index))
-;     (setq total_length (+ total_length object_length))
-;     (princ)
-;   )
-;
-;   (setq total_length (* 0.01 total_length))
-;   (setq total_area (* total_length 2.93))
-;   (setq total_length (rtos total_length))
-;   (setq total_area (rtos total_area))
-;   (setq total_values (list 
-;                        (strcat total_length " m") 
-;                        (strcat total_area " m²")
-;                        ))
-;   (print total_values)
-;   (princ)
-; )
+(defun c:sum_multiple_polylines( / entities
+               entity
+               entity_index
+               object_length
+               total_length
+               area
+               total_area
+               total_values)
 
-sum multiple object area
-(defun c:ht( / entities
+  (setq total_length 0
+        total_area   0
+        entity_index 0)
+
+  (setq entities (ssget))
+
+  (repeat (sslength entities)
+
+    (setq entity (ssname entities entity_index))
+    (setq entity (vlax-ename->vla-object entity))
+
+    (setq object_length (vlax-get-property entity "length"))
+    (setq entity_index (1+ entity_index))
+    (setq total_length (+ total_length object_length))
+    (princ)
+  )
+
+  (setq total_length (* 0.01 total_length)
+        total_area   (* total_length 2.93)
+        total_length (rtos total_length)
+        total_area   (rtos total_area))
+
+  (setq total_values (list 
+                       (strcat total_length " m") 
+                       (strcat total_area " m²")
+                       ))
+  (print total_values)
+  (princ)
+)
+
+; sum multiple objects area
+(defun c:sum_multiple_objecs_area( / entities
                entity
                entity_index
                object_area

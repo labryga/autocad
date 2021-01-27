@@ -25,8 +25,7 @@
   (princ)
 )
 
-; get items an a layer of selected entity and 
-; print the attribute name of each entity
+; get items an a layer of selected entity and print the attribute name of each entity
 (defun c:xda( / myitem
                 myitem_layer
                 myitems
@@ -152,7 +151,6 @@
   (princ)
   
 );defun
-
 
 (defun my_length( / item
                     item_vla)
@@ -357,14 +355,14 @@
 
 );defun delete_attributes
 
-(setq ptlist
-(vl-sort ptlist
-  '(lambda (x y)
-  (cond
-  ((= (cadr x)(cadr y))
-    (< (car x)(car y))
-  )
-
-  ((< (cadr x)(cadr y)))
-  )
-)
+; (setq ptlist
+; (vl-sort ptlist
+;   '(lambda (x y)
+;   (cond
+;   ((= (cadr x)(cadr y))
+;     (< (car x)(car y))
+;   )
+;
+;   ((< (cadr x)(cadr y)))
+;   )
+; )

@@ -1,4 +1,4 @@
-=; retrive block attributes
+; retrive block attributes
 (defun xsa(block_entity
              block_attribute_tag /
              block_attribute
