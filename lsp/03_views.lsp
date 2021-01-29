@@ -15,7 +15,7 @@
   (vla-put-activelayout my_document (vla-item my_layouts my_layout))
 );defun
 
-(defun c:af()
+(defun c:afd()
   (command-s "tilemode" 1)
 );defun
 
