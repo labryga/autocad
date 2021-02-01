@@ -1,3 +1,30 @@
+
+(defun create_layer (ebkp /
+                     collection_layers
+                     phasen_strings
+                     projektion_strings
+                     typ_strings) 
+
+  (setq 
+    collection_layers (vla-get-layers
+                        (vla-get-activedocument
+                          (vlax-get-acad-object)))
+
+    phasen_strings     (list "a-" "b-" "n-")
+    projektion_strings (list "sc-" "an-")
+    typ_strings        (list "co" "ha" "hi" "txt-050" "txt-100")
+  );setq
+
+  (foreach phasen_string phasen_strings
+           (foreach projektion_string projektion_strings
+                    (foreach typ_string typ_strings
+                             (vla-add collection_layers (strcat ebkp phasen_string projektion_string typ_string))
+                    );foreach
+           );foreach
+  );foreach
+  (princ)
+);defun
+
 ; retrive block attributes
 (defun xsa(block_entity
              block_attribute_tag /
