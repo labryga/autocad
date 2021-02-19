@@ -333,10 +333,10 @@
             (setq layer_name  (vla-get-name layer)
             );setq
 
-            (if (wcmatch layer_name "*W_O*")
+            (if (wcmatch layer_name "*2-*")
               (progn 
                 (setq 
-                  layer_name (vl-string-subst "WO" "W_O" layer_name)
+                  layer_name (vl-string-subst "22-" "2-" layer_name)
                 );setq
                 (vla-put-name layer layer_name)
               );progn

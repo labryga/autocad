@@ -1,5 +1,5 @@
 
-(defun create_layer (ebkp /
+(defun create_layer (ebkp bkp /
                      collection_layers
                      phasen_strings
                      projektion_strings
@@ -11,14 +11,14 @@
                           (vlax-get-acad-object)))
 
     phasen_strings     (list "-b-" "-n-")
-    projektion_strings (list "sc-" "an-")
-    typ_strings        (list "co" "ha" "hi" "txt-050" "txt-100")
+    projektion_strings (list "-sc-" "-an-" "txt-050"  "txt-100")
+    typ_strings        (list "co" "ha" "hi")
   );setq
 
   (foreach phasen_string phasen_strings
            (foreach projektion_string projektion_strings
                     (foreach typ_string typ_strings
-                             (vla-add collection_layers (strcat ebkp phasen_string projektion_string typ_string))
+                             (vla-add collection_layers (strcat ebkp phasen_string bkp projektion_string typ_string))
                     );foreach
            );foreach
   );foreach
