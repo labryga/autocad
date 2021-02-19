@@ -10,7 +10,7 @@
                         (vla-get-activedocument
                           (vlax-get-acad-object)))
 
-    phasen_strings     (list "a-" "b-" "n-")
+    phasen_strings     (list "-b-" "-n-")
     projektion_strings (list "sc-" "an-")
     typ_strings        (list "co" "ha" "hi" "txt-050" "txt-100")
   );setq
