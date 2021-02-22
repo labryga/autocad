@@ -156,18 +156,18 @@
   (princ)
 )
 
-(defun  c:ma(myblock mytag)
-  (setq mytag (strcase mytag))
-  (vl-some 
-    '(lambda (att))
-      (if (= mytag (strcase (vla-get-tagstring)))
-        (vla-get-tagstring att)
-      )
-  )
+; (defun  c:ma(myblock mytag)
+;   (setq mytag (strcase mytag))
+;   (vl-some 
+;     '(lambda (att))
+;       (if (= mytag (strcase (vla-get-tagstring)))
+;         (vla-get-tagstring att)
+;       )
+;   )
+;
+; )
 
-)
-
-(defun c:xas()
+(defun c:get_entsel()
   (entget (car(entsel)))
 )
 
