@@ -147,8 +147,8 @@
 )
 
 ; function to retrieve block name
-(defun c:xr(/ entity
-              entity_name)
+(defun c:get_block_name(/ entity
+                          entity_name)
 
   (setq entity (car (entsel)))
   (setq entity_name (assoc 2 (entget entity)))
@@ -361,6 +361,7 @@
   (princ)
 )
 
+
 (defun my_block_items(/ insert
                         insert_entget
                         insert_name
@@ -381,8 +382,6 @@
   )
 
 )
-
-
 
 (defun x_test ( /
                 x_selection_set
