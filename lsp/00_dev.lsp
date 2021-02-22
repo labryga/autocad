@@ -167,11 +167,13 @@
 ;
 ; )
 
+; get entsel
 (defun c:get_entsel()
   (entget (car(entsel)))
 )
 
-(defun  c:xss( / objekte)
+; count insterted blocks
+(defun  c:count_inserted_blocks ( / objekte)
   (setq objekte 
         (ssget "x" '((0 . "INSERT")))
         )
