@@ -182,19 +182,19 @@
 )
 
 ; writing lists to csv file
-(defun c:wtf( / mylist
-                myfile
-                mywert
-                mywerte_length
-                counter
-                geschoss
-                geschoss_prefix
-                wohnung
-                wohnung_nummer
-                raum_nummer
-                wohnung_1_2
-                raum_06
-                wohnung_1_1)
+(defun c:write_list_to_csv ( / mylist
+                               myfile
+                               mywert
+                               mywerte_length
+                               counter
+                               geschoss
+                               geschoss_prefix
+                               wohnung
+                               wohnung_nummer
+                               raum_nummer
+                               wohnung_1_2
+                               raum_06
+                               wohnung_1_1)
 
   (setq wohnung_1_2 (list
                         (list "Korridor" "01")
