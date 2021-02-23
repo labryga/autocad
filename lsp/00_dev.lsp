@@ -14,7 +14,7 @@
     phasen_strings     (list "-b-" "-n-")
     projektion_strings (list "-sc-" "-an-")
     typ_strings        (list "co" "ha" "hi")
-    text_strings       (list "-txt-050"  "-txt-100" "-txt-associative")
+    text_strings       (list "-txt-050"  "-txt-100" "-txt-associative" "-block")
   );setq
 
   (foreach phasen_string phasen_strings
@@ -28,12 +28,6 @@
   (foreach phasen_string phasen_strings
            (foreach text_string text_strings
                     (vla-add collection_layers (strcat ebkp phasen_string bkp text_string))
-           );foreach
-  );foreach
-
-  (foreach phasen_string phasen_strings
-           (foreach projektion_string projektion_strings
-                    (vla-add collection_layers (strcat ebkp phasen_string bkp projektion_string "block"))
            );foreach
   );foreach
   (princ)

@@ -317,8 +317,8 @@
 );defun
 
 (defun rename_layers(search_string 
-                     rename_from_string 
                      rename_to_string 
+                     rename_from_string 
                      /
                      collection_layers
                      layer_name)
@@ -334,7 +334,7 @@
             (if (wcmatch layer_name search_string)
               (progn 
                 (setq 
-                  layer_name (vl-string-subst rename_to_string rename_from_string layer_name)
+                  layer_name (vl-string-subst rename_from_string rename_to_string layer_name)
                 );setq
                 (vla-put-name layer layer_name)
               );progn
