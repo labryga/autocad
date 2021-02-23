@@ -1,10 +1,10 @@
 
-(defun create_layer (ebkp bkp /
-                     collection_layers
-                     phasen_strings
-                     projektion_strings
-                     typ_strings
-                     text_strings) 
+(defun create_ebkp_layers (ebkp bkp /
+                           collection_layers
+                           phasen_strings
+                           projektion_strings
+                           typ_strings
+                           text_strings) 
 
   (setq 
     collection_layers (vla-get-layers
@@ -29,16 +29,20 @@
            (foreach text_string text_strings
                     (vla-add collection_layers (strcat ebkp phasen_string bkp text_string))
            );foreach
+  );foreach
 
+  (foreach phasen_string phasen_strings
+           (foreach projektion_string projektion_strings
+                    (vla-add collection_layers (strcat ebkp phasen_string bkp projektion_string "block"))
+           );foreach
   );foreach
   (princ)
 );defun
 
-; retrive block attributes
-(defun xsa(block_entity
-             block_attribute_tag /
-             block_attribute
-             entity_next)
+(defun get_block_attributes(block_entity
+                            block_attribute_tag /
+                            block_attribute
+                            entity_next)
   (if 
     (and 
       (setq block_entity (entnext block_entity))
@@ -63,11 +67,11 @@
   )
 )
 
-(defun c:xxsa( / myblock
-                 attribute
-                 mylist
-                 myfile
-                 mywert)
+(defun c:project_example_one( / myblock
+                                attribute
+                                mylist
+                                myfile
+                                mywert)
 
   (setq myblock (car(entsel)))
   (setq attribute (list "wandhoehe" 
@@ -96,7 +100,7 @@
   )
 )
 
-(defun c:setat(/ object_entitiy 
+(defun c:set_attribute(/ object_entitiy 
                  object_vla_entity
                  att_name
                  att_value
@@ -112,32 +116,30 @@
   (princ)
  )
 
-(defun c:xy( / object_example
-               volume)
+(defun c:dump_vla_object( / object_example)
 
-  (setq object_example (entsel))
-  (setq object_example_name (car object_example))
-  (setq object_example_vla (vlax-ename->vla-object object_example_name))
+  (setq object_example      (entsel)
+        object_example_name (car object_example)
+        object_example_vla  (vlax-ename->vla-object object_example_name))
+
   (print (vlax-dump-object object_example_vla))
   (princ)
+)
 
- )
+(defun c:write_layer_names_to_csv( / entity
+                                     entities
+                                     entities_length
+                                     counter)
 
-(defun c:xe( / entity
-               entities
-               entities_length
-               counter)
-
-  (setq entities (ssget))
-
-  (setq entities_length (sslength entities))
-  (setq counter 0)
-  (setq myfile (open "c:\\Users\\m.labryga\\Documents\\acad\\myfile.txt" "w"))
+  (setq entities        (ssget)
+        entities_length (sslength entities)
+        counter 0
+        myfile (open "c:\\Users\\m.labryga\\Documents\\acad\\myfile.txt" "w"))
 
   (while (< counter entities_length)
-          (setq entity (ssname entities counter))
-          (setq entity (entget entity))
-          (setq entity (assoc 8 entity))
+          (setq entity (ssname entities counter)
+                entity (entget entity)
+                entity (assoc 8 entity))
           (print (cdr entity))
           (write-line (strcat (cdr entity) "\t" "wert") myfile)
           (princ)
@@ -146,8 +148,7 @@
   (close myfile)
 )
 
-; function to retrieve block name
-(defun c:get_block_name(/ entity
+(defun c:get_block_name (/ entity
                           entity_name)
 
   (setq entity (car (entsel)))
@@ -156,7 +157,7 @@
   (princ)
 )
 
-; (defun  c:ma(myblock mytag)
+; (defun c:get_tag_string(myblock mytag)
 ;   (setq mytag (strcase mytag))
 ;   (vl-some 
 ;     '(lambda (att))
@@ -167,13 +168,11 @@
 ;
 ; )
 
-; get entsel
 (defun c:get_entsel()
   (entget (car(entsel)))
 )
 
-; count insterted blocks
-(defun  c:count_inserted_blocks ( / objekte)
+(defun c:count_inserted_blocks ( / objekte)
   (setq objekte 
         (ssget "x" '((0 . "INSERT")))
         )
@@ -181,7 +180,6 @@
   (princ)
 )
 
-; writing lists to csv file
 (defun c:write_list_to_csv ( / mylist
                                myfile
                                mywert
@@ -312,9 +310,9 @@
 
 )
 
-(defun my_volume(/ solid_entity
-                   solid_vla_object
-                   solid_volume) 
+(defun get_solid_volume (/ solid_entity
+                           solid_vla_object
+                           solid_volume) 
 
   (setq solid_entity      (car (entsel))
         solid_vla_object  (vlax-ename->vla-object solid_entity)
@@ -325,9 +323,10 @@
   (princ)
 )
 
-(defun my_surface(/ entity
-                    entity_entget
-                    entity_vla_object)
+(defun get_surface_area(/ entity
+                          entity_entget
+                          entity_vla_object)
+
   (setq entity (car (entsel))
         entity_entget (entget entity)
         entity_vla_object (vlax-ename->vla-object entity)
@@ -337,13 +336,13 @@
   (princ)
 )
 
-(defun my_volume_sum(/ soild_layer
-                       solid_selection_set
-                       solid_selection_set_length
-                       counter
-                       solid_entity
-                       solid_vla_object
-                       volumen_summe)
+(defun get_volume_sum(/ soild_layer
+                        solid_selection_set
+                        solid_selection_set_length
+                        counter
+                        solid_entity
+                        solid_vla_object
+                        volumen_summe)
 
   (setq solid_layer (cdr (assoc 8 (entget (car (entsel)))))
         solid_selection_set (ssget "x" (list (cons 8 solid_layer)))
@@ -363,11 +362,10 @@
   (princ)
 )
 
-
-(defun my_block_items(/ insert
-                        insert_entget
-                        insert_name
-                        block_entitiy)
+(defun print_block_entity_layers(/ insert
+                                   insert_entget
+                                   insert_name
+                                   block_entitiy)
 
   (setq insert        (car (entsel))
         insert_entget (entget insert)

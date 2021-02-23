@@ -197,7 +197,6 @@
   (princ)
 )
 
-
 ; rename wall layer names
 (defun rename_wall (/
                      layer_name
@@ -224,7 +223,6 @@
 
   (princ)
 );defun
-
 
 ; split string to list function
 (defun string_to_list (string_value delimiter / delimiter_position)
@@ -318,12 +316,12 @@
   (princ)
 );defun
 
-(defun rename_layer ( /
-                      collection_layers
-                      layer_name
-                      kategorie
-                      layer_name_tmp
-                    )
+(defun rename_layers(search_string 
+                     rename_from_string 
+                     rename_to_string 
+                     /
+                     collection_layers
+                     layer_name)
 
   (setq 
     collection_layers (vla-get-layers (vla-get-activedocument (vlax-get-acad-object)))
@@ -333,10 +331,10 @@
             (setq layer_name  (vla-get-name layer)
             );setq
 
-            (if (wcmatch layer_name "*C11-*")
+            (if (wcmatch layer_name search_string)
               (progn 
                 (setq 
-                  layer_name (vl-string-subst "C11-" "C21-" layer_name)
+                  layer_name (vl-string-subst rename_to_string rename_from_string layer_name)
                 );setq
                 (vla-put-name layer layer_name)
               );progn
@@ -367,5 +365,24 @@
             );if
   );vlax-for
 
+  (princ)
+);defun
+
+(defun delete_layers(search_string /
+                     collection_layers)
+
+  (setq collection_layers (vla-get-layers (vla-get-activedocument (vlax-get-acad-object)))
+  );setq
+
+  (vlax-for layer collection_layers
+            (setq layer_name (vla-get-name layer) 
+            );setq
+
+            (if (wcmatch layer_name search_string)
+              (progn 
+                (vla-delete (vlax-ename->vla-object (tblobjname "layer" layer_name)))
+              );progn
+            );if
+  );vlax-for
   (princ)
 );defun
