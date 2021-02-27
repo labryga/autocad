@@ -316,9 +316,9 @@
   (princ)
 );defun
 
-(defun rename_layers(search_string 
-                     rename_to_string 
+(defun rename_layers(search_string_regex 
                      rename_from_string 
+                     rename_to_string 
                      /
                      collection_layers
                      layer_name)
@@ -331,10 +331,11 @@
             (setq layer_name  (vla-get-name layer)
             );setq
 
-            (if (wcmatch layer_name search_string)
+            (if (wcmatch layer_name search_string_regex)
               (progn 
+                (print layer_name)
                 (setq 
-                  layer_name (vl-string-subst rename_from_string rename_to_string layer_name)
+                  layer_name (vl-string-subst rename_to_string rename_from_string layer_name)
                 );setq
                 (vla-put-name layer layer_name)
               );progn
@@ -344,7 +345,20 @@
   (princ)
 );defun
 
-(defun delete_layers(search_string /
+(defun filter_layers(search_string_regex
+                     /
+                     layer_name)
+
+  (setq collection_layers (vla-get-layers (vla-get-activedocument (vlax-get-acad-object))));setq
+
+  (vlax-for layer collection_layers
+            (setq layer_name (vla-get-name layer))
+            (if (wcmatch layer_name search_string_regex)
+            );if
+  );vlax-for
+);defun
+
+(defun delete_layers(search_string_regex /
                      collection_layers)
 
   (setq collection_layers (vla-get-layers (vla-get-activedocument (vlax-get-acad-object)))
@@ -354,7 +368,7 @@
             (setq layer_name (vla-get-name layer) 
             );setq
 
-            (if (wcmatch layer_name search_string)
+            (if (wcmatch layer_name search_string_regex)
               (progn 
                 (vla-delete (vlax-ename->vla-object (tblobjname "layer" layer_name)))
               );progn
