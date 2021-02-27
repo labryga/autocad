@@ -354,8 +354,10 @@
   (vlax-for layer collection_layers
             (setq layer_name (vla-get-name layer))
             (if (wcmatch layer_name search_string_regex)
+                (print layer_name)
             );if
   );vlax-for
+  (princ)
 );defun
 
 (defun delete_layers(search_string_regex /
