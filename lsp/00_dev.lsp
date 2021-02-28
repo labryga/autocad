@@ -128,7 +128,7 @@
 ;
 ; )
 
-(defun c:get_entsel()
+(defun c:get_entget()
   (entget (car(entsel)))
 )
 
@@ -355,7 +355,6 @@
   (get_list_of_next_block_entities_layers x_block_entities_list)
 
 );defun
-
 
 (defun rename_blocks (/ collection_blocks
                         block_name)
