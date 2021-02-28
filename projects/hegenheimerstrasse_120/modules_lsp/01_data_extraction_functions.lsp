@@ -70,9 +70,9 @@
 
   (foreach next_entity block_entities_list
 
-           (while (setq next_entity            (entnext next_entity)) ; block entity converted to next item
+           (while (setq next_entity             (entnext next_entity)) ; block entity converted to next item
 
-                  (setq next_entity_entget     (entget next_entity)
+                  (setq next_entity_entget      (entget next_entity)
                         block_entity_layer_name (cdr (assoc 8 next_entity_entget))
                   );setq
 
