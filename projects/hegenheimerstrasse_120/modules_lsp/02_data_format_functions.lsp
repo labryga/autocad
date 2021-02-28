@@ -32,7 +32,7 @@
 );defun
 
 
-; subfunction split name string to list by "-" delimiter
+; subfunction split name string to list by "_" delimiter
 (defun split_string_to_list ( string_value /
                               delimiter_position
                               *error*)

@@ -244,23 +244,22 @@
                 ; append insert type as name, instance numbers and dimensions to inserts_data list
                 (setq 
                   inserts_data  (cons (list
-                                                  insert_entity_name
-                                                  (list insert_nummer)
-                                                  insert_next_dimensions
+                                            insert_entity_name
+                                            (list insert_nummer)
+                                            insert_next_dimensions
                                       );list
                                       inserts_data
                                 );cons
                 );setq
               );progn
 
-              ; if insert tye in inserts_data list already, extend instance number by corresponding "nummer" value
+              ; if insert type in inserts_data list already, extend instance number by corresponding "nummer" value
               (setq 
                 insert_data   (assoc insert_entity_name inserts_data)
                 inserts_data  (subst
-                                  (list (nth 0 insert_data)
-                                        (vl-sort
-                                         (cons insert_nummer
-                                               (nth 1 insert_data))
+                                  (list (nth 0 insert_data) (vl-sort
+                                               (cons insert_nummer
+                                                     (nth 1 insert_data))
                                          '<)
                                         (nth 2 insert_data)
                                   );list
