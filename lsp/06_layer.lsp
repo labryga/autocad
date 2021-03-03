@@ -413,9 +413,10 @@
   (princ)
 );defun
 
-(defun toggle_bestand_neu (/)
-  (if (layerstate-has "a-b-n")
-    (layerstate-restore "b-n" nil)
-    (layerstate-restore "a-b-n" nil)
-  );if
+(defun set_abn (/)
+  (layerstate-restore "a-b-n" nil)
+);defun
+
+(defun set_bn (/)
+  (layerstate-restore "b-n" nil)
 );defun
