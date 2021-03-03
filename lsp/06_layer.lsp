@@ -394,7 +394,7 @@
     phasen_strings     (list "-b-" "-n-")
     projektion_strings (list "-sc-" "-an-")
     typ_strings        (list "co" "ha" "hi")
-    text_strings       (list "-txt-050"  "-txt-100" "-txt-associative" "-block")
+    text_strings       (list "-txt-050"  "-txt-100" "-txt-associative" "-block" "-so")
   );setq
 
   (foreach phasen_string phasen_strings
@@ -413,10 +413,86 @@
   (princ)
 );defun
 
-(defun set_abn (/)
+(defun create_ebkp_layers_by_list ( ebkp_list 
+                                    bkp_list / )
+
+  (foreach ebkp ebkp_list
+           (foreach bkp bkp_list
+                    (create_ebkp_layers ebkp bkp)
+           );foreach
+  );foreach
+
+);defun
+
+(defun c:set_layerstate_abn (/)
   (layerstate-restore "a-b-n" nil)
 );defun
 
-(defun set_bn (/)
+
+(defun c:save_and_export_layerstate_abn (/)
+  (layerstate-delete "a-b-n")
+  (layerstate-save "a-b-n" nil nil)
+  (layerstate-export "a-b-n" "c:\\Users\\nebel__\\Documents\\tmp\\a-b-n.las")
+);defun
+
+
+(defun c:set_layerstate_bn (/)
   (layerstate-restore "b-n" nil)
 );defun
+
+
+(defun create_layers_by_state ( / 
+                                  layer_prefix_bkps  
+                                  layer_prefix_ebkps
+                                  color_list_bestand_neu
+                                  layer_name_new
+                                  collection_layers
+                               )
+
+  (setq 
+        layer_prefix_bkps (list "211.5" "211.6" "213.2" "214.1")
+        layer_prefix_bkps (list (list "C01.01" ) 
+                                (list "C01.02" ) 
+                                (list "C01.03" ) 
+                                (list "C01.04" ) 
+                                (list "C01.05" ) 
+                                (list "C02.01" ) 
+                                (list "C02.02" ) 
+                                (list "C03.01" ) 
+                                (list "C03.02" )
+                                (list "C04.01" ) 
+                                (list "C04.02" ) 
+                                (list "C04.03" ) 
+                                (list "C04.04" ) 
+                                (list "C04.05" ) 
+                                (list "C04.06" ) 
+                                (list "C04.07" ) 
+                                (list "C04.08" )
+                          );list
+
+        phasen_strings (list "b" "n")
+        projektion_string "so"
+        collection_layers (vla-get-layers (vla-get-activeDocument (vlax-get-acad-object)))
+  );setq
+
+  (foreach layer_prefix_ebkp layer_prefix_ebkps
+
+           (foreach layer_prefix_bkp layer_prefix_bkps
+
+                    (foreach phasen_string phasen_strings
+                             (setq layer_name_new 
+                                   (strcat layer_prefix_ebkp "-" 
+                                           phasen_string     "-"
+                                           layer_prefix_bkp  "-"
+                                           projektion_string "-")
+                             );setq
+                             (print layer_name_new)
+
+                    );foreach phasen_string
+          );foreach layer_prefix_bkp
+  );foreach layer_prefix_ebkp
+  (princ)
+);defun
+
+
+
