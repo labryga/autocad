@@ -412,3 +412,10 @@
   );foreach
   (princ)
 );defun
+
+(defun toggle_bestand_neu (/)
+  (if (layerstate-has "a-b-n")
+    (layerstate-restore "b-n" nil)
+    (layerstate-restore "a-b-n" nil)
+  );if
+);defun
