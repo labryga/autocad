@@ -432,13 +432,21 @@
 (defun c:save_and_export_layerstate_abn (/)
   (layerstate-delete "a-b-n")
   (layerstate-save "a-b-n" nil nil)
-  (layerstate-export "a-b-n" "c:\\Users\\nebel__\\Documents\\tmp\\a-b-n.las")
+  (layerstate-export "a-b-n" "C:\\Users\\nebel__\\Documents\\cad\\autocad\\etc\\las\\a-b-n.las")
 );defun
 
 
 (defun c:set_layerstate_bn (/)
   (layerstate-restore "b-n" nil)
 );defun
+
+
+(defun c:save_and_export_layerstate_bn (/)
+  (layerstate-delete "b-n")
+  (layerstate-save "b-n" nil nil)
+  (layerstate-export "b-n" "C:\\Users\\nebel__\\Documents\\cad\\autocad\\etc\\las\\b-n.las")
+)
+
 
 
 (defun create_layers_by_state ( / 
