@@ -54,6 +54,10 @@
   (set_visual_style "s")
 )
 
+; set current visual style to x-ray
+(defun c:svx()
+  (set_visual_style "x")
+)
 
 
 ; toggle perspective status
