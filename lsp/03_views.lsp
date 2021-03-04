@@ -39,9 +39,9 @@
   (command-s "-visualstyles" "c" visual_style)
 );defun
 
-; set current visual style
+; set current visual style to wireframe
 (defun c:sva()
-  (set_visual_style "w")
+  (set_visual_style "2")
 )
 
 (defun c:svs()
