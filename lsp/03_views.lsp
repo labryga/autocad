@@ -35,8 +35,11 @@
 ;   (set_my_layout 3)
 ; );defun
 
+(defun set_visual_style (visual_style /)
+  (command-s "-visualstyles" "c" visual_style)
+);defun
 
-; views
+; set current visual style
 (defun c:sva()
   (set_visual_style "w")
 )
