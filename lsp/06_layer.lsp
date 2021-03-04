@@ -424,7 +424,7 @@
 
 );defun
 
-(defun c:set_layerstate_abn (/)
+(defun c:restore_layerstate_abn (/)
   (layerstate-restore "a-b-n" nil)
 );defun
 
@@ -436,7 +436,7 @@
 );defun
 
 
-(defun c:set_layerstate_bn (/)
+(defun c:restore_layerstate_bn (/)
   (layerstate-restore "b-n" nil)
 );defun
 

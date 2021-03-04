@@ -15,25 +15,25 @@
   (vla-put-activelayout my_document (vla-item my_layouts my_layout))
 );defun
 
-(defun c:afd()
-  (command-s "tilemode" 1)
-);defun
-
-(defun c:ac()
-  (set_my_layout 0)
-);defun
-
-(defun c:av()
-  (set_my_layout 1)
-);defun
-
-(defun c:fc()
-  (set_my_layout 2)
-);defun
-
-(defun c:fv()
-  (set_my_layout 3)
-);defun
+; (defun c:afd()
+;   (command-s "tilemode" 1)
+; );defun
+;
+; (defun c:ac()
+;   (set_my_layout 0)
+; );defun
+;
+; (defun c:av()
+;   (set_my_layout 1)
+; );defun
+;
+; (defun c:fc()
+;   (set_my_layout 2)
+; );defun
+;
+; (defun c:fv()
+;   (set_my_layout 3)
+; );defun
 
 
 ; views
