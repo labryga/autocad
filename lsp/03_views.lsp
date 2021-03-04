@@ -40,12 +40,13 @@
 );defun
 
 ; set current visual style to wireframe
-(defun c:sva()
-  (set_visual_style "2")
+(defun c:svw()
+  (set_visual_style "w")
 )
 
-(defun c:svs()
-  (set_visual_style "e")
+; set current visual style to realistic
+(defun c:svr()
+  (set_visual_style "r")
 )
 
 (defun c:svd()
