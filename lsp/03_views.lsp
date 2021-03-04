@@ -49,17 +49,11 @@
   (set_visual_style "r")
 )
 
-(defun c:svd()
-  (set_visual_style "c")
+; set current visual style to shaded
+(defun c:svs()
+  (set_visual_style "s")
 )
 
-(defun c:svf()
-  (set_visual_style "x")
-)
-
-(defun c:svr()
-  (set_visual_style "r")
-)
 
 
 ; toggle perspective status
