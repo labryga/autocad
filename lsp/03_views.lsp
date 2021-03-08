@@ -51,7 +51,7 @@
 
 ; set current visual style to shaded
 (defun c:svs()
-  (set_visual_style "s")
+  (set_visual_style "e")
 )
 
 ; set current visual style to x-ray
@@ -93,6 +93,8 @@
 
 
 (defun c:wr()
-  (command-s "ucs" "")
+  (command-s "ucs" "na" "r" "main")
   (command-s "plan" "")
 );defun
+
+
