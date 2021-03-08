@@ -296,25 +296,25 @@
   (princ)
 )
 
-(defun get_volume_sum(/ soild_layer
-                        solid_selection_set
-                        solid_selection_set_length
-                        counter
-                        solid_entity
-                        solid_vla_object
-                        volumen_summe)
+(defun get_sum_of_volumes (/ soild_layer
+                             solid_selection_set
+                             solid_selection_set_length
+                             counter
+                             solid_entity
+                             solid_vla_object
+                             volumen_summe)
 
-  (setq solid_layer (cdr (assoc 8 (entget (car (entsel)))))
-        solid_selection_set (ssget "x" (list (cons 8 solid_layer)))
+  (setq solid_layer                (cdr (assoc 8 (entget (car (entsel)))))
+        solid_selection_set        (ssget "x" (list (cons 8 solid_layer)))
         solid_selection_set_length (- (sslength solid_selection_set) 1)
         counter -1
         volumen_summe 0
   )
 
   (while (< counter solid_selection_set_length)
-         (setq solid_entity (ssname solid_selection_set (setq counter (1+ counter)))
+         (setq solid_entity     (ssname solid_selection_set (setq counter (1+ counter)))
                solid_vla_object (vlax-ename->vla-object solid_entity)
-               volumen_summe (+ volumen_summe (* 0.000001 (vla-get-volume solid_vla_object)))
+               volumen_summe    (+ volumen_summe (* 0.000001 (vla-get-volume solid_vla_object)))
          )
   )
 
@@ -355,28 +355,3 @@
   (get_list_of_next_block_entities_layers x_block_entities_list)
 
 );defun
-
-(defun rename_blocks (/ collection_blocks
-                        block_name)
-  (setq 
-    collection_blocks (vla-get-blocks (vla-get-activedocument
-                                        (vlax-get-acad-object))
-                      )
-  );setq
-
-  (vlax-for block_item collection_blocks
-            (setq block_name (vla-get-name block_item)
-            );setq
-            (if (wcmatch block_name "*&0*")
-                (progn 
-                  (setq
-                    block_name (vl-string-subst "$0" "&0" block_name)
-                  );setq
-                  (vla-put-name block_item block_name)
-                );progn
-            );if
-  );vlax-for
-
-  (princ)
-);defun
-
