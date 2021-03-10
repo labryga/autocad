@@ -62,7 +62,6 @@
 );defun
 
 
-; set layer to 0
 (defun c:set_current_layer_to_zero ()
   (setvar "clayer" "0")
 );defun

@@ -447,7 +447,9 @@
   (layerstate-export "b-n" "C:\\Users\\nebel__\\Documents\\cad\\autocad\\etc\\las\\b-n.las")
 )
 
-
+(defun c:purge_layers ()
+  (command-s "-purge" "la" "*" "n")
+);defun
 
 (defun create_layers_by_state ( / 
                                   layer_prefix_bkps  
@@ -501,6 +503,5 @@
   );foreach layer_prefix_ebkp
   (princ)
 );defun
-
 
 
