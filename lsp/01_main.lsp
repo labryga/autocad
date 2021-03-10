@@ -148,18 +148,15 @@
 ; )
 
 
-; sum multiple object area
 (defun c:sum_multiple_areas ( / entities
                                 entity
                                 entity_index
                                 object_area
                                 total_area)
 
-  (setq total_area 0)
-
-  (setq entity_index 0)
-
-  (setq entities (ssget))
+  (setq total_area   0
+        entity_index 0
+        entities     (ssget))
 
   (repeat (sslength entities)
 
@@ -178,7 +175,7 @@
 
 
 ; function to toggle autosnap and osmode by "df" command
-(defun c:df() 
+(defun c:toggle_autosnap () 
   (if 
     (and 
      (= (getvar "autosnap") 63)
@@ -211,8 +208,7 @@
 )
 
 
-; toggle selection cycling
-(defun c:dq()
+(defun c:toggle_selection_cycling ()
   (if
     (= (getvar "selectioncycling") -2)
       (setvar "selectioncycling" 2)
