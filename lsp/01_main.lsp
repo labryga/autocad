@@ -45,7 +45,7 @@
 );defun
 
 
-; load project pecific lsp file
+; load project specific lsp file
 (defun c:da(/ file_directory_path
               file_name_full
               file_name_full_length
@@ -149,11 +149,11 @@
 
 
 ; sum multiple object area
-(defun c:gaa( / entities
-               entity
-               entity_index
-               object_area
-               total_area)
+(defun c:sum_multiple_areas ( / entities
+                                entity
+                                entity_index
+                                object_area
+                                total_area)
 
   (setq total_area 0)
 
