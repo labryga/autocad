@@ -45,12 +45,11 @@
 );defun
 
 
-; load project specific lsp file
-(defun c:da(/ file_directory_path
-              file_name_full
-              file_name_full_length
-              file_name_lisp_length
-              file_name_lisp)
+(defun c:load_project_lisp (/ file_directory_path
+                              file_name_full
+                              file_name_full_length
+                              file_name_lisp_length
+                              file_name_lisp)
 
   (setq file_directory_path   (getvar "dwgprefix")
         file_name_full        (getvar "dwgname")
@@ -174,7 +173,6 @@
  )
 
 
-; function to toggle autosnap and osmode by "df" command
 (defun c:toggle_autosnap () 
   (if 
     (and 
@@ -217,23 +215,24 @@
 )
 
 
-; get and dump object
-(defun c:dt( / objekt objektvl)
-  (setq objekt (car(entsel)) )
-  (setq objektvl (vlax-ename->vla-object objekt))
+(defun c:get_and_dump_object ( / objekt objektvl)
+
+  (setq objekt   (car(entsel)) 
+        objektvl (vlax-ename->vla-object objekt))
+
   (vlax-dump-object objektvl t)
 )
 
 
 ; sum multiple polylines length and area
 (defun c:sum_multiple_polylines( / entities
-               entity
-               entity_index
-               object_length
-               total_length
-               area
-               total_area
-               total_values)
+                                   entity
+                                   entity_index
+                                   object_length
+                                   total_length
+                                   area
+                                   total_area
+                                   total_values)
 
   (setq total_length 0
         total_area   0
@@ -266,7 +265,6 @@
 )
 
 
-; sum multiple objects area
 (defun c:sum_multiple_objecs_area( / entities
                entity
                entity_index
