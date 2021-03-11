@@ -14,35 +14,6 @@
 );defun
 
 
-; scale action parameter
-(defun c:vg()
-  (command-s "bactiontool" "scale")
-);defun
-
-
-; stretch action parameter
-(defun c:vf()
-  (command-s "bactiontool" "stretch")
-);defun
-
-
-; move action parameter
-(defun c:vd()
-  (command-s "bactiontool" "move")
-);defun
-
-
-; create linear parameter
-(defun c:vs()
-  (command-s "bparameter" "linear")
-);defun
-
-
-; savall and publish
-(defun c:ae()
-  (command "saveall")
-  (command "publish")
-);defun
 
 
 (defun c:load_project_lisp (/ file_directory_path

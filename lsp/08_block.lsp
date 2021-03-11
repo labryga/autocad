@@ -54,9 +54,11 @@
 );defun
 
 
-(defun toggle_bvmode (/)
+(defun c:toggle_bvmode (/)
   (if (= (getvar "bvmode") 0)
     (command-s "bvmode" 1)
     (command-s "bvmode" 0)
   );if
 );defun
+
+
