@@ -4,7 +4,7 @@
 
 
 ; toggle full screen
-(defun c:s()
+(defun c:toggle_full_screen ()
   (if
     (= (getvar "cleanscreenstate") 0)
       (command-s "cleanscreenon")
