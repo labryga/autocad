@@ -1,4 +1,3 @@
-; get current document object
 (defun get_active_document_object()
     (vla-get-ActiveDocument (vlax-get-acad-object))
 );defun
