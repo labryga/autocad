@@ -2,8 +2,6 @@
     (vla-get-ActiveDocument (vlax-get-acad-object))
 );defun
 
-
-; toggle full screen
 (defun c:toggle_full_screen ()
   (if
     (= (getvar "cleanscreenstate") 0)
@@ -11,9 +9,6 @@
       (command-s "cleanscreenoff")
   )
 );defun
-
-
-
 
 (defun c:load_project_lisp (/ file_directory_path
                               file_name_full
@@ -31,26 +26,21 @@
   (princ)
 );defun
 
-
 (defun c:set_current_layer_to_zero ()
   (setvar "clayer" "0")
 );defun
 
-
-; save and close
-(defun c:qx() 
+(defun c:save_and_close_file () 
   (command "ge")
   (command "qsave")
   (command "close")
 );defun
 
-; set snap on 
 (defun set_snap()
   (setvar "autosnap" 63)
   (setvar "osmode" 35)
 )
 
-; set snap off 
 (defun set_snap_off()
   (setvar "autosnap" 0)
   (setvar "osmode" 0)
@@ -61,8 +51,8 @@
 (defun c:dq()
   (if
     (= (getvar "selectioncycling") -2)
-      (setvar "selectioncycling" 2)
-      (setvar "selectioncycling" -2)
+       (setvar "selectioncycling"   2)
+       (setvar "selectioncycling"  -2)
   )
 )
 
@@ -146,43 +136,40 @@
   (if 
     (and 
      (= (getvar "autosnap") 63)
-     (= (getvar "osmode") 35)) 
+     (= (getvar "osmode")   35)) 
 
     (progn
       (setvar "autosnap" 0) 
-      (setvar "osmode" 0)
+      (setvar "osmode"   0)
       )
 
     (progn
       (setvar "autosnap" 63) 
-      (setvar "osmode" 35)
+      (setvar "osmode"   35)
       )
   )
 )
 
-
 ; set snap on 
 (defun set_snap()
   (setvar "autosnap" 63)
-  (setvar "osmode" 35)
+  (setvar "osmode"   35)
 )
 
 
 ; set snap off 
 (defun set_snap_off()
   (setvar "autosnap" 0)
-  (setvar "osmode" 0)
+  (setvar "osmode"   0)
 )
-
 
 (defun c:toggle_selection_cycling ()
   (if
     (= (getvar "selectioncycling") -2)
-      (setvar "selectioncycling" 2)
-      (setvar "selectioncycling" -2)
+      (setvar "selectioncycling"    2)
+      (setvar "selectioncycling"   -2)
   )
 )
-
 
 (defun c:get_and_dump_object ( / objekt objektvl)
 
@@ -191,7 +178,6 @@
 
   (vlax-dump-object objektvl t)
 )
-
 
 ; sum multiple polylines length and area
 (defun c:sum_multiple_polylines( / entities
@@ -234,11 +220,11 @@
 )
 
 
-(defun c:sum_multiple_objecs_area( / entities
-               entity
-               entity_index
-               object_area
-               total_area)
+(defun c:sum_multiple_objects_areas ( / entities
+                                        entity
+                                        entity_index
+                                        object_area
+                                        total_area)
 
   (setq total_area   0
         entity_index 0
