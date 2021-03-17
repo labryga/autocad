@@ -1,5 +1,5 @@
 ; function to toggle autosnap and osmode by "df" command
-(defun c:df() 
+(defun c:toggle_autosnap () 
   (if 
     (and 
      (= (getvar "autosnap") 63)
@@ -30,6 +30,25 @@
   (setvar "autosnap" 0)
   (setvar "osmode" 0)
 )
+
+
+(defun c:toggle_autosnap () 
+  (if 
+    (and 
+     (= (getvar "autosnap") 63)
+     (= (getvar "osmode")   35)) 
+
+    (progn
+      (setvar "autosnap" 0) 
+      (setvar "osmode"   0)
+      )
+
+    (progn
+      (setvar "autosnap" 63) 
+      (setvar "osmode"   35)
+      )
+  )
+);defun
 
 
 ; toggle selection cycling
@@ -105,26 +124,6 @@
 )
 
 
-; function to toggle autosnap and osmode by "df" command-s
-(defun c:df() 
-  (if 
-    (and 
-     (= (getvar "autosnap") 63)
-     (= (getvar "osmode") 35)) 
-
-    (progn
-      (setvar "autosnap" 0) 
-      (setvar "osmode" 0)
-      )
-
-    (progn
-      (setvar "autosnap" 63) 
-      (setvar "osmode" 35)
-      )
-  )
-)
-
-
 (defun c:ef(/  block_object_entity
                block_object_name)
 
@@ -151,7 +150,6 @@
 );defun
 
 (defun c:XrefBind (/ tmpObj)
-  (vl-load-com)
   (vlax-for objs (vla-get-ModelSpace
 		   (vla-get-activedocument (vlax-get-acad-object))
 		 )

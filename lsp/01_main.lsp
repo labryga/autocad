@@ -131,25 +131,6 @@
   (princ)
  )
 
-
-(defun c:toggle_autosnap () 
-  (if 
-    (and 
-     (= (getvar "autosnap") 63)
-     (= (getvar "osmode")   35)) 
-
-    (progn
-      (setvar "autosnap" 0) 
-      (setvar "osmode"   0)
-      )
-
-    (progn
-      (setvar "autosnap" 63) 
-      (setvar "osmode"   35)
-      )
-  )
-)
-
 ; set snap on 
 (defun set_snap()
   (setvar "autosnap" 63)
