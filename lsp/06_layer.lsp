@@ -169,8 +169,6 @@
   (princ)
 )
 
-
-; renaming layers by search pattern to set pattern
 (defun rename_layers ( string_search
                        string_replace / 
                        active_document_object
@@ -447,10 +445,6 @@
   (layerstate-export "b-n" "C:\\Users\\nebel__\\Documents\\cad\\autocad\\etc\\las\\b-n.las")
 )
 
-(defun c:purge_layers ()
-  (command-s "-purge" "la" "*" "n")
-);defun
-
 (defun create_layers_by_state ( / 
                                   layer_prefix_bkps  
                                   layer_prefix_ebkps
@@ -505,3 +499,6 @@
 );defun
 
 
+(defun c:purge_layers ()
+  (command-s "-purge" "la" "*" "n")
+);defun

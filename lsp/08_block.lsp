@@ -61,4 +61,6 @@
   );if
 );defun
 
-
+(defun c:purge_blocks (/)
+  (command-s "-purge" "b" "*" "n")
+);defun

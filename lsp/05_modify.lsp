@@ -1,4 +1,4 @@
-; function to toggle autosnap and osmode by "df" command
+
 (defun c:toggle_autosnap () 
   (if 
     (and 
@@ -16,7 +16,6 @@
       )
   )
 )
-
 
 ; set snap on 
 (defun set_snap()
@@ -173,3 +172,7 @@
 
   (princ)
 )
+
+(defun c:purge_all (/)
+  (command-s "-purge" "a" "*" "n")
+);defun
