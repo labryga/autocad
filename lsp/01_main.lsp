@@ -225,4 +225,8 @@
 
   (print (* 0.0001 total_area))
   (princ)
- )
+)
+
+(defun c:wipeout_from_polyline (/)
+  (command-s "wipeout" "p" "n")
+);defun
