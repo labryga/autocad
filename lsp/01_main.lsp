@@ -228,3 +228,10 @@
 (defun c:wipeout_from_polyline (/)
   (command-s "wipeout" "p" "n")
 );defun
+
+(defun c:toggle_lineweight_display (/)
+  (if (= (getvar "LWDISPLAY") 0)
+      (setvar "LWDISPLAY" 1)
+      (setvar "LWDISPLAY" 0)
+  );if
+);defun
