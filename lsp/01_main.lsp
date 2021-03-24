@@ -56,7 +56,6 @@
   )
 )
 
-
 ; get and dump object
 (defun c:get_and_dump_object( / objekt objektvl)
   (setq objekt (car(entsel)) )
@@ -199,7 +198,6 @@
   (print total_values)
   (princ)
 )
-
 
 (defun c:sum_multiple_objects_areas ( / entities
                                         entity
