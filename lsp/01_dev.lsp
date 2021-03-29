@@ -224,7 +224,7 @@
         insert_object_entget  (entget insert_object_entity)
         insert_object_name    (cdr (assoc 2 insert_object_entget))
         vla_block             (vla-item vla_blocks insert_object_name)
-        block_entitiy         (tblobjname "block" insert_object_name)
+        block_entitiy         (tblobjname "block"  insert_object_name)
         object_types          (list "3DSOLID" "DIMENSION" "LWPOLYLINE")
         attribute_y_position  (getvar 'textsize)
   );setq
@@ -236,7 +236,7 @@
       (setq item_entity (entnext item_entity))
 
       (progn
-        (setq block_entitiy_entget (entget item_entity)
+        (setq block_entitiy_entget     (entget item_entity)
               block_entitiy_vla_object (vlax-ename->vla-object item_entity)
         )
 
