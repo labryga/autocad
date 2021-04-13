@@ -300,6 +300,7 @@
       insert_attribute
       (= "ATTRIB" (cdr (assoc 0 (entget insert_attribute))))
     )
+
     (vla-addattribute
       model_space
       (getvar 'textsize)
@@ -313,7 +314,7 @@
     ; (print block_name)
     ; (princ)
     (setq insert_attribute (entnext insert_attribute))
-  )  
+  );while
 
 );defun
 

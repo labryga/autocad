@@ -429,7 +429,7 @@
 
 (defun c:save_and_export_layerstate_abn (/)
   (layerstate-delete "a-b-n")
-  (layerstate-save "a-b-n" nil nil)
+  (layerstate-save "a-b-n" 224 nil)
   (layerstate-export "a-b-n" "C:\\Users\\nebel__\\Documents\\cad\\autocad\\etc\\las\\a-b-n.las")
 );defun
 
@@ -441,7 +441,7 @@
 
 (defun c:save_and_export_layerstate_bn (/)
   (layerstate-delete "b-n")
-  (layerstate-save "b-n" nil nil)
+  (layerstate-save "b-n" 224 nil)
   (layerstate-export "b-n" "C:\\Users\\nebel__\\Documents\\cad\\autocad\\etc\\las\\b-n.las")
 )
 
