@@ -5,8 +5,8 @@
 (defun c:toggle_full_screen ()
   (if
     (= (getvar "cleanscreenstate") 0)
-      (command-s "cleanscreenon")
-      (command-s "cleanscreenoff")
+       (command-s "cleanscreenon")
+       (command-s "cleanscreenoff")
   )
 );defun
 
