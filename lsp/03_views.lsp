@@ -51,7 +51,7 @@
 
 ; set current visual style to shaded
 (defun c:svs()
-  (set_visual_style "e")
+  (set_visual_style "s")
 )
 
 ; set current visual style to x-ray
