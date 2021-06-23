@@ -60,15 +60,15 @@
   )
 )
 
-(defun c:set_attribute(/ object_entitiy 
+(defun c:set_attribute(/ object_entity 
                          object_vla_entity
                          att_name
                          att_value
                          att_point) 
 
   (setq att_name "volume")
-  (setq object_entitiy (car (entsel)))
-  (setq object_vla_entity (vlax-ename->vla-object object_entitiy))
+  (setq object_entity (car (entsel)))
+  (setq object_vla_entity (vlax-ename->vla-object object_entity))
   (setq att_value (vla-get-volume object_vla_entity))
   (setq att_value (* 0.000001 att_value))
   (setq att_value (rtos att_value 2 2))
