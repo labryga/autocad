@@ -66,12 +66,13 @@
                          att_value
                          att_point) 
 
-  (setq att_name "volume")
-  (setq object_entity (car (entsel)))
-  (setq object_vla_entity (vlax-ename->vla-object object_entity))
-  (setq att_value (vla-get-volume object_vla_entity))
-  (setq att_value (* 0.000001 att_value))
-  (setq att_value (rtos att_value 2 2))
+  (setq att_name          "volume"
+        object_entity     (car (entsel))
+        object_vla_entity (vlax-ename->vla-object object_entity)
+        att_value         (vla-get-volume object_vla_entity)
+        att_value         (* 0.000001 att_value)
+        att_value         (rtos att_value 2 2))
+
   (command "-ATTDEF" "" att_name "" att_value (getpoint) "")
   (princ)
  )
@@ -356,5 +357,23 @@
 
 );defun
 
-(defun y_test ( / )
+(defun y_test ( / selected_entities
+                  entity_item
+                  entity_counter)
+
+  (setq selected_entities (ssget)
+        entity_counter    0
+  );setq
+
+  (repeat (sslength selected_entities)
+
+          (setq entity_item (ssname selected_entities entity_counter)
+          );setq
+          (print (assoc 10 (entget entity_item)))
+          (setq entity_counter (1+ entity_counter))
+  );repeat
+
+  (print entity_counter)
+  (princ)
 );defun
+
