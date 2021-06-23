@@ -359,21 +359,37 @@
 
 (defun y_test ( / selected_entities
                   entity_item
-                  entity_counter)
+                  entity_counter
+                  vla_entity
+                  vla_entities_list
+                  vla_item_counter
+                  vla_item)
 
   (setq selected_entities (ssget)
         entity_counter    0
+        vla_item_counter  0
   );setq
 
   (repeat (sslength selected_entities)
 
-          (setq entity_item (ssname selected_entities entity_counter)
+          (setq entity_item       (ssname selected_entities entity_counter)
+                vla_entity        (vlax-ename->vla-object entity_item)
+                vla_entities_list (cons vla_entity vla_entities_list)
+                entity_counter    (1+ entity_counter)
           );setq
-          (print (assoc 10 (entget entity_item)))
-          (setq entity_counter (1+ entity_counter))
   );repeat
 
-  (print entity_counter)
+  (repeat (length vla_entities_list)
+
+          (setq vla_item         (nth vla_item_counter vla_entities_list)
+                vla_item_counter (1+ vla_item_counter)
+          );setq
+
+          ; (vla-put-color vla_item 155)
+          (vla-put-lineweight vla_item 40)
+          (print (vla-get-length vla_item))
+  );repeat
+
   (princ)
 );defun
 
