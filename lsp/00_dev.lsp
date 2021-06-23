@@ -61,10 +61,10 @@
 )
 
 (defun c:set_attribute(/ object_entitiy 
-                 object_vla_entity
-                 att_name
-                 att_value
-                 att_point) 
+                         object_vla_entity
+                         att_name
+                         att_value
+                         att_point) 
 
   (setq att_name "volume")
   (setq object_entitiy (car (entsel)))
@@ -354,4 +354,7 @@
 
   (get_list_of_next_block_entities_layers x_block_entities_list)
 
+);defun
+
+(defun y_test ( / )
 );defun
