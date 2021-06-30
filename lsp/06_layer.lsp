@@ -1,4 +1,4 @@
-; create layer list with arguments
+ create layer list with arguments
 (defun layerGenerator(ekg-nummern       ; Liste EKG-Nummer
                       bauphasen         ; Liste Bestand/Abbruch/Neu
                       bkp-nummern       ; Liste BKP-Nummern
