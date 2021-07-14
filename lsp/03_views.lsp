@@ -97,6 +97,9 @@
   (command-s "plan" "")
 );defun
 
-(defun c:toggle_osnapz()
-
+(defun c:toggle_osnapz ()
+  (if (= (getvar "osnapz") 0)
+      (setvar "osnapz" 1)
+      (setvar "osnapz" 0)
+  );if
 );defun
