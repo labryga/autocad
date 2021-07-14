@@ -97,4 +97,6 @@
   (command-s "plan" "")
 );defun
 
+(defun c:toggle_osnapz()
 
+);defun
